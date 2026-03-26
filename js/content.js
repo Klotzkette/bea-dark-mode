@@ -1,6 +1,6 @@
 // beA Dark Mode — Content Script
 // Rein grafische Übermalung per CSS-Injection.
-// Fügt genau ein <style>-Element in <head> ein — sonst nichts.
+// Fügt genau ein <link>-Element ein — sonst nichts.
 // Kein Zugriff auf Seiteninhalte, kein DOM-Eingriff, keine Funktionsänderung.
 // Alle Rechte vorbehalten.
 
@@ -8,50 +8,35 @@
 
 (function() {
 
-  let styleEl = null;
-  let cssCache = null;
-  let isApplying = false;
+  var linkEl = null;
+  var cssURL = null;
 
-  // CSS aus der Extension laden — einmalig, dann gecacht
-  function loadCSS() {
-    if (cssCache) return Promise.resolve(cssCache);
-    return new Promise(function(resolve) {
-      try {
-        var url = chrome.runtime.getURL('css/bea-dark.css');
-        fetch(url)
-          .then(function(r) { return r.text(); })
-          .then(function(text) { cssCache = text; resolve(text); })
-          .catch(function() { resolve(null); });
-      } catch (e) {
-        resolve(null);
-      }
-    });
-  }
+  // CSS-URL einmalig ermitteln
+  try {
+    cssURL = chrome.runtime.getURL('css/bea-dark.css');
+  } catch (e) { /* Extension context invalidated */ }
 
-  // Dark Mode einschalten
+  // Dark Mode einschalten — synchron, kein fetch, kein Promise
   function enable() {
-    if (isApplying || styleEl) return;
-    isApplying = true;
-    loadCSS().then(function(css) {
-      isApplying = false;
-      if (!css || styleEl) return;
-      try {
-        var el = document.createElement('style');
-        el.id = 'bea-dark-mode';
-        el.setAttribute('data-bea-dm', '1');
-        el.textContent = css;
-        var target = document.head || document.documentElement;
-        target.appendChild(el);
-        styleEl = el;
-      } catch (e) { /* still fail silently */ }
-    });
+    if (linkEl || !cssURL) return;
+    try {
+      var el = document.createElement('link');
+      el.id = 'bea-dark-mode';
+      el.rel = 'stylesheet';
+      el.type = 'text/css';
+      el.href = cssURL;
+      el.setAttribute('data-bea-dm', '1');
+      var target = document.head || document.documentElement;
+      target.appendChild(el);
+      linkEl = el;
+    } catch (e) { /* still fail silently */ }
   }
 
   // Dark Mode ausschalten
   function disable() {
-    if (styleEl) {
-      try { styleEl.remove(); } catch (e) { /* noop */ }
-      styleEl = null;
+    if (linkEl) {
+      try { linkEl.remove(); } catch (e) { /* noop */ }
+      linkEl = null;
     }
     // Sicherheitsnetz: falls das Element noch im DOM hängt
     try {

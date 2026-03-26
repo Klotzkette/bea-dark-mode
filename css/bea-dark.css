@@ -40,7 +40,7 @@
   --dm-accent:         #8fb4c8;
   --dm-accent-hover:   #a8cad9;
   --dm-accent-muted:   #5a8a9e;
-  --dm-accent-subtle:  rgba(143, 180, 200, 0.10);
+  --dm-accent-subtle:  rgba(143, 180, 200, 0.15);
 
   /* Status — dezent, nicht schreiend */
   --dm-success:        #5cb87a;
@@ -54,6 +54,20 @@
   /* Typografie */
   --dm-font:           "Inter", -apple-system, BlinkMacSystemFont,
                        "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+
+  /* BRAK CSS-Variablen überschreiben */
+  --brak-dark-blue:    var(--dm-accent) !important;
+  --brak-light-blue:   var(--dm-bg-raised) !important;
+  --brak-medium-blue:  var(--dm-accent-muted) !important;
+  --brak-greyed-white: var(--dm-bg-input) !important;
+  --brak-red:          var(--dm-danger) !important;
+  --brak-green:        var(--dm-success) !important;
+  --brak-yellow:       var(--dm-warning) !important;
+  --brak-dark-grey:    var(--dm-text-muted) !important;
+  --brak-light-grey:   var(--dm-border) !important;
+  --brak-medium-grey:  var(--dm-text-faint) !important;
+  --brak-white:        var(--dm-bg-card) !important;
+  --brak-black:        var(--dm-text-bright) !important;
 }
 
 
@@ -62,6 +76,7 @@
 html, body {
   background-color: var(--dm-bg) !important;
   color: var(--dm-text) !important;
+  color-scheme: dark !important;
   font-family: var(--dm-font) !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
@@ -77,7 +92,7 @@ html.login-pf {
 
 /* ─── Scrollbars ──────────────────────────────────────────── */
 
-* {
+html {
   scrollbar-color: #2a2a2e var(--dm-bg);
   scrollbar-width: thin;
 }
@@ -89,24 +104,6 @@ html.login-pf {
 ::selection {
   background: var(--dm-accent-muted) !important;
   color: #fff !important;
-}
-
-
-/* ─── BRAK CSS-Variablen überschreiben ────────────────────── */
-
-:root {
-  --brak-dark-blue:    var(--dm-accent) !important;
-  --brak-light-blue:   var(--dm-bg-raised) !important;
-  --brak-medium-blue:  var(--dm-accent-muted) !important;
-  --brak-greyed-white: var(--dm-bg-input) !important;
-  --brak-red:          var(--dm-danger) !important;
-  --brak-green:        var(--dm-success) !important;
-  --brak-yellow:       var(--dm-warning) !important;
-  --brak-dark-grey:    var(--dm-text-muted) !important;
-  --brak-light-grey:   var(--dm-border) !important;
-  --brak-medium-grey:  var(--dm-text-faint) !important;
-  --brak-white:        var(--dm-bg-card) !important;
-  --brak-black:        var(--dm-text-bright) !important;
 }
 
 
@@ -147,9 +144,14 @@ header,
 
 nav,
 .navigation-area,
-[class*="sidebar"],
-[class*="nav-panel"],
-[class*="tree"],
+.sidebar,
+.left-sidebar,
+.right-sidebar,
+.nav-panel,
+.navigation-panel,
+.ui-tree,
+.ui-tree-container,
+.tree-panel,
 .ui-layout-west,
 .ui-layout-west .ui-layout-unit-content {
   background-color: var(--dm-bg-raised) !important;
@@ -163,7 +165,7 @@ nav,
 main,
 .application-area,
 .content-area,
-[class*="content-panel"],
+.content-panel,
 .ui-layout-center,
 .ui-layout-center .ui-layout-unit-content,
 .ui-panel,
@@ -218,9 +220,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--dm-text-bright) !important;
 }
 
-p, span, div, li, td, th, label, legend {
-  color: var(--dm-text) !important;
-}
+/* Farb-Vererbung via html/body — keine breiten Selektoren nötig */
 
 a {
   color: var(--dm-accent) !important;
@@ -270,8 +270,13 @@ tbody tr:hover,
   background-color: var(--dm-bg-hover) !important;
 }
 
-tbody tr:nth-child(even),
-.ui-datatable-odd {
+tbody tr:nth-child(even) {
+  background-color: var(--dm-bg-raised) !important;
+}
+.ui-datatable .ui-datatable-even {
+  background-color: var(--dm-bg) !important;
+}
+.ui-datatable .ui-datatable-odd {
   background-color: var(--dm-bg-raised) !important;
 }
 
@@ -284,8 +289,15 @@ tbody td,
 /* Ausgewählte Zeilen — dezentes Silber-Blau-Leuchten */
 .selected,
 tr.selected,
-.ui-state-highlight {
-  background-color: var(--dm-accent-subtle) !important;
+.ui-state-highlight,
+.ui-datatable .ui-state-highlight,
+.ui-datatable tr.ui-state-highlight,
+table tbody tr.ui-state-highlight,
+tr.ui-datatable-even.ui-state-highlight,
+tr.ui-datatable-odd.ui-state-highlight,
+.ui-datatable .ui-datatable-even.ui-state-highlight,
+.ui-datatable .ui-datatable-odd.ui-state-highlight {
+  background-color: rgba(143, 180, 200, 0.18) !important;
   color: var(--dm-accent-hover) !important;
   border-color: var(--dm-accent-muted) !important;
 }
@@ -707,8 +719,13 @@ button:disabled,
 .ui-icon {
   filter: invert(0.8) !important;
 }
+.ui-state-highlight .ui-icon,
+.ui-state-active .ui-icon,
+.ui-messages .ui-icon {
+  filter: invert(0.2) !important;
+}
 
-[class*="svelte-fa"] {
+.svelte-fa {
   color: inherit !important;
 }
 
@@ -718,12 +735,8 @@ button:disabled,
 .brak-logo img,
 .bea-logo img,
 .main-logo img,
-.brak-bea-logo img,
-img[src*="brak"],
-img[src*="beA"],
-img[src*="bea_logo"],
-img[src*="bea-logo"] {
-  filter: brightness(0.8) invert(1) hue-rotate(180deg) !important;
+.brak-bea-logo img {
+  filter: brightness(0.85) !important;
 }
 
 .application-item img,
@@ -738,7 +751,10 @@ img[src*="bea-logo"] {
 
 /* ─── Catch-All Widgets ───────────────────────────────────── */
 
-.ui-widget,
+.ui-widget {
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
 .ui-widget-content {
   background-color: var(--dm-bg-card) !important;
   color: var(--dm-text) !important;
@@ -772,10 +788,12 @@ input[type="search"],
 
 /* ─── Breadcrumbs ─────────────────────────────────────────── */
 
-[class*="breadcrumb"] {
+.breadcrumb,
+.ui-breadcrumb {
   color: var(--dm-text-muted) !important;
 }
-[class*="breadcrumb"] a {
+.breadcrumb a,
+.ui-breadcrumb a {
   color: var(--dm-accent) !important;
 }
 
@@ -783,32 +801,32 @@ input[type="search"],
 /* ─── Alerts ──────────────────────────────────────────────── */
 
 .alert,
-[class*="alert-"],
-[class*="notice"] {
+.notice,
+.notification {
   background-color: var(--dm-bg-raised) !important;
   border-color: var(--dm-border) !important;
   color: var(--dm-text) !important;
 }
 
-.alert-danger, [class*="alert-danger"] {
+.alert-danger {
   background-color: rgba(199, 80, 80, 0.08) !important;
   border-color: rgba(199, 80, 80, 0.2) !important;
   color: var(--dm-danger) !important;
 }
 
-.alert-success, [class*="alert-success"] {
+.alert-success {
   background-color: rgba(92, 184, 122, 0.08) !important;
   border-color: rgba(92, 184, 122, 0.2) !important;
   color: var(--dm-success) !important;
 }
 
-.alert-warning, [class*="alert-warning"] {
+.alert-warning {
   background-color: rgba(212, 160, 60, 0.08) !important;
   border-color: rgba(212, 160, 60, 0.2) !important;
   color: var(--dm-warning) !important;
 }
 
-.alert-info, [class*="alert-info"] {
+.alert-info {
   background-color: var(--dm-accent-subtle) !important;
   border-color: rgba(143, 180, 200, 0.2) !important;
   color: var(--dm-accent) !important;
@@ -888,6 +906,124 @@ input[type="search"],
 .logout-button:hover {
   color: var(--dm-text-silver) !important;
   border-color: var(--dm-border-focus) !important;
+}
+
+
+/* ─── Paginator ──────────────────────────────────────────── */
+
+.ui-paginator {
+  background-color: var(--dm-bg-raised) !important;
+  background-image: none !important;
+  border-color: var(--dm-border) !important;
+}
+
+.ui-paginator .ui-paginator-page,
+.ui-paginator .ui-paginator-first,
+.ui-paginator .ui-paginator-prev,
+.ui-paginator .ui-paginator-next,
+.ui-paginator .ui-paginator-last {
+  color: var(--dm-text-silver) !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: var(--dm-border) !important;
+}
+
+.ui-paginator .ui-paginator-page:hover,
+.ui-paginator .ui-paginator-first:hover,
+.ui-paginator .ui-paginator-prev:hover,
+.ui-paginator .ui-paginator-next:hover,
+.ui-paginator .ui-paginator-last:hover {
+  background-color: var(--dm-bg-hover) !important;
+  color: var(--dm-text-bright) !important;
+}
+
+.ui-paginator .ui-state-active {
+  background-color: var(--dm-accent-muted) !important;
+  color: #fff !important;
+  border-color: var(--dm-accent-muted) !important;
+}
+
+.ui-paginator select {
+  background-color: var(--dm-bg-input) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+
+/* ─── Rechte Sidebar Aktions-Buttons ─────────────────────── */
+
+.ui-layout-east .ui-button,
+.operation-button,
+.action-button {
+  background-color: var(--dm-bg-card) !important;
+  background-image: none !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
+}
+
+.ui-layout-east .ui-button:hover,
+.operation-button:hover,
+.action-button:hover {
+  background-color: var(--dm-accent-muted) !important;
+  color: #fff !important;
+  border-color: var(--dm-accent-muted) !important;
+}
+
+
+/* ─── Signatur-Status ────────────────────────────────────── */
+
+.signature-status,
+.sig-valid,
+.sig-ok {
+  color: var(--dm-success) !important;
+}
+
+.sig-invalid,
+.sig-error {
+  color: var(--dm-danger) !important;
+}
+
+.sig-unknown,
+.sig-warning {
+  color: var(--dm-warning) !important;
+}
+
+
+/* ─── Datei-Upload ───────────────────────────────────────── */
+
+.ui-fileupload {
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
+}
+
+.ui-fileupload-content {
+  background-color: var(--dm-bg) !important;
+}
+
+.ui-fileupload-buttonbar {
+  background-color: var(--dm-bg-raised) !important;
+  background-image: none !important;
+  border-color: var(--dm-border) !important;
+}
+
+
+/* ─── Einstellungen / Profilverwaltung ───────────────────── */
+
+.settings-panel,
+.profile-panel,
+.einstellungen {
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
+}
+
+
+/* ─── Subtile Transitions (nur interaktive Elemente) ─────── */
+
+.ui-state-default,
+.ui-button,
+.btn,
+a {
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
 }
 
 
