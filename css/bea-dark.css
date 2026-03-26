@@ -1065,19 +1065,4 @@ a {
 }
 
 
-/* ─── Drucken — Dark Mode aussetzen ───────────────────────── */
-
-@media print {
-  html, body, *, *::before, *::after {
-    background-color: #fff !important;
-    color: #000 !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-    border-color: #ccc !important;
-    filter: none !important;
-  }
-  img {
-    filter: none !important;
-    opacity: 1 !important;
-  }
-}
+/* Kein Print-Reset — An/Aus nur über den Schalter. */

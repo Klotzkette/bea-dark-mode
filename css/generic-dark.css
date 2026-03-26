@@ -35,6 +35,8 @@
   --dm-danger:         #c75050;
   --dm-shadow:         0 1px 4px rgba(0,0,0,0.5);
   --dm-shadow-lg:      0 8px 32px rgba(0,0,0,0.6);
+  --dm-font:           "Inter", -apple-system, BlinkMacSystemFont,
+                       "SF Pro Text", "Segoe UI", system-ui, sans-serif;
 }
 
 
@@ -49,7 +51,9 @@ html {
 html, body {
   background-color: var(--dm-bg) !important;
   color: var(--dm-text) !important;
+  font-family: var(--dm-font) !important;
   -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
 }
 
 ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -166,6 +170,7 @@ select,
   background-color: var(--dm-bg-input) !important;
   color: var(--dm-text-bright) !important;
   border-color: var(--dm-border) !important;
+  font-family: var(--dm-font) !important;
 }
 
 input:focus,
@@ -208,6 +213,7 @@ input[type="reset"] {
   background-color: var(--dm-bg-card) !important;
   color: var(--dm-text-silver) !important;
   border-color: var(--dm-border) !important;
+  font-family: var(--dm-font) !important;
 }
 
 button:hover,
@@ -528,19 +534,4 @@ textarea {
 }
 
 
-/* ─── Drucken — Dark Mode aussetzen ──────────────────────── */
-
-@media print {
-  html, body, *, *::before, *::after {
-    background-color: #fff !important;
-    color: #000 !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-    border-color: #ccc !important;
-    filter: none !important;
-  }
-  img, video, canvas, svg {
-    filter: none !important;
-    opacity: 1 !important;
-  }
-}
+/* Kein Print-Reset — An/Aus nur über den Schalter. */
