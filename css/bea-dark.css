@@ -1,7 +1,16 @@
 /* ============================================================
-   beA Dark Mode — Eleganter Dark Mode
+   beA Dark Mode — Rein grafische Übermalung
    Für das besondere elektronische Anwaltspostfach (beA)
-   Rein kosmetisch. Ändert keine Funktionalität.
+
+   WICHTIG: Dieses Stylesheet ändert ausschließlich Farben,
+   Schriftdarstellung und visuelle Effekte.
+   Es werden KEINE Layout-Eigenschaften geändert:
+   - Kein display, position, width, height, margin, padding
+   - Kein z-index, overflow, float, flex, grid
+   - Kein pointer-events, visibility, content
+   Funktionalität bleibt vollständig erhalten.
+
+   Alle Rechte vorbehalten / All rights reserved.
    ============================================================ */
 
 /* === FOUNDATIONS === */
@@ -34,13 +43,8 @@
   --bea-dm-shadow:        0 1px 3px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3);
   --bea-dm-shadow-lg:     0 4px 24px rgba(0,0,0,0.5);
 
-  --bea-dm-radius:        8px;
-  --bea-dm-radius-sm:     4px;
-  --bea-dm-radius-lg:     12px;
-
   --bea-dm-font:          -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
                           "Segoe UI", system-ui, sans-serif;
-  --bea-dm-font-mono:     "SF Mono", "Fira Code", "Cascadia Code", monospace;
 
   --bea-dm-transition:    0.2s ease;
 }
@@ -179,13 +183,10 @@ main,
 
 .application-item {
   background-color: var(--bea-dm-bg-card) !important;
-  border: 1px solid var(--bea-dm-border) !important;
-  border-radius: var(--bea-dm-radius-lg) !important;
-  transition: border-color var(--bea-dm-transition), box-shadow var(--bea-dm-transition) !important;
+  border-color: var(--bea-dm-border) !important;
 }
 .application-item:hover {
   border-color: var(--bea-dm-border-focus) !important;
-  box-shadow: var(--bea-dm-shadow) !important;
 }
 
 
@@ -215,8 +216,6 @@ footer,
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--bea-dm-text-bright) !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.01em !important;
 }
 
 p, span, div, li, td, th, label, legend {
@@ -225,8 +224,6 @@ p, span, div, li, td, th, label, legend {
 
 a {
   color: var(--bea-dm-accent) !important;
-  text-decoration: none !important;
-  transition: color var(--bea-dm-transition) !important;
 }
 a:hover {
   color: var(--bea-dm-accent-hover) !important;
@@ -250,10 +247,6 @@ thead,
   background-image: none !important;
   color: var(--bea-dm-text-muted) !important;
   border-color: var(--bea-dm-border) !important;
-  font-weight: 500 !important;
-  text-transform: uppercase !important;
-  font-size: 0.75em !important;
-  letter-spacing: 0.05em !important;
 }
 
 thead th,
@@ -270,7 +263,6 @@ tbody {
 
 tbody tr {
   border-color: var(--bea-dm-border-subtle) !important;
-  transition: background-color var(--bea-dm-transition) !important;
 }
 
 tbody tr:hover,
@@ -324,10 +316,8 @@ select,
 .ui-spinner-input {
   background-color: var(--bea-dm-bg-input) !important;
   color: var(--bea-dm-text-bright) !important;
-  border: 1px solid var(--bea-dm-border) !important;
-  border-radius: var(--bea-dm-radius-sm) !important;
+  border-color: var(--bea-dm-border) !important;
   font-family: var(--bea-dm-font) !important;
-  transition: border-color var(--bea-dm-transition), box-shadow var(--bea-dm-transition) !important;
 }
 
 input:focus,
@@ -338,7 +328,6 @@ select:focus,
 .ui-inputfield:focus {
   border-color: var(--bea-dm-accent) !important;
   box-shadow: 0 0 0 3px rgba(107, 184, 212, 0.15) !important;
-  outline: none !important;
 }
 
 input::placeholder,
@@ -379,9 +368,6 @@ button,
 .btn,
 .ui-button {
   font-family: var(--bea-dm-font) !important;
-  border-radius: var(--bea-dm-radius) !important;
-  transition: all var(--bea-dm-transition) !important;
-  cursor: pointer !important;
 }
 
 .btn-primary,
@@ -420,12 +406,10 @@ button:disabled,
 .btn:disabled,
 .ui-state-disabled {
   opacity: 0.35 !important;
-  cursor: not-allowed !important;
 }
 
 .disable {
   color: var(--bea-dm-text-faint) !important;
-  cursor: not-allowed !important;
 }
 
 /* Secondary/outline buttons */
@@ -434,7 +418,7 @@ button:disabled,
 .ui-button.ui-priority-secondary {
   background-color: transparent !important;
   color: var(--bea-dm-text) !important;
-  border: 1px solid var(--bea-dm-border) !important;
+  border-color: var(--bea-dm-border) !important;
 }
 .btn-secondary:hover,
 .btn-outline-primary:hover,
@@ -450,20 +434,18 @@ button:disabled,
 #token-selection-dropdown,
 #token-options {
   background-color: var(--bea-dm-bg-card) !important;
-  border: 1px solid var(--bea-dm-border) !important;
-  border-radius: var(--bea-dm-radius) !important;
+  border-color: var(--bea-dm-border) !important;
   box-shadow: var(--bea-dm-shadow-lg) !important;
 }
 
 #token-selection {
   background-color: var(--bea-dm-bg-input) !important;
   color: var(--bea-dm-text) !important;
-  border: 1px solid var(--bea-dm-border) !important;
+  border-color: var(--bea-dm-border) !important;
 }
 
 .token-option {
   color: var(--bea-dm-text) !important;
-  transition: background-color var(--bea-dm-transition) !important;
 }
 .token-option:hover {
   background-color: var(--bea-dm-bg-hover) !important;
@@ -482,8 +464,7 @@ button:disabled,
 
 .modal-content {
   background-color: var(--bea-dm-bg-card) !important;
-  border: 1px solid var(--bea-dm-border) !important;
-  border-radius: var(--bea-dm-radius-lg) !important;
+  border-color: var(--bea-dm-border) !important;
   box-shadow: var(--bea-dm-shadow-lg) !important;
 }
 
@@ -517,8 +498,7 @@ button:disabled,
 
 .ui-dialog {
   background-color: var(--bea-dm-bg-card) !important;
-  border: 1px solid var(--bea-dm-border) !important;
-  border-radius: var(--bea-dm-radius-lg) !important;
+  border-color: var(--bea-dm-border) !important;
   box-shadow: var(--bea-dm-shadow-lg) !important;
 }
 
@@ -772,7 +752,6 @@ img[src*="bea-logo"] {
 .application-item img,
 .image-container img {
   opacity: 0.85 !important;
-  transition: opacity var(--bea-dm-transition) !important;
 }
 .application-item:hover img,
 .image-container:hover img {
@@ -907,16 +886,6 @@ input[type="search"],
 }
 
 
-/* === SMOOTH FADE-IN === */
-
-html {
-  animation: beaDarkFadeIn 0.3s ease-out !important;
-}
-
-@keyframes beaDarkFadeIn {
-  from { opacity: 0.9; }
-  to   { opacity: 1; }
-}
 
 
 /* === PORTAL PAGE SPECIFIC === */
@@ -946,7 +915,7 @@ html {
 .logout-button {
   background-color: transparent !important;
   color: var(--bea-dm-text-muted) !important;
-  border: 1px solid var(--bea-dm-border) !important;
+  border-color: var(--bea-dm-border) !important;
 }
 .logout-button:hover {
   color: var(--bea-dm-text) !important;

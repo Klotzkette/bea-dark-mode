@@ -24,7 +24,6 @@
         "https://*.bea-brak.de/*"
       ],
       "js": ["js/content.js"],
-      "css": ["css/notification.css"],
       "run_at": "document_idle"
     }
   ],

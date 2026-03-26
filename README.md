@@ -40,6 +40,10 @@ Der Zustand bleibt gespeichert. Beim nächsten Besuch von beA-brak.de wird der D
 - Injiziert rein CSS-basierte Styles — kein JavaScript-DOM-Manipulation
 - Funktioniert mit dem Svelte-Portal, der Keycloak-Anmeldung und der PrimeFaces-Anwendung
 
-## Lizenz
+## Lizenz / License
 
-MIT
+**Alle Rechte vorbehalten.**
+Diese Software darf ohne ausdrückliche schriftliche Genehmigung des Rechteinhabers weder kopiert, verändert, verbreitet noch anderweitig verwendet werden.
+
+**All rights reserved.**
+This software may not be copied, modified, distributed or otherwise used without the express written permission of the copyright holder.

@@ -1,10 +1,14 @@
 // beA Dark Mode — Content Script
-// Injiziert/entfernt den Dark Mode CSS. Keine Funktionsänderungen.
+// Rein grafische Übermalung per CSS.
+// Fügt ein einziges <style>-Element in den <head> ein — sonst nichts.
+// Kein DOM-Eingriff, keine Funktionsänderung, kein Zugriff auf Inhalte.
+
+'use strict';
 
 let darkStyleElement = null;
 let darkCSSText = null;
 
-// CSS laden (einmalig)
+// CSS aus der Extension laden (einmalig, gecacht)
 async function loadDarkCSS() {
   if (darkCSSText) return darkCSSText;
   const url = chrome.runtime.getURL('css/bea-dark.css');
@@ -13,41 +17,32 @@ async function loadDarkCSS() {
   return darkCSSText;
 }
 
-// Dark Mode aktivieren
+// Dark Mode aktivieren: ein <style>-Tag in <head> einfügen
 async function enableDarkMode() {
   if (darkStyleElement) return;
-
   const css = await loadDarkCSS();
-
   darkStyleElement = document.createElement('style');
   darkStyleElement.id = 'bea-dark-mode';
   darkStyleElement.textContent = css;
   document.head.appendChild(darkStyleElement);
-
-  showNotification('Dark Mode aktiviert');
 }
 
-// Dark Mode deaktivieren
+// Dark Mode deaktivieren: das <style>-Tag wieder entfernen
 function disableDarkMode() {
   if (darkStyleElement) {
     darkStyleElement.remove();
     darkStyleElement = null;
-    showNotification('Dark Mode deaktiviert');
   }
 }
 
-// Auto-apply beim Laden falls aktiv
+// Beim Seitenaufruf: gespeicherten Zustand wiederherstellen
 chrome.storage.local.get(['beaDarkActive'], (data) => {
   if (data.beaDarkActive) {
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-      enableDarkMode();
-    } else {
-      window.addEventListener('DOMContentLoaded', () => enableDarkMode(), { once: true });
-    }
+    enableDarkMode();
   }
 });
 
-// Nachrichten vom Popup empfangen
+// Nachrichten vom Popup empfangen (An/Aus)
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'enable') {
     enableDarkMode();
@@ -58,21 +53,3 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   return true;
 });
-
-// Notification anzeigen
-function showNotification(text) {
-  const existing = document.getElementById('bea-dm-notification');
-  if (existing) existing.remove();
-
-  const n = document.createElement('div');
-  n.id = 'bea-dm-notification';
-  n.textContent = text;
-  n.className = 'bea-dm-notification';
-  document.body.appendChild(n);
-
-  requestAnimationFrame(() => n.classList.add('bea-dm-notification-show'));
-  setTimeout(() => {
-    n.classList.add('bea-dm-notification-hide');
-    setTimeout(() => n.remove(), 500);
-  }, 2000);
-}
