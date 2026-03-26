@@ -1,55 +1,89 @@
 // beA Dark Mode — Content Script
-// Rein grafische Übermalung per CSS.
-// Fügt ein einziges <style>-Element in den <head> ein — sonst nichts.
-// Kein DOM-Eingriff, keine Funktionsänderung, kein Zugriff auf Inhalte.
+// Rein grafische Übermalung per CSS-Injection.
+// Fügt genau ein <style>-Element in <head> ein — sonst nichts.
+// Kein Zugriff auf Seiteninhalte, kein DOM-Eingriff, keine Funktionsänderung.
+// Alle Rechte vorbehalten.
 
 'use strict';
 
-let darkStyleElement = null;
-let darkCSSText = null;
+(function() {
 
-// CSS aus der Extension laden (einmalig, gecacht)
-async function loadDarkCSS() {
-  if (darkCSSText) return darkCSSText;
-  const url = chrome.runtime.getURL('css/bea-dark.css');
-  const response = await fetch(url);
-  darkCSSText = await response.text();
-  return darkCSSText;
-}
+  let styleEl = null;
+  let cssCache = null;
+  let isApplying = false;
 
-// Dark Mode aktivieren: ein <style>-Tag in <head> einfügen
-async function enableDarkMode() {
-  if (darkStyleElement) return;
-  const css = await loadDarkCSS();
-  darkStyleElement = document.createElement('style');
-  darkStyleElement.id = 'bea-dark-mode';
-  darkStyleElement.textContent = css;
-  document.head.appendChild(darkStyleElement);
-}
-
-// Dark Mode deaktivieren: das <style>-Tag wieder entfernen
-function disableDarkMode() {
-  if (darkStyleElement) {
-    darkStyleElement.remove();
-    darkStyleElement = null;
+  // CSS aus der Extension laden — einmalig, dann gecacht
+  function loadCSS() {
+    if (cssCache) return Promise.resolve(cssCache);
+    return new Promise(function(resolve) {
+      try {
+        var url = chrome.runtime.getURL('css/bea-dark.css');
+        fetch(url)
+          .then(function(r) { return r.text(); })
+          .then(function(text) { cssCache = text; resolve(text); })
+          .catch(function() { resolve(null); });
+      } catch (e) {
+        resolve(null);
+      }
+    });
   }
-}
 
-// Beim Seitenaufruf: gespeicherten Zustand wiederherstellen
-chrome.storage.local.get(['beaDarkActive'], (data) => {
-  if (data.beaDarkActive) {
-    enableDarkMode();
+  // Dark Mode einschalten
+  function enable() {
+    if (isApplying || styleEl) return;
+    isApplying = true;
+    loadCSS().then(function(css) {
+      isApplying = false;
+      if (!css || styleEl) return;
+      try {
+        var el = document.createElement('style');
+        el.id = 'bea-dark-mode';
+        el.setAttribute('data-bea-dm', '1');
+        el.textContent = css;
+        var target = document.head || document.documentElement;
+        target.appendChild(el);
+        styleEl = el;
+      } catch (e) { /* still fail silently */ }
+    });
   }
-});
 
-// Nachrichten vom Popup empfangen (An/Aus)
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === 'enable') {
-    enableDarkMode();
-    sendResponse({ success: true });
-  } else if (message.action === 'disable') {
-    disableDarkMode();
-    sendResponse({ success: true });
+  // Dark Mode ausschalten
+  function disable() {
+    if (styleEl) {
+      try { styleEl.remove(); } catch (e) { /* noop */ }
+      styleEl = null;
+    }
+    // Sicherheitsnetz: falls das Element noch im DOM hängt
+    try {
+      var orphan = document.getElementById('bea-dark-mode');
+      if (orphan) orphan.remove();
+    } catch (e) { /* noop */ }
   }
-  return true;
-});
+
+  // Zustand beim Laden wiederherstellen
+  try {
+    chrome.storage.local.get(['beaDarkActive'], function(data) {
+      if (chrome.runtime.lastError) return;
+      if (data && data.beaDarkActive) enable();
+    });
+  } catch (e) { /* Extension context invalidated — ignore */ }
+
+  // Nachrichten vom Popup
+  try {
+    chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
+      try {
+        if (msg && msg.action === 'enable') {
+          enable();
+          sendResponse({ ok: true });
+        } else if (msg && msg.action === 'disable') {
+          disable();
+          sendResponse({ ok: true });
+        }
+      } catch (e) {
+        sendResponse({ ok: false });
+      }
+      return true;
+    });
+  } catch (e) { /* Extension context invalidated — ignore */ }
+
+})();

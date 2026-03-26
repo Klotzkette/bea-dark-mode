@@ -2,8 +2,8 @@
    beA Dark Mode — Rein grafische Übermalung
    Für das besondere elektronische Anwaltspostfach (beA)
 
-   WICHTIG: Dieses Stylesheet ändert ausschließlich Farben,
-   Schriftdarstellung und visuelle Effekte.
+   Dieses Stylesheet ändert ausschließlich Farben,
+   Schriftdarstellung und dekorative visuelle Eigenschaften.
    Es werden KEINE Layout-Eigenschaften geändert:
    - Kein display, position, width, height, margin, padding
    - Kein z-index, overflow, float, flex, grid
@@ -13,49 +13,56 @@
    Alle Rechte vorbehalten / All rights reserved.
    ============================================================ */
 
-/* === FOUNDATIONS === */
+
+/* ─── Farbpalette ─────────────────────────────────────────── */
 
 :root {
-  --bea-dm-bg:            #0a0a0a;
-  --bea-dm-bg-elevated:   #141414;
-  --bea-dm-bg-card:       #1a1a1a;
-  --bea-dm-bg-hover:      #222222;
-  --bea-dm-bg-active:     #2a2a2a;
-  --bea-dm-bg-input:      #111111;
+  /* Hintergründe — tiefes, warmes Schwarz */
+  --dm-bg:             #09090b;
+  --dm-bg-raised:      #111113;
+  --dm-bg-card:        #161618;
+  --dm-bg-hover:       #1c1c1f;
+  --dm-bg-input:       #0e0e10;
 
-  --bea-dm-border:        #2a2a2a;
-  --bea-dm-border-subtle: #1e1e1e;
-  --bea-dm-border-focus:  #555555;
+  /* Ränder — kaum sichtbar, aber strukturgebend */
+  --dm-border:         #232326;
+  --dm-border-subtle:  #1a1a1d;
+  --dm-border-focus:   #4a4a50;
 
-  --bea-dm-text:          #d4d4d8;
-  --bea-dm-text-bright:   #e8e8ed;
-  --bea-dm-text-muted:    #8e8e93;
-  --bea-dm-text-faint:    #5a5a5e;
+  /* Text — silbriges Spektrum */
+  --dm-text:           #c8c8cd;
+  --dm-text-bright:    #e4e4e9;
+  --dm-text-silver:    #a8a8b0;
+  --dm-text-muted:     #78787f;
+  --dm-text-faint:     #4e4e54;
 
-  --bea-dm-accent:        #6bb8d4;
-  --bea-dm-accent-hover:  #88cce2;
-  --bea-dm-accent-muted:  #3a7a94;
+  /* Akzent — gedämpftes Silber-Blau */
+  --dm-accent:         #8fb4c8;
+  --dm-accent-hover:   #a8cad9;
+  --dm-accent-muted:   #5a8a9e;
+  --dm-accent-subtle:  rgba(143, 180, 200, 0.10);
 
-  --bea-dm-success:       #34c759;
-  --bea-dm-warning:       #ff9f0a;
-  --bea-dm-danger:        #ff453a;
+  /* Status — dezent, nicht schreiend */
+  --dm-success:        #5cb87a;
+  --dm-warning:        #d4a03c;
+  --dm-danger:         #c75050;
 
-  --bea-dm-shadow:        0 1px 3px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3);
-  --bea-dm-shadow-lg:     0 4px 24px rgba(0,0,0,0.5);
+  /* Schatten */
+  --dm-shadow:         0 1px 4px rgba(0,0,0,0.5);
+  --dm-shadow-lg:      0 8px 32px rgba(0,0,0,0.6);
 
-  --bea-dm-font:          -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
-                          "Segoe UI", system-ui, sans-serif;
-
-  --bea-dm-transition:    0.2s ease;
+  /* Typografie */
+  --dm-font:           "Inter", -apple-system, BlinkMacSystemFont,
+                       "SF Pro Text", "Segoe UI", system-ui, sans-serif;
 }
 
 
-/* === GLOBAL OVERRIDES === */
+/* ─── Globale Basis ───────────────────────────────────────── */
 
 html, body {
-  background-color: var(--bea-dm-bg) !important;
-  color: var(--bea-dm-text) !important;
-  font-family: var(--bea-dm-font) !important;
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+  font-family: var(--dm-font) !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
 }
@@ -63,109 +70,95 @@ html, body {
 body.brak,
 body.brak-idp,
 html.login-pf {
-  background-color: var(--bea-dm-bg) !important;
-  color: var(--bea-dm-text) !important;
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
 }
+
+
+/* ─── Scrollbars ──────────────────────────────────────────── */
 
 * {
-  scrollbar-color: #3a3a3c #1a1a1a;
+  scrollbar-color: #2a2a2e var(--dm-bg);
   scrollbar-width: thin;
 }
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bea-dm-bg);
-}
-::-webkit-scrollbar-thumb {
-  background: #3a3a3c;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--dm-bg); }
+::-webkit-scrollbar-thumb { background: #2a2a2e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a3e; }
 
 ::selection {
-  background: var(--bea-dm-accent-muted) !important;
+  background: var(--dm-accent-muted) !important;
   color: #fff !important;
 }
 
 
-/* === BRAK CSS VARIABLE OVERRIDES === */
+/* ─── BRAK CSS-Variablen überschreiben ────────────────────── */
 
 :root {
-  --brak-dark-blue: var(--bea-dm-accent) !important;
-  --brak-light-blue: var(--bea-dm-bg-elevated) !important;
-  --brak-medium-blue: var(--bea-dm-accent-muted) !important;
-  --brak-greyed-white: var(--bea-dm-bg-input) !important;
-  --brak-red: var(--bea-dm-danger) !important;
-  --brak-green: var(--bea-dm-success) !important;
-  --brak-yellow: var(--bea-dm-warning) !important;
-  --brak-dark-grey: var(--bea-dm-text-muted) !important;
-  --brak-light-grey: var(--bea-dm-border) !important;
-  --brak-medium-grey: var(--bea-dm-text-faint) !important;
-  --brak-white: var(--bea-dm-bg-card) !important;
-  --brak-black: var(--bea-dm-text-bright) !important;
+  --brak-dark-blue:    var(--dm-accent) !important;
+  --brak-light-blue:   var(--dm-bg-raised) !important;
+  --brak-medium-blue:  var(--dm-accent-muted) !important;
+  --brak-greyed-white: var(--dm-bg-input) !important;
+  --brak-red:          var(--dm-danger) !important;
+  --brak-green:        var(--dm-success) !important;
+  --brak-yellow:       var(--dm-warning) !important;
+  --brak-dark-grey:    var(--dm-text-muted) !important;
+  --brak-light-grey:   var(--dm-border) !important;
+  --brak-medium-grey:  var(--dm-text-faint) !important;
+  --brak-white:        var(--dm-bg-card) !important;
+  --brak-black:        var(--dm-text-bright) !important;
 }
 
 
-/* === TOP BAR / HEADER === */
+/* ─── Header / Top Bars ───────────────────────────────────── */
 
 .top-bar,
 .top-bar-container,
 .top-bar-message,
-.top-bar-operations,
-.top-bar-availability {
-  background-color: var(--bea-dm-bg) !important;
-  border-bottom: 1px solid var(--bea-dm-border-subtle) !important;
-  color: var(--bea-dm-text-muted) !important;
+.top-bar-operations {
+  background-color: var(--dm-bg) !important;
+  border-color: var(--dm-border-subtle) !important;
+  color: var(--dm-text-muted) !important;
 }
 
 .top-bar-message {
-  background-color: var(--bea-dm-bg-elevated) !important;
-  color: var(--bea-dm-text) !important;
+  background-color: var(--dm-bg-raised) !important;
+  color: var(--dm-text-silver) !important;
 }
 
 .top-bar-availability {
-  background-color: rgba(255, 69, 58, 0.12) !important;
-  color: var(--bea-dm-danger) !important;
+  background-color: rgba(199, 80, 80, 0.08) !important;
+  color: var(--dm-danger) !important;
+  border-color: var(--dm-border-subtle) !important;
 }
 
 .top-bar a,
 .full-bar-link {
-  color: var(--bea-dm-accent) !important;
-}
-.top-bar a:hover,
-.full-bar-link:hover {
-  color: var(--bea-dm-accent-hover) !important;
+  color: var(--dm-accent) !important;
 }
 
 header,
 .brak-logo {
-  background-color: var(--bea-dm-bg) !important;
+  background-color: var(--dm-bg) !important;
 }
 
 
-/* === NAVIGATION / SIDEBAR === */
+/* ─── Navigation / Sidebar ────────────────────────────────── */
 
 nav,
 .navigation-area,
 [class*="sidebar"],
-[class*="folder"],
 [class*="nav-panel"],
 [class*="tree"],
-.ui-panel-content,
 .ui-layout-west,
 .ui-layout-west .ui-layout-unit-content {
-  background-color: var(--bea-dm-bg-elevated) !important;
-  color: var(--bea-dm-text) !important;
-  border-color: var(--bea-dm-border) !important;
+  background-color: var(--dm-bg-raised) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
 }
 
 
-/* === MAIN CONTENT / PANELS === */
+/* ─── Hauptbereich / Panels ───────────────────────────────── */
 
 main,
 .application-area,
@@ -174,135 +167,143 @@ main,
 .ui-layout-center,
 .ui-layout-center .ui-layout-unit-content,
 .ui-panel,
-.ui-panel-content,
 .ui-fieldset,
 .ui-fieldset-content {
-  background-color: var(--bea-dm-bg) !important;
-  color: var(--bea-dm-text) !important;
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+}
+
+.ui-panel-content {
+  background-color: var(--dm-bg-raised) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .application-item {
-  background-color: var(--bea-dm-bg-card) !important;
-  border-color: var(--bea-dm-border) !important;
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
 }
+
 .application-item:hover {
-  border-color: var(--bea-dm-border-focus) !important;
+  border-color: var(--dm-border-focus) !important;
+}
+
+.container {
+  background-color: var(--dm-bg) !important;
 }
 
 
-/* === FOOTER === */
+/* ─── Footer ──────────────────────────────────────────────── */
 
 footer,
 .brak-linkbanner,
 .brak-copyright {
-  background-color: var(--bea-dm-bg) !important;
-  color: var(--bea-dm-text-faint) !important;
-  border-top: 1px solid var(--bea-dm-border-subtle) !important;
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text-faint) !important;
+  border-color: var(--dm-border-subtle) !important;
 }
 
 .brak-linkbanner a {
-  color: var(--bea-dm-text-muted) !important;
-}
-.brak-linkbanner a:hover {
-  color: var(--bea-dm-text) !important;
+  color: var(--dm-text-muted) !important;
 }
 
 .brak-version {
-  color: var(--bea-dm-text-faint) !important;
+  color: var(--dm-text-faint) !important;
 }
 
 
-/* === TYPOGRAPHY === */
+/* ─── Typografie ──────────────────────────────────────────── */
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--bea-dm-text-bright) !important;
+  color: var(--dm-text-bright) !important;
 }
 
 p, span, div, li, td, th, label, legend {
-  color: var(--bea-dm-text) !important;
+  color: var(--dm-text) !important;
 }
 
 a {
-  color: var(--bea-dm-accent) !important;
+  color: var(--dm-accent) !important;
 }
 a:hover {
-  color: var(--bea-dm-accent-hover) !important;
+  color: var(--dm-accent-hover) !important;
 }
 a:visited {
-  color: var(--bea-dm-accent-muted) !important;
+  color: var(--dm-accent-muted) !important;
 }
 
 
-/* === TABLES (PrimeFaces / jQuery UI / Bootstrap) === */
+/* ─── Tabellen ────────────────────────────────────────────── */
 
 table {
-  border-color: var(--bea-dm-border) !important;
+  border-color: var(--dm-border) !important;
 }
 
 thead,
 .ui-widget-header,
 .ui-datatable thead,
 .ui-datatable .ui-widget-header {
-  background-color: var(--bea-dm-bg-elevated) !important;
+  background-color: var(--dm-bg-raised) !important;
   background-image: none !important;
-  color: var(--bea-dm-text-muted) !important;
-  border-color: var(--bea-dm-border) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
 }
 
 thead th,
 .ui-widget-header th {
-  color: var(--bea-dm-text-muted) !important;
-  background-color: var(--bea-dm-bg-elevated) !important;
+  color: var(--dm-text-silver) !important;
+  background-color: var(--dm-bg-raised) !important;
   background-image: none !important;
-  border-color: var(--bea-dm-border) !important;
+  border-color: var(--dm-border) !important;
 }
 
 tbody {
-  background-color: var(--bea-dm-bg) !important;
+  background-color: var(--dm-bg) !important;
 }
 
 tbody tr {
-  border-color: var(--bea-dm-border-subtle) !important;
+  border-color: var(--dm-border-subtle) !important;
 }
 
 tbody tr:hover,
 .ui-widget-content tr:hover {
-  background-color: var(--bea-dm-bg-hover) !important;
+  background-color: var(--dm-bg-hover) !important;
 }
 
 tbody tr:nth-child(even),
 .ui-datatable-odd {
-  background-color: var(--bea-dm-bg-elevated) !important;
+  background-color: var(--dm-bg-raised) !important;
 }
 
 tbody td,
 .ui-widget-content td {
-  color: var(--bea-dm-text) !important;
-  border-color: var(--bea-dm-border-subtle) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border-subtle) !important;
 }
 
+/* Ausgewählte Zeilen — dezentes Silber-Blau-Leuchten */
 .selected,
 tr.selected,
 .ui-state-highlight {
-  background-color: rgba(107, 184, 212, 0.12) !important;
-  color: var(--bea-dm-accent) !important;
-  border-color: var(--bea-dm-accent-muted) !important;
+  background-color: var(--dm-accent-subtle) !important;
+  color: var(--dm-accent-hover) !important;
+  border-color: var(--dm-accent-muted) !important;
 }
 
 .unavailable {
-  background-color: var(--bea-dm-bg-elevated) !important;
-  color: var(--bea-dm-text-faint) !important;
-  opacity: 0.6 !important;
+  background-color: var(--dm-bg-raised) !important;
+  color: var(--dm-text-faint) !important;
+  opacity: 0.5 !important;
 }
 
 .error,
 tr.error {
-  background-color: rgba(255, 69, 58, 0.1) !important;
-  color: var(--bea-dm-danger) !important;
+  background-color: rgba(199, 80, 80, 0.08) !important;
+  color: var(--dm-danger) !important;
 }
 
 
-/* === FORMS / INPUTS === */
+/* ─── Formulare / Eingabefelder ───────────────────────────── */
 
 input,
 textarea,
@@ -314,10 +315,10 @@ select,
 .ui-selectonemenu,
 .ui-selectonemenu-label,
 .ui-spinner-input {
-  background-color: var(--bea-dm-bg-input) !important;
-  color: var(--bea-dm-text-bright) !important;
-  border-color: var(--bea-dm-border) !important;
-  font-family: var(--bea-dm-font) !important;
+  background-color: var(--dm-bg-input) !important;
+  color: var(--dm-text-bright) !important;
+  border-color: var(--dm-border) !important;
+  font-family: var(--dm-font) !important;
 }
 
 input:focus,
@@ -326,76 +327,86 @@ select:focus,
 .pf-c-form-control:focus,
 .form-control:focus,
 .ui-inputfield:focus {
-  border-color: var(--bea-dm-accent) !important;
-  box-shadow: 0 0 0 3px rgba(107, 184, 212, 0.15) !important;
+  border-color: var(--dm-accent-muted) !important;
+  box-shadow: 0 0 0 2px var(--dm-accent-subtle) !important;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: var(--bea-dm-text-faint) !important;
+  color: var(--dm-text-faint) !important;
 }
 
 .input-password {
-  background-color: var(--bea-dm-bg-input) !important;
-  border-color: var(--bea-dm-border) !important;
+  background-color: var(--dm-bg-input) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .is-invalid,
 .ui-state-error {
-  border-color: var(--bea-dm-danger) !important;
+  border-color: var(--dm-danger) !important;
 }
 
 .invalid-feedback,
 .ui-state-error-text {
-  color: var(--bea-dm-danger) !important;
+  color: var(--dm-danger) !important;
 }
 
 label,
 .form-check-label {
-  color: var(--bea-dm-text) !important;
+  color: var(--dm-text) !important;
 }
 
-/* Checkbox / Radio */
 input[type="checkbox"],
 input[type="radio"] {
-  accent-color: var(--bea-dm-accent) !important;
+  accent-color: var(--dm-accent) !important;
 }
 
 
-/* === BUTTONS === */
+/* ─── Buttons ─────────────────────────────────────────────── */
 
 button,
 .btn,
 .ui-button {
-  font-family: var(--bea-dm-font) !important;
+  font-family: var(--dm-font) !important;
 }
 
 .btn-primary,
 button.btn-primary,
-.ui-button.ui-priority-primary,
-.ui-state-default {
-  background-color: var(--bea-dm-accent-muted) !important;
+.ui-button.ui-priority-primary {
+  background-color: var(--dm-accent-muted) !important;
   background-image: none !important;
   color: #fff !important;
-  border: 1px solid var(--bea-dm-accent-muted) !important;
-  font-weight: 500 !important;
+  border-color: var(--dm-accent-muted) !important;
 }
 
 .btn-primary:hover,
-.ui-button.ui-priority-primary:hover,
+.ui-button.ui-priority-primary:hover {
+  background-color: var(--dm-accent) !important;
+  background-image: none !important;
+  border-color: var(--dm-accent) !important;
+  color: var(--dm-bg) !important;
+}
+
+.ui-state-default {
+  background-color: var(--dm-bg-card) !important;
+  background-image: none !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
+}
+
 .ui-state-default:hover,
 .ui-state-hover {
-  background-color: var(--bea-dm-accent) !important;
+  background-color: var(--dm-bg-hover) !important;
   background-image: none !important;
-  border-color: var(--bea-dm-accent) !important;
-  color: #000 !important;
+  border-color: var(--dm-border-focus) !important;
+  color: var(--dm-text-bright) !important;
 }
 
 .ui-state-active {
-  background-color: var(--bea-dm-accent) !important;
+  background-color: var(--dm-accent-muted) !important;
   background-image: none !important;
-  color: #000 !important;
-  border-color: var(--bea-dm-accent) !important;
+  color: #fff !important;
+  border-color: var(--dm-accent-muted) !important;
 }
 
 .btn-close {
@@ -405,157 +416,150 @@ button.btn-primary,
 button:disabled,
 .btn:disabled,
 .ui-state-disabled {
-  opacity: 0.35 !important;
+  opacity: 0.3 !important;
 }
 
 .disable {
-  color: var(--bea-dm-text-faint) !important;
+  color: var(--dm-text-faint) !important;
 }
 
-/* Secondary/outline buttons */
 .btn-secondary,
 .btn-outline-primary,
 .ui-button.ui-priority-secondary {
   background-color: transparent !important;
-  color: var(--bea-dm-text) !important;
-  border-color: var(--bea-dm-border) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
 }
+
 .btn-secondary:hover,
 .btn-outline-primary:hover,
 .ui-button.ui-priority-secondary:hover {
-  background-color: var(--bea-dm-bg-hover) !important;
-  border-color: var(--bea-dm-text-muted) !important;
-  color: var(--bea-dm-text-bright) !important;
+  background-color: var(--dm-bg-hover) !important;
+  border-color: var(--dm-border-focus) !important;
+  color: var(--dm-text-bright) !important;
 }
 
 
-/* === TOKEN SELECTION (Login) === */
+/* ─── Token-Auswahl (Login) ───────────────────────────────── */
 
 #token-selection-dropdown,
 #token-options {
-  background-color: var(--bea-dm-bg-card) !important;
-  border-color: var(--bea-dm-border) !important;
-  box-shadow: var(--bea-dm-shadow-lg) !important;
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
+  box-shadow: var(--dm-shadow-lg) !important;
 }
 
 #token-selection {
-  background-color: var(--bea-dm-bg-input) !important;
-  color: var(--bea-dm-text) !important;
-  border-color: var(--bea-dm-border) !important;
+  background-color: var(--dm-bg-input) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .token-option {
-  color: var(--bea-dm-text) !important;
+  color: var(--dm-text) !important;
 }
 .token-option:hover {
-  background-color: var(--bea-dm-bg-hover) !important;
+  background-color: var(--dm-bg-hover) !important;
 }
 
-.token-label {
-  color: var(--bea-dm-text) !important;
-}
-
-.token-icon {
-  color: var(--bea-dm-accent) !important;
-}
+.token-label { color: var(--dm-text) !important; }
+.token-icon  { color: var(--dm-accent) !important; }
 
 
-/* === MODALS (Bootstrap + BRAK) === */
+/* ─── Modale Dialoge ──────────────────────────────────────── */
 
+/* Bootstrap */
 .modal-content {
-  background-color: var(--bea-dm-bg-card) !important;
-  border-color: var(--bea-dm-border) !important;
-  box-shadow: var(--bea-dm-shadow-lg) !important;
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
+  box-shadow: var(--dm-shadow-lg) !important;
 }
 
 .modal-header {
-  background-color: var(--bea-dm-bg-elevated) !important;
-  border-bottom: 1px solid var(--bea-dm-border) !important;
-  color: var(--bea-dm-text-bright) !important;
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
+  color: var(--dm-text-bright) !important;
 }
 
 .modal-title {
-  color: var(--bea-dm-text-bright) !important;
-  font-weight: 600 !important;
+  color: var(--dm-text-bright) !important;
 }
 
 .modal-body {
-  background-color: var(--bea-dm-bg-card) !important;
-  color: var(--bea-dm-text) !important;
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text) !important;
 }
 
 .modal-footer {
-  background-color: var(--bea-dm-bg-elevated) !important;
-  border-top: 1px solid var(--bea-dm-border) !important;
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.7) !important;
+  background-color: rgba(0, 0, 0, 0.75) !important;
 }
 
-
-/* === DIALOGS (PrimeFaces / jQuery UI) === */
-
+/* PrimeFaces / jQuery UI */
 .ui-dialog {
-  background-color: var(--bea-dm-bg-card) !important;
-  border-color: var(--bea-dm-border) !important;
-  box-shadow: var(--bea-dm-shadow-lg) !important;
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
+  box-shadow: var(--dm-shadow-lg) !important;
 }
 
 .ui-dialog-titlebar {
-  background-color: var(--bea-dm-bg-elevated) !important;
+  background-color: var(--dm-bg-raised) !important;
   background-image: none !important;
-  color: var(--bea-dm-text-bright) !important;
-  border-bottom: 1px solid var(--bea-dm-border) !important;
+  color: var(--dm-text-bright) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .ui-dialog .ui-dialog-content {
-  background-color: var(--bea-dm-bg-card) !important;
-  color: var(--bea-dm-text) !important;
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text) !important;
 }
 
 .ui-widget-overlay {
-  background-color: rgba(0, 0, 0, 0.7) !important;
+  background-color: rgba(0, 0, 0, 0.75) !important;
 }
 
 
-/* === EXPANDABLE / ACCORDION === */
+/* ─── Accordion / Expandable ──────────────────────────────── */
 
 .expandable,
 .ui-accordion {
-  border-color: var(--bea-dm-border) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .expandable .header,
 .ui-accordion-header {
-  background-color: var(--bea-dm-bg-elevated) !important;
+  background-color: var(--dm-bg-raised) !important;
   background-image: none !important;
-  color: var(--bea-dm-text) !important;
-  border-color: var(--bea-dm-border) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .expandable .contents,
 .ui-accordion-content {
-  background-color: var(--bea-dm-bg-card) !important;
-  color: var(--bea-dm-text) !important;
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text) !important;
 }
 
 .expandable .header:hover,
 .ui-accordion-header:hover {
-  background-color: var(--bea-dm-bg-hover) !important;
+  background-color: var(--dm-bg-hover) !important;
 }
 
 
-/* === TABS === */
+/* ─── Tabs ────────────────────────────────────────────────── */
 
 .ui-tabs {
-  border-color: var(--bea-dm-border) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .ui-tabs-nav {
-  background-color: var(--bea-dm-bg-elevated) !important;
+  background-color: var(--dm-bg-raised) !important;
   background-image: none !important;
-  border-color: var(--bea-dm-border) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .ui-tabs-nav li {
@@ -565,76 +569,60 @@ button:disabled,
 }
 
 .ui-tabs-nav li a {
-  color: var(--bea-dm-text-muted) !important;
+  color: var(--dm-text-muted) !important;
 }
 
 .ui-tabs-selected,
 .ui-tabs-nav .ui-state-active {
-  background-color: var(--bea-dm-bg-card) !important;
-  border-bottom-color: var(--bea-dm-accent) !important;
+  background-color: var(--dm-bg-card) !important;
+  border-bottom-color: var(--dm-accent) !important;
 }
 
 .ui-tabs-selected a,
 .ui-tabs-nav .ui-state-active a {
-  color: var(--bea-dm-accent) !important;
+  color: var(--dm-accent) !important;
 }
 
 .ui-tabs-panel {
-  background-color: var(--bea-dm-bg-card) !important;
-  color: var(--bea-dm-text) !important;
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text) !important;
 }
 
 
-/* === MENU / DROPDOWN === */
+/* ─── Menüs / Dropdowns ──────────────────────────────────── */
 
-.ui-menu {
-  background-color: var(--bea-dm-bg-card) !important;
-  border: 1px solid var(--bea-dm-border) !important;
-  box-shadow: var(--bea-dm-shadow-lg) !important;
-}
-
-.ui-menu .ui-menuitem {
-  color: var(--bea-dm-text) !important;
-}
-
-.ui-menu .ui-menuitem:hover {
-  background-color: var(--bea-dm-bg-hover) !important;
-}
-
-.ui-selectonemenu-panel {
-  background-color: var(--bea-dm-bg-card) !important;
-  border: 1px solid var(--bea-dm-border) !important;
-  box-shadow: var(--bea-dm-shadow-lg) !important;
-}
-
-.ui-selectonemenu-panel .ui-selectonemenu-item {
-  color: var(--bea-dm-text) !important;
-}
-
-.ui-selectonemenu-panel .ui-selectonemenu-item:hover {
-  background-color: var(--bea-dm-bg-hover) !important;
-}
-
+.ui-menu,
+.ui-selectonemenu-panel,
 .ui-autocomplete-panel {
-  background-color: var(--bea-dm-bg-card) !important;
-  border: 1px solid var(--bea-dm-border) !important;
-  box-shadow: var(--bea-dm-shadow-lg) !important;
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
+  box-shadow: var(--dm-shadow-lg) !important;
+}
+
+.ui-menu .ui-menuitem,
+.ui-selectonemenu-panel .ui-selectonemenu-item {
+  color: var(--dm-text) !important;
+}
+
+.ui-menu .ui-menuitem:hover,
+.ui-selectonemenu-panel .ui-selectonemenu-item:hover {
+  background-color: var(--dm-bg-hover) !important;
 }
 
 
-/* === DATEPICKER === */
+/* ─── Datepicker ──────────────────────────────────────────── */
 
 .ui-datepicker {
-  background-color: var(--bea-dm-bg-card) !important;
-  border: 1px solid var(--bea-dm-border) !important;
-  box-shadow: var(--bea-dm-shadow-lg) !important;
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
+  box-shadow: var(--dm-shadow-lg) !important;
 }
 
 .ui-datepicker-header {
-  background-color: var(--bea-dm-bg-elevated) !important;
+  background-color: var(--dm-bg-raised) !important;
   background-image: none !important;
-  color: var(--bea-dm-text) !important;
-  border-color: var(--bea-dm-border) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .ui-datepicker-calendar td {
@@ -642,101 +630,91 @@ button:disabled,
 }
 
 .ui-datepicker-calendar td a {
-  color: var(--bea-dm-text) !important;
+  color: var(--dm-text) !important;
 }
 
 .ui-datepicker-calendar td a:hover {
-  background-color: var(--bea-dm-bg-hover) !important;
+  background-color: var(--dm-bg-hover) !important;
 }
 
 .ui-datepicker-current-day a {
-  background-color: var(--bea-dm-accent-muted) !important;
+  background-color: var(--dm-accent-muted) !important;
   color: #fff !important;
 }
 
 
-/* === TOOLTIP === */
+/* ─── Tooltips ────────────────────────────────────────────── */
 
 .ui-tooltip,
 .tooltip,
 .ui-tooltip-text {
-  background-color: var(--bea-dm-bg-card) !important;
-  color: var(--bea-dm-text) !important;
-  border: 1px solid var(--bea-dm-border) !important;
-  box-shadow: var(--bea-dm-shadow) !important;
-  border-radius: var(--bea-dm-radius-sm) !important;
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+  box-shadow: var(--dm-shadow) !important;
 }
 
 
-/* === PROGRESSBAR === */
+/* ─── Progressbar ─────────────────────────────────────────── */
 
 .ui-progressbar {
-  background-color: var(--bea-dm-bg-elevated) !important;
-  border-color: var(--bea-dm-border) !important;
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .ui-progressbar .ui-progressbar-value {
-  background-color: var(--bea-dm-accent) !important;
+  background-color: var(--dm-accent) !important;
   background-image: none !important;
 }
 
 
-/* === SLIDER === */
+/* ─── Slider ──────────────────────────────────────────────── */
 
 .ui-slider {
-  background-color: var(--bea-dm-bg-elevated) !important;
+  background-color: var(--dm-bg-raised) !important;
 }
 
 .ui-slider-handle {
-  background-color: var(--bea-dm-text) !important;
+  background-color: var(--dm-text-silver) !important;
   background-image: none !important;
-  border-color: var(--bea-dm-border) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .ui-slider-range {
-  background-color: var(--bea-dm-accent) !important;
+  background-color: var(--dm-accent-muted) !important;
   background-image: none !important;
 }
 
 
-/* === CERTIFICATE INFO === */
+/* ─── Zertifikat-Info ─────────────────────────────────────── */
 
 .certBasicInfo {
-  background-color: var(--bea-dm-bg-card) !important;
-  border-color: var(--bea-dm-border) !important;
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .keyTitle {
-  color: var(--bea-dm-text-muted) !important;
-  font-weight: 600 !important;
+  color: var(--dm-text-silver) !important;
 }
 
 .keySection {
-  border-color: var(--bea-dm-border-subtle) !important;
+  border-color: var(--dm-border-subtle) !important;
 }
 
 
-/* === ICONS === */
+/* ─── Icons ───────────────────────────────────────────────── */
 
 .ui-icon {
-  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E") !important;
-  /* Fallback: invert the existing icon sprite */
-  filter: invert(0.85) !important;
+  filter: invert(0.8) !important;
 }
 
-/* FontAwesome through Svelte — just recolor */
 [class*="svelte-fa"] {
   color: inherit !important;
 }
 
 
-/* === IMAGES / LOGOS — preserve but adapt === */
+/* ─── Bilder / Logos ──────────────────────────────────────── */
 
-img {
-  /* Don't invert images by default — only specific branded elements */
-}
-
-/* Invert dark-on-light logos so they work on dark bg */
 .brak-logo img,
 .bea-logo img,
 .main-logo img,
@@ -745,13 +723,12 @@ img[src*="brak"],
 img[src*="beA"],
 img[src*="bea_logo"],
 img[src*="bea-logo"] {
-  filter: brightness(0.85) invert(1) hue-rotate(180deg) !important;
+  filter: brightness(0.8) invert(1) hue-rotate(180deg) !important;
 }
 
-/* Application tile images — soften slightly */
 .application-item img,
 .image-container img {
-  opacity: 0.85 !important;
+  opacity: 0.8 !important;
 }
 .application-item:hover img,
 .image-container:hover img {
@@ -759,171 +736,162 @@ img[src*="bea-logo"] {
 }
 
 
-/* === MISC WIDGETS / CATCH-ALL === */
+/* ─── Catch-All Widgets ───────────────────────────────────── */
 
 .ui-widget,
 .ui-widget-content {
-  background-color: var(--bea-dm-bg-card) !important;
-  color: var(--bea-dm-text) !important;
-  border-color: var(--bea-dm-border) !important;
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
 }
 
-/* Fieldsets */
 fieldset,
 .ui-fieldset {
-  border-color: var(--bea-dm-border) !important;
+  border-color: var(--dm-border) !important;
 }
 
 fieldset legend,
 .ui-fieldset-legend {
-  color: var(--bea-dm-text-bright) !important;
+  color: var(--dm-text-bright) !important;
   background-color: transparent !important;
 }
 
-/* Separator lines */
 hr {
-  border-color: var(--bea-dm-border) !important;
+  border-color: var(--dm-border) !important;
 }
 
-/* Search fields */
+
+/* ─── Suche ───────────────────────────────────────────────── */
+
 input[type="search"],
 .search-field {
-  background-color: var(--bea-dm-bg-input) !important;
-  color: var(--bea-dm-text) !important;
+  background-color: var(--dm-bg-input) !important;
+  color: var(--dm-text) !important;
 }
 
-/* Breadcrumb */
+
+/* ─── Breadcrumbs ─────────────────────────────────────────── */
+
 [class*="breadcrumb"] {
-  color: var(--bea-dm-text-muted) !important;
+  color: var(--dm-text-muted) !important;
 }
 [class*="breadcrumb"] a {
-  color: var(--bea-dm-accent) !important;
+  color: var(--dm-accent) !important;
 }
 
-/* Alerts / Notices */
+
+/* ─── Alerts ──────────────────────────────────────────────── */
+
 .alert,
 [class*="alert-"],
 [class*="notice"] {
-  background-color: var(--bea-dm-bg-elevated) !important;
-  border-color: var(--bea-dm-border) !important;
-  color: var(--bea-dm-text) !important;
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
+  color: var(--dm-text) !important;
 }
 
-.alert-danger,
-[class*="alert-danger"] {
-  background-color: rgba(255, 69, 58, 0.1) !important;
-  border-color: rgba(255, 69, 58, 0.3) !important;
-  color: var(--bea-dm-danger) !important;
+.alert-danger, [class*="alert-danger"] {
+  background-color: rgba(199, 80, 80, 0.08) !important;
+  border-color: rgba(199, 80, 80, 0.2) !important;
+  color: var(--dm-danger) !important;
 }
 
-.alert-success,
-[class*="alert-success"] {
-  background-color: rgba(52, 199, 89, 0.1) !important;
-  border-color: rgba(52, 199, 89, 0.3) !important;
-  color: var(--bea-dm-success) !important;
+.alert-success, [class*="alert-success"] {
+  background-color: rgba(92, 184, 122, 0.08) !important;
+  border-color: rgba(92, 184, 122, 0.2) !important;
+  color: var(--dm-success) !important;
 }
 
-.alert-warning,
-[class*="alert-warning"] {
-  background-color: rgba(255, 159, 10, 0.1) !important;
-  border-color: rgba(255, 159, 10, 0.3) !important;
-  color: var(--bea-dm-warning) !important;
+.alert-warning, [class*="alert-warning"] {
+  background-color: rgba(212, 160, 60, 0.08) !important;
+  border-color: rgba(212, 160, 60, 0.2) !important;
+  color: var(--dm-warning) !important;
 }
 
-.alert-info,
-[class*="alert-info"] {
-  background-color: rgba(107, 184, 212, 0.1) !important;
-  border-color: rgba(107, 184, 212, 0.3) !important;
-  color: var(--bea-dm-accent) !important;
+.alert-info, [class*="alert-info"] {
+  background-color: var(--dm-accent-subtle) !important;
+  border-color: rgba(143, 180, 200, 0.2) !important;
+  color: var(--dm-accent) !important;
 }
 
 
-/* === LAYOUT PANELS (PrimeFaces Layout) === */
+/* ─── Layout Panels (PrimeFaces) ──────────────────────────── */
 
 .ui-layout-north,
 .ui-layout-south,
 .ui-layout-east,
 .ui-layout-west,
 .ui-layout-center {
-  background-color: var(--bea-dm-bg) !important;
-  border-color: var(--bea-dm-border) !important;
+  background-color: var(--dm-bg) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .ui-layout-unit-header {
-  background-color: var(--bea-dm-bg-elevated) !important;
+  background-color: var(--dm-bg-raised) !important;
   background-image: none !important;
-  color: var(--bea-dm-text-bright) !important;
-  border-color: var(--bea-dm-border) !important;
+  color: var(--dm-text-bright) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .ui-layout-resizer {
-  background-color: var(--bea-dm-border) !important;
+  background-color: var(--dm-border) !important;
 }
 
 .ui-layout-toggler {
-  background-color: var(--bea-dm-bg-elevated) !important;
-  border-color: var(--bea-dm-border) !important;
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
 }
 
 
-/* === TOOLBAR === */
+/* ─── Toolbar ─────────────────────────────────────────────── */
 
 .ui-toolbar {
-  background-color: var(--bea-dm-bg-elevated) !important;
+  background-color: var(--dm-bg-raised) !important;
   background-image: none !important;
-  border-color: var(--bea-dm-border) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .ui-toolbar .ui-button {
   background-color: transparent !important;
-  color: var(--bea-dm-text) !important;
+  color: var(--dm-text-silver) !important;
   border-color: transparent !important;
 }
 
 .ui-toolbar .ui-button:hover {
-  background-color: var(--bea-dm-bg-hover) !important;
-  color: var(--bea-dm-text-bright) !important;
+  background-color: var(--dm-bg-hover) !important;
+  color: var(--dm-text-bright) !important;
 }
 
 
-
-
-/* === PORTAL PAGE SPECIFIC === */
-
-.container {
-  background-color: var(--bea-dm-bg) !important;
-}
+/* ─── Portal-spezifisch ───────────────────────────────────── */
 
 .banner-container,
 .banner-base {
-  background-color: var(--bea-dm-bg-elevated) !important;
-  border-color: var(--bea-dm-border) !important;
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
 }
 
 .banner-message {
-  color: var(--bea-dm-text) !important;
+  color: var(--dm-text) !important;
 }
 
-.download-area {
-  background-color: var(--bea-dm-bg-elevated) !important;
-}
-
+.download-area,
 .support-area {
-  background-color: var(--bea-dm-bg-elevated) !important;
+  background-color: var(--dm-bg-raised) !important;
 }
 
 .logout-button {
   background-color: transparent !important;
-  color: var(--bea-dm-text-muted) !important;
-  border-color: var(--bea-dm-border) !important;
+  color: var(--dm-text-muted) !important;
+  border-color: var(--dm-border) !important;
 }
 .logout-button:hover {
-  color: var(--bea-dm-text) !important;
-  border-color: var(--bea-dm-text-muted) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border-focus) !important;
 }
 
 
-/* === PRINT — don't apply dark mode === */
+/* ─── Drucken — Dark Mode aussetzen ───────────────────────── */
 
 @media print {
   html, body, *, *::before, *::after {

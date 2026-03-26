@@ -1,33 +1,43 @@
-// beA Dark Mode — Popup: An/Aus Toggle
+// beA Dark Mode — Popup
+// Alle Rechte vorbehalten.
 
-const toggle = document.getElementById('mainToggle');
-const status = document.getElementById('status');
+'use strict';
 
-toggle.addEventListener('change', async () => {
-  const isOn = toggle.checked;
+(function() {
 
-  if (isOn) {
-    status.textContent = 'Aktiv';
-    status.classList.add('active');
-    chrome.storage.local.set({ beaDarkActive: true });
+  var toggle = document.getElementById('mainToggle');
+  var statusEl = document.getElementById('status');
 
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    chrome.tabs.sendMessage(tab.id, { action: 'enable' });
-  } else {
-    status.textContent = 'Aus';
-    status.classList.remove('active');
-    chrome.storage.local.set({ beaDarkActive: false });
+  if (!toggle || !statusEl) return;
 
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    chrome.tabs.sendMessage(tab.id, { action: 'disable' });
-  }
-});
+  toggle.addEventListener('change', function() {
+    var isOn = toggle.checked;
 
-// Zustand wiederherstellen beim Öffnen
-chrome.storage.local.get(['beaDarkActive'], (data) => {
-  if (data.beaDarkActive) {
-    toggle.checked = true;
-    status.textContent = 'Aktiv';
-    status.classList.add('active');
-  }
-});
+    statusEl.textContent = isOn ? 'Aktiv' : 'Aus';
+    if (isOn) { statusEl.classList.add('active'); }
+    else      { statusEl.classList.remove('active'); }
+
+    try {
+      chrome.storage.local.set({ beaDarkActive: isOn });
+      chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        if (chrome.runtime.lastError || !tabs || !tabs[0]) return;
+        chrome.tabs.sendMessage(tabs[0].id, { action: isOn ? 'enable' : 'disable' }, function() {
+          if (chrome.runtime.lastError) { /* Tab hat kein Content Script — ok */ }
+        });
+      });
+    } catch (e) { /* noop */ }
+  });
+
+  // Zustand wiederherstellen
+  try {
+    chrome.storage.local.get(['beaDarkActive'], function(data) {
+      if (chrome.runtime.lastError) return;
+      if (data && data.beaDarkActive) {
+        toggle.checked = true;
+        statusEl.textContent = 'Aktiv';
+        statusEl.classList.add('active');
+      }
+    });
+  } catch (e) { /* noop */ }
+
+})();
