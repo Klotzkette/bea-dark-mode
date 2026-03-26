@@ -1,62 +1,48 @@
-// beA Dark Mode — Background Service Worker v2.1
-// Klick aufs Icon = Toggle. Kein Popup nötig.
+// beA Dark Mode — Background Service Worker v2.2
+// Klick aufs Icon = Toggle. Nur für beA.
 // Alle Rechte vorbehalten.
 
 'use strict';
 
-var STORE_KEY = 'beaDarkActive';
+var KEY = 'beaDarkActive';
 
-// ─── Badge aktualisieren ───────────────────────────────────
-function updateBadge(isOn) {
-  chrome.action.setBadgeText({ text: isOn ? 'AN' : '' });
-  chrome.action.setBadgeBackgroundColor({ color: isOn ? '#5a8a9e' : '#333' });
+function badge(on) {
+  chrome.action.setBadgeText({ text: on ? 'AN' : '' });
+  chrome.action.setBadgeBackgroundColor({ color: '#5a8a9e' });
 }
 
-// ─── Icon-Klick = Toggle ──────────────────────────────────
 chrome.action.onClicked.addListener(function(tab) {
-  chrome.storage.local.get([STORE_KEY], function(data) {
+  chrome.storage.local.get([KEY], function(d) {
     if (chrome.runtime.lastError) return;
-    var wasOn = !!(data && data[STORE_KEY]);
-    var isOn  = !wasOn;
-
-    chrome.storage.local.set({ beaDarkActive: isOn });
-    updateBadge(isOn);
-
-    // Nachricht an aktiven Tab
+    var on = !(d && d[KEY]);
+    chrome.storage.local.set({ beaDarkActive: on });
+    badge(on);
     if (tab && tab.id) {
-      var action = isOn ? 'enable' : 'disable';
-      chrome.tabs.sendMessage(tab.id, { action: action }, function() {
-        if (chrome.runtime.lastError) { /* Content Script nicht geladen */ }
+      chrome.tabs.sendMessage(tab.id, { action: on ? 'enable' : 'disable' }, function() {
+        if (chrome.runtime.lastError) {}
       });
     }
   });
 });
 
-// ─── Tab-Navigation: Dark Mode beibehalten ─────────────────
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  if (changeInfo.status !== 'complete') return;
-  if (!tab.url || tab.url.startsWith('chrome://') || tab.url.startsWith('chrome-extension://')) return;
-
-  chrome.storage.local.get([STORE_KEY], function(data) {
-    if (chrome.runtime.lastError) return;
-    if (!data || !data[STORE_KEY]) return;
-
-    chrome.tabs.sendMessage(tabId, { action: 'enable' }, function() {
-      if (chrome.runtime.lastError) { /* Content Script noch nicht bereit */ }
+chrome.tabs.onUpdated.addListener(function(id, info, tab) {
+  if (info.status !== 'complete') return;
+  if (!tab.url || !tab.url.includes('bea-brak.de')) return;
+  chrome.storage.local.get([KEY], function(d) {
+    if (chrome.runtime.lastError || !d || !d[KEY]) return;
+    chrome.tabs.sendMessage(id, { action: 'enable' }, function() {
+      if (chrome.runtime.lastError) {}
     });
   });
 });
 
-// ─── Bei Start: Badge-Status wiederherstellen ──────────────
-chrome.storage.local.get([STORE_KEY], function(data) {
-  if (chrome.runtime.lastError) return;
-  updateBadge(!!(data && data[STORE_KEY]));
+chrome.storage.local.get([KEY], function(d) {
+  if (!chrome.runtime.lastError) badge(!!(d && d[KEY]));
 });
 
-// ─── Installation: Default-State setzen ────────────────────
-chrome.runtime.onInstalled.addListener(function(details) {
-  if (details.reason === 'install') {
+chrome.runtime.onInstalled.addListener(function(e) {
+  if (e.reason === 'install') {
     chrome.storage.local.set({ beaDarkActive: false });
-    updateBadge(false);
+    badge(false);
   }
 });
