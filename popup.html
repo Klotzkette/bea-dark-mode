@@ -90,10 +90,21 @@
       color: #4e4e54;
       letter-spacing: 0.02em;
       transition: color 0.2s ease;
-      margin-bottom: 16px;
+      margin-bottom: 6px;
     }
     .status.active {
       color: #8fb4c8;
+    }
+
+    .site-info {
+      font-size: 8px;
+      color: #3a3a3e;
+      letter-spacing: 0.01em;
+      margin-bottom: 14px;
+      min-height: 12px;
+    }
+    .site-info.bea {
+      color: #5a8a9e;
     }
 
     .footer {
@@ -105,7 +116,7 @@
 </head>
 <body>
   <div class="title">beA Dark Mode</div>
-  <div class="subtitle">Anwaltspostfach</div>
+  <div class="subtitle">Alle Webseiten</div>
 
   <div class="toggle-area">
     <span class="toggle-label">Dark Mode</span>
@@ -116,7 +127,8 @@
   </div>
 
   <div class="status" id="status">Aus</div>
-  <div class="footer">v1.2 &middot; rein kosmetisch</div>
+  <div class="site-info" id="siteInfo"></div>
+  <div class="footer">v2.0 &middot; rein kosmetisch</div>
 
   <script src="js/popup.js"></script>
 </body>

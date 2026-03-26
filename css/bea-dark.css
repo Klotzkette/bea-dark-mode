@@ -1,14 +1,11 @@
 /* ============================================================
-   beA Dark Mode — Rein grafische Übermalung
+   beA Dark Mode v2.0 — Rein grafische Übermalung
    Für das besondere elektronische Anwaltspostfach (beA)
 
-   Dieses Stylesheet ändert ausschließlich Farben,
-   Schriftdarstellung und dekorative visuelle Eigenschaften.
-   Es werden KEINE Layout-Eigenschaften geändert:
-   - Kein display, position, width, height, margin, padding
-   - Kein z-index, overflow, float, flex, grid
-   - Kein pointer-events, visibility, content
-   Funktionalität bleibt vollständig erhalten.
+   NUR Farben, Schrift-Rendering und dekorative Eigenschaften.
+   KEINE Layout-Änderungen (kein display, position, width,
+   height, margin, padding, z-index, overflow, flex, grid,
+   pointer-events, visibility, content).
 
    Alle Rechte vorbehalten / All rights reserved.
    ============================================================ */
@@ -1007,6 +1004,54 @@ input[type="search"],
 .einstellungen {
   background-color: var(--dm-bg-raised) !important;
   border-color: var(--dm-border) !important;
+}
+
+
+/* ─── Overlay Panels (PrimeFaces) ────────────────────────── */
+
+.ui-overlaypanel {
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
+  box-shadow: var(--dm-shadow-lg) !important;
+  color: var(--dm-text) !important;
+}
+
+.ui-overlaypanel-content {
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text) !important;
+}
+
+
+/* ─── Tree (Ordnernavigation) ────────────────────────────── */
+
+.ui-tree .ui-treenode-label {
+  color: var(--dm-text) !important;
+}
+
+.ui-tree .ui-treenode-label.ui-state-highlight {
+  background-color: var(--dm-accent-subtle) !important;
+  color: var(--dm-accent-hover) !important;
+}
+
+.ui-tree .ui-tree-toggler {
+  color: var(--dm-text-muted) !important;
+}
+
+
+/* ─── Keycloak Login ─────────────────────────────────────── */
+
+.login-pf .card-pf,
+#kc-form-login,
+.kc-loginClass {
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
+  box-shadow: var(--dm-shadow-lg) !important;
+  color: var(--dm-text) !important;
+}
+
+.login-pf .login-pf-header,
+.login-pf .login-pf-page-header {
+  color: var(--dm-text-bright) !important;
 }
 
 

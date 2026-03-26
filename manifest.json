@@ -1,9 +1,12 @@
 {
   "manifest_version": 3,
   "name": "beA Dark Mode",
-  "version": "1.2.0",
-  "description": "Eleganter Dark Mode für das besondere elektronische Anwaltspostfach (beA). An/Aus — fertig.",
-  "permissions": ["activeTab", "storage"],
+  "version": "2.0.0",
+  "description": "Eleganter Dark Mode — für beA und alle Webseiten. An/Aus — fertig.",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "background": {
+    "service_worker": "js/background.js"
+  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -19,21 +22,15 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://www.bea-brak.de/*",
-        "https://*.bea-brak.de/*"
-      ],
+      "matches": ["<all_urls>"],
       "js": ["js/content.js"],
       "run_at": "document_start"
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["css/bea-dark.css"],
-      "matches": [
-        "https://www.bea-brak.de/*",
-        "https://*.bea-brak.de/*"
-      ]
+      "resources": ["css/bea-dark.css", "css/generic-dark.css"],
+      "matches": ["<all_urls>"]
     }
   ]
 }

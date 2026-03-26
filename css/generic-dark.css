@@ -1,0 +1,546 @@
+/* ============================================================
+   Generic Dark Mode — Für alle Webseiten
+   Eleganter, sicherer Dark Mode mit silbriger Note.
+
+   Strategie: Nur Farben und dekorative Eigenschaften.
+   Keine Layout-Änderungen. Bilder bleiben lesbar.
+   Funktionalität hat absoluten Vorrang.
+
+   Alle Rechte vorbehalten / All rights reserved.
+   ============================================================ */
+
+
+/* ─── Farbpalette (identisch zur beA-Palette) ────────────── */
+
+:root {
+  --dm-bg:             #09090b;
+  --dm-bg-raised:      #111113;
+  --dm-bg-card:        #161618;
+  --dm-bg-hover:       #1c1c1f;
+  --dm-bg-input:       #0e0e10;
+  --dm-border:         #232326;
+  --dm-border-subtle:  #1a1a1d;
+  --dm-border-focus:   #4a4a50;
+  --dm-text:           #c8c8cd;
+  --dm-text-bright:    #e4e4e9;
+  --dm-text-silver:    #a8a8b0;
+  --dm-text-muted:     #78787f;
+  --dm-text-faint:     #4e4e54;
+  --dm-accent:         #8fb4c8;
+  --dm-accent-hover:   #a8cad9;
+  --dm-accent-muted:   #5a8a9e;
+  --dm-accent-subtle:  rgba(143, 180, 200, 0.10);
+  --dm-success:        #5cb87a;
+  --dm-warning:        #d4a03c;
+  --dm-danger:         #c75050;
+  --dm-shadow:         0 1px 4px rgba(0,0,0,0.5);
+  --dm-shadow-lg:      0 8px 32px rgba(0,0,0,0.6);
+}
+
+
+/* ─── Globale Basis ──────────────────────────────────────── */
+
+html {
+  color-scheme: dark !important;
+  scrollbar-color: #2a2a2e #09090b;
+  scrollbar-width: thin;
+}
+
+html, body {
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--dm-bg); }
+::-webkit-scrollbar-thumb { background: #2a2a2e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a3e; }
+
+::selection {
+  background: var(--dm-accent-muted) !important;
+  color: #fff !important;
+}
+
+
+/* ─── Typografie ─────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--dm-text-bright) !important;
+}
+
+a {
+  color: var(--dm-accent) !important;
+}
+a:hover {
+  color: var(--dm-accent-hover) !important;
+}
+a:visited {
+  color: var(--dm-accent-muted) !important;
+}
+
+
+/* ─── Strukturelle Container ─────────────────────────────── */
+
+header, footer, nav, main, section, article, aside {
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+}
+
+div, span, p, li, dd, dt {
+  color: inherit !important;
+}
+
+/* Häufige Container-Klassen */
+.container,
+.wrapper,
+.content,
+.main,
+.page,
+.site {
+  background-color: var(--dm-bg) !important;
+}
+
+.card,
+.panel,
+.box,
+.widget,
+.tile,
+.block {
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
+  color: var(--dm-text) !important;
+}
+
+.sidebar,
+.aside {
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
+}
+
+hr {
+  border-color: var(--dm-border) !important;
+}
+
+
+/* ─── Tabellen ───────────────────────────────────────────── */
+
+table {
+  border-color: var(--dm-border) !important;
+}
+
+thead, th {
+  background-color: var(--dm-bg-raised) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
+}
+
+tbody {
+  background-color: var(--dm-bg) !important;
+}
+
+tbody tr {
+  border-color: var(--dm-border-subtle) !important;
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--dm-bg-raised) !important;
+}
+
+tbody tr:hover {
+  background-color: var(--dm-bg-hover) !important;
+}
+
+td {
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border-subtle) !important;
+}
+
+
+/* ─── Formulare ──────────────────────────────────────────── */
+
+input,
+textarea,
+select,
+.form-control {
+  background-color: var(--dm-bg-input) !important;
+  color: var(--dm-text-bright) !important;
+  border-color: var(--dm-border) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--dm-accent-muted) !important;
+  box-shadow: 0 0 0 2px var(--dm-accent-subtle) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--dm-text-faint) !important;
+}
+
+label {
+  color: var(--dm-text) !important;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--dm-accent) !important;
+}
+
+fieldset {
+  border-color: var(--dm-border) !important;
+}
+
+legend {
+  color: var(--dm-text-bright) !important;
+}
+
+
+/* ─── Buttons ────────────────────────────────────────────── */
+
+button,
+.btn,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
+}
+
+button:hover,
+.btn:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+  background-color: var(--dm-bg-hover) !important;
+  color: var(--dm-text-bright) !important;
+  border-color: var(--dm-border-focus) !important;
+}
+
+button:disabled,
+.btn:disabled {
+  opacity: 0.3 !important;
+}
+
+/* Primary Buttons (Bootstrap, Tailwind, etc.) */
+.btn-primary,
+button.btn-primary {
+  background-color: var(--dm-accent-muted) !important;
+  color: #fff !important;
+  border-color: var(--dm-accent-muted) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--dm-accent) !important;
+  border-color: var(--dm-accent) !important;
+}
+
+
+/* ─── Navigation ─────────────────────────────────────────── */
+
+.navbar,
+.nav,
+.navigation,
+.menu,
+.toolbar,
+.topbar,
+.header {
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
+  color: var(--dm-text) !important;
+}
+
+.nav-link,
+.menu-item a,
+.navbar a {
+  color: var(--dm-text-silver) !important;
+}
+
+.nav-link:hover,
+.menu-item a:hover,
+.navbar a:hover {
+  color: var(--dm-text-bright) !important;
+}
+
+.nav-link.active,
+.menu-item.active a,
+.active > a {
+  color: var(--dm-accent) !important;
+}
+
+.breadcrumb {
+  color: var(--dm-text-muted) !important;
+}
+
+
+/* ─── Modale / Overlays ──────────────────────────────────── */
+
+.modal,
+.modal-content,
+.dialog,
+.popup,
+.overlay,
+.dropdown-menu {
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
+  box-shadow: var(--dm-shadow-lg) !important;
+  color: var(--dm-text) !important;
+}
+
+.modal-header,
+.dialog-header {
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
+}
+
+.modal-footer,
+.dialog-footer {
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
+}
+
+.modal-backdrop,
+.overlay-backdrop {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.dropdown-item,
+.menu-item {
+  color: var(--dm-text) !important;
+}
+
+.dropdown-item:hover,
+.menu-item:hover {
+  background-color: var(--dm-bg-hover) !important;
+  color: var(--dm-text-bright) !important;
+}
+
+.dropdown-divider {
+  border-color: var(--dm-border) !important;
+}
+
+
+/* ─── Alerts / Notices ───────────────────────────────────── */
+
+.alert,
+.notice,
+.notification,
+.message,
+.toast {
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
+  color: var(--dm-text) !important;
+}
+
+.alert-danger,
+.alert-error {
+  background-color: rgba(199, 80, 80, 0.08) !important;
+  border-color: rgba(199, 80, 80, 0.2) !important;
+  color: var(--dm-danger) !important;
+}
+
+.alert-success {
+  background-color: rgba(92, 184, 122, 0.08) !important;
+  border-color: rgba(92, 184, 122, 0.2) !important;
+  color: var(--dm-success) !important;
+}
+
+.alert-warning {
+  background-color: rgba(212, 160, 60, 0.08) !important;
+  border-color: rgba(212, 160, 60, 0.2) !important;
+  color: var(--dm-warning) !important;
+}
+
+.alert-info {
+  background-color: var(--dm-accent-subtle) !important;
+  border-color: rgba(143, 180, 200, 0.2) !important;
+  color: var(--dm-accent) !important;
+}
+
+
+/* ─── Tooltips ───────────────────────────────────────────── */
+
+.tooltip,
+.popover {
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+
+/* ─── Tabs ───────────────────────────────────────────────── */
+
+.tabs,
+.tab-list,
+.nav-tabs {
+  border-color: var(--dm-border) !important;
+}
+
+.tab,
+.nav-tabs .nav-link {
+  color: var(--dm-text-muted) !important;
+}
+
+.tab.active,
+.nav-tabs .nav-link.active {
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-accent) !important;
+  border-bottom-color: var(--dm-accent) !important;
+}
+
+.tab-content,
+.tab-pane {
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text) !important;
+}
+
+
+/* ─── Listen ─────────────────────────────────────────────── */
+
+.list-group-item,
+.list-item {
+  background-color: var(--dm-bg-card) !important;
+  border-color: var(--dm-border) !important;
+  color: var(--dm-text) !important;
+}
+
+.list-group-item:hover,
+.list-item:hover {
+  background-color: var(--dm-bg-hover) !important;
+}
+
+.list-group-item.active {
+  background-color: var(--dm-accent-muted) !important;
+  color: #fff !important;
+  border-color: var(--dm-accent-muted) !important;
+}
+
+
+/* ─── Badges / Tags ──────────────────────────────────────── */
+
+.badge,
+.tag,
+.chip,
+.label:not(label) {
+  background-color: var(--dm-bg-hover) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
+}
+
+
+/* ─── Pagination ─────────────────────────────────────────── */
+
+.pagination,
+.pager {
+  border-color: var(--dm-border) !important;
+}
+
+.page-link,
+.pagination a {
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
+}
+
+.page-link:hover,
+.pagination a:hover {
+  background-color: var(--dm-bg-hover) !important;
+  color: var(--dm-text-bright) !important;
+}
+
+.page-item.active .page-link {
+  background-color: var(--dm-accent-muted) !important;
+  color: #fff !important;
+  border-color: var(--dm-accent-muted) !important;
+}
+
+
+/* ─── Progress ───────────────────────────────────────────── */
+
+progress,
+.progress,
+.progress-bar {
+  background-color: var(--dm-bg-raised) !important;
+}
+
+.progress-bar {
+  background-color: var(--dm-accent) !important;
+}
+
+
+/* ─── Code / Pre ─────────────────────────────────────────── */
+
+code,
+pre,
+.code,
+kbd,
+samp {
+  background-color: var(--dm-bg-raised) !important;
+  color: var(--dm-accent) !important;
+  border-color: var(--dm-border) !important;
+}
+
+
+/* ─── Bilder — NICHT invertieren, nur leicht dimmen ──────── */
+
+img,
+video,
+canvas,
+svg,
+picture {
+  /* Bilder NICHT invertieren — das macht sie unleserlich.
+     Nur minimalst dimmen für Augenkomfort. */
+  opacity: 0.92 !important;
+}
+
+img:hover,
+video:hover {
+  opacity: 1 !important;
+}
+
+/* Hintergrundbilder in Containern abdunkeln */
+.hero,
+.banner,
+.jumbotron {
+  background-color: var(--dm-bg) !important;
+}
+
+
+/* ─── iFrames ────────────────────────────────────────────── */
+
+iframe {
+  /* iFrames nicht anfassen — eigener Kontext */
+  opacity: 1 !important;
+}
+
+
+/* ─── Subtile Transitions ────────────────────────────────── */
+
+a,
+button,
+.btn,
+input,
+select,
+textarea {
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
+}
+
+
+/* ─── Drucken — Dark Mode aussetzen ──────────────────────── */
+
+@media print {
+  html, body, *, *::before, *::after {
+    background-color: #fff !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    border-color: #ccc !important;
+    filter: none !important;
+  }
+  img, video, canvas, svg {
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}
