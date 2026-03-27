@@ -559,6 +559,214 @@ html.login-pf {
 
 
 /* ═══════════════════════════════════════════════════════════
+   RECHTE SIDEBAR = .layout-content-menu
+   Das ist das echte rechte Aktionsmenü in der beA-App.
+   Hat background: var(--bea-white) und white !important
+   ═══════════════════════════════════════════════════════════ */
+
+.layout-content-menu {
+  background-color: var(--dm-bg-raised) !important;
+  background: var(--dm-bg-raised) !important;
+}
+
+.layout-content-menu > .ui-panel-content {
+  background: var(--dm-bg-raised) !important;
+}
+
+/* Die Menüliste hat background: white !important */
+.layout-content-menu .bea-menu-bar > ul.ui-menu-list {
+  background: var(--dm-bg-raised) !important;
+}
+
+.layout-content-menu .bea-menu-bar {
+  background: transparent !important;
+}
+
+/* Einzelne Menü-Buttons (lightblue background) */
+.layout-content-menu .bea-menu-bar > .ui-menu-list > li > a {
+  background: var(--dm-bg-surface) !important;
+  background-color: var(--dm-bg-surface) !important;
+  border-color: var(--dm-border) !important;
+  color: var(--dm-text-silver) !important;
+  box-shadow: var(--dm-shadow-sm) !important;
+}
+
+/* Common Actions (Neue Nachricht, Öffnen etc.) */
+.layout-content-menu .bea-menu-bar > .ui-menu-list > li a.common-actions {
+  background-color: rgba(255,255,255,0.08) !important;
+  background: rgba(255,255,255,0.08) !important;
+  color: var(--dm-text-white) !important;
+}
+
+/* Hover/Focus Zustände */
+.layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link.ui-state-hover,
+.layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link:hover,
+.layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link:focus,
+.layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link.ui-state-hover:hover,
+.layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link.common-actions.ui-state-hover:hover,
+.layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link.common-actions:focus {
+  background: rgba(255,255,255,0.12) !important;
+  color: var(--dm-text-white) !important;
+}
+
+/* Submenüs (Etiketten, Markieren als) */
+.layout-content-menu .bea-menu-bar .ui-menu-list .ui-menu-parent ul.ui-menu-list,
+.layout-content-menu .bea-menu-bar .ui-menu-list .ui-menu-parent ul.ui-menu-list li,
+.layout-content-menu .bea-menu-bar .ui-menu-list .ui-menu-parent ul.ui-menu-list li a {
+  background: var(--dm-bg-card) !important;
+  color: var(--dm-text-silver) !important;
+}
+
+.layout-content-menu .bea-menu-bar > .ui-menu-list .ui-menu-parent .ui-menu-child .ui-menuitem a:focus,
+.layout-content-menu .bea-menu-bar > .ui-menu-list .ui-menu-parent .ui-menu-child .ui-menuitem a:hover {
+  background-color: var(--dm-bg-hover) !important;
+  color: var(--dm-text-white) !important;
+}
+
+/* Separator in Submenüs */
+.layout-content-menu .bea-menu-bar .ui-menu-list .ui-menu-parent .ui-divider.ui-divider-horizontal,
+.layout-content-menu .bea-menu-bar .ui-menu-parent .ui-separator {
+  background: var(--dm-border) !important;
+  color: var(--dm-border) !important;
+}
+
+/* Menu Toggler Button */
+.ui-panel.ui-widget.ui-widget-content.ui-corner-all.menu-toggler,
+.menu-toggler {
+  background: var(--dm-bg-raised) !important;
+}
+
+.layout-content-menu .menu-toggler .ui-button.ui-state-hover,
+.layout-content-menu .menu-toggler .ui-button.ui-state-focus {
+  background: var(--dm-bg-hover) !important;
+  box-shadow: none !important;
+}
+
+.layout-content-menu .menu-toggler .ui-button.ui-state-hover .ui-icon,
+.layout-content-menu .menu-toggler .ui-button.ui-state-focus .ui-icon {
+  background: var(--dm-bg-hover) !important;
+  color: var(--dm-text-white) !important;
+}
+
+/* Common Actions Divider */
+.layout-content-menu .bea-menu-bar .ui-menu-list a.common-actions-divider {
+  border-bottom-color: var(--dm-border) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER-MENULEISTE (rechts oben)
+   #header hat background: var(--bea-white)
+   ═══════════════════════════════════════════════════════════ */
+
+#header,
+#header *,
+.bea-page-header,
+.bea-page-header *,
+#navigation,
+#navigation *,
+.navbar,
+.navbar * {
+  background-color: var(--dm-bg) !important;
+  background: var(--dm-bg) !important;
+  color: var(--dm-text-silver) !important;
+}
+
+/* Header Links */
+.bea-context-menu .ui-menuitem-link,
+.bea-context-menu .ui-menuitem-text,
+#header a,
+.bea-page-header a {
+  color: var(--dm-text-silver) !important;
+}
+
+.bea-context-menu .ui-menuitem-link:hover,
+#header a:hover {
+  color: var(--dm-text-white) !important;
+  background: var(--dm-bg-hover) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   POPUPS / DIALOGE / LOADING
+   "Nachricht wird geladen" etc. — alles dunkel
+   ═══════════════════════════════════════════════════════════ */
+
+.ui-dialog,
+.ui-dialog *,
+.ui-dialog-content,
+.ui-dialog-content *,
+.ui-dialog-titlebar,
+.ui-dialog .ui-dialog-buttonpane,
+.ui-dialog .ui-dialog-buttonpane *,
+.ui-dialog .ui-widget-content,
+.dialog-container,
+.dialog-container *,
+.dialog-body-content,
+.dialog-body-content * {
+  background-color: var(--dm-bg-card) !important;
+  background: var(--dm-bg-card) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+.ui-dialog-titlebar {
+  background: var(--dm-bg-raised) !important;
+  color: var(--dm-text-white) !important;
+}
+
+.ui-dialog-titlebar * {
+  color: var(--dm-text-white) !important;
+}
+
+/* Growl (Toast-Nachrichten) */
+.ui-growl,
+.ui-growl-item,
+.ui-growl-item * {
+  background-color: var(--dm-bg-card) !important;
+  background: var(--dm-bg-card) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+/* Loading Overlay */
+.ui-blockui,
+.blockUI {
+  background-color: rgba(5,5,7,0.85) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   TYPOGRAFIE — Schönere Schrift: Inter/SF Pro
+   Rund, edel, techig, überall durchsetzen
+   ═══════════════════════════════════════════════════════════ */
+
+html, body, body.bea-app,
+.bea-app, .bea-app *,
+input, textarea, select, button,
+.ui-widget, .ui-widget *,
+.btn, label, a, p, span, div, td, th, li {
+  font-family: var(--dm-font) !important;
+}
+
+/* Layout-Inhaltsbereich */
+#layout-content,
+#layout-content-no-menu,
+.bea-layout-main-content,
+#layout-wrapper {
+  background: var(--dm-bg) !important;
+}
+
+/* Einstellungen: Profilverwaltung/Postfachverwaltung Rahmen */
+.setting-navigation__form .list-group,
+.setting-navigation__form .list-group-item {
+  background: var(--dm-bg-raised) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border-subtle) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
    SCROLLBARS — ultra-minimal
    ═══════════════════════════════════════════════════════════ */
 
