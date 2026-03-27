@@ -1316,6 +1316,299 @@ tbody tr {
 
 
 /* ═══════════════════════════════════════════════════════════
+   NUCLEAR OVERRIDE — Nichts darf weiß bleiben
+   Erfasst ALLES was die spezifischen Selektoren oben
+   nicht erwischt haben. Brute-Force für jedes Element.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Jedes div, section, article, aside, main, span mit hellem
+   Background → dunkel. Höchste Spezifität. */
+div, section, article, aside, main, span, p, li, ul, ol,
+form, fieldset, legend, details, summary,
+.container, .wrapper, .content, .panel, .card, .box,
+.row, .col, .column, [class*="layout"],
+[class*="panel"], [class*="content"], [class*="container"],
+[class*="wrapper"], [class*="card"], [class*="box"],
+[class*="section"], [class*="area"], [class*="region"],
+[class*="block"], [class*="module"], [class*="widget"],
+[class*="pf-"], [class*="kc-"],
+[role="main"], [role="complementary"], [role="navigation"],
+[role="banner"], [role="contentinfo"] {
+  background-color: inherit;
+}
+
+/* Portal-Startseite: "Willkommen im beA-Portal" Banner */
+.container,
+.application-area,
+.application-row,
+.application-item,
+.download-area,
+.download-row,
+.support-area,
+.banner-container,
+.banner-base,
+.banner-message,
+.bea-logo,
+.main-logo,
+[class*="svelte-"] {
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+}
+
+/* Alle übrigen weißen Hintergründe killen */
+[style*="background: #fff"],
+[style*="background:#fff"],
+[style*="background: white"],
+[style*="background:white"],
+[style*="background-color: #fff"],
+[style*="background-color:#fff"],
+[style*="background-color: white"],
+[style*="background-color:white"],
+[style*="background-color: rgb(255"],
+[style*="background: rgb(255"],
+[style*="background-color: #FFF"],
+[style*="background-color:#FFF"],
+[style*="background-color: #ffffff"],
+[style*="background-color:#ffffff"],
+[style*="background-color: #FFFFFF"],
+[style*="background-color:#FFFFFF"],
+[style*="background: #F7F7F7"],
+[style*="background-color: #F7F7F7"],
+[style*="background: #ecf5f7"],
+[style*="background-color: #ecf5f7"],
+[style*="background-color: #ECF5F7"] {
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+}
+
+/* Svelte-Scoped Klassen (beA Portal) */
+[class*="svelte-"] {
+  color: inherit !important;
+}
+
+/* Alle h1-h6 auf der Portalseite — edle güldene Lettern */
+h1, h2, h3 {
+  color: var(--dm-text-white) !important;
+  letter-spacing: -0.02em !important;
+  font-family: var(--dm-font) !important;
+  background-image: linear-gradient(
+    135deg,
+    #d4d0c8 0%,
+    #e8e4dc 25%,
+    #c8b89a 50%,
+    #e0d8c8 75%,
+    #d4d0c8 100%
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+h4, h5, h6 {
+  color: var(--dm-text-bright) !important;
+  font-family: var(--dm-font) !important;
+}
+
+/* Portal-Titel "Willkommen im beA-Portal!" */
+.title,
+.container h1,
+.application-area h1,
+main h1 {
+  font-size: 2.2em !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.03em !important;
+  background-image: linear-gradient(
+    135deg,
+    #c8c0b0 0%,
+    #e8e0d0 30%,
+    #c0a878 55%,
+    #e0d4c0 80%,
+    #c8c0b0 100%
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   TYPOGRAFIE UPGRADE — grösser, schöner, tech-iger
+   ═══════════════════════════════════════════════════════════ */
+
+html, body {
+  font-size: 14px !important;
+  letter-spacing: 0.015em !important;
+}
+
+/* Sidebar-Menüpunkte etwas größer */
+.ui-tree li,
+nav a,
+.settings-nav li {
+  font-size: 13px !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Tabellen-Daten lesbarer */
+tbody td,
+.ui-widget-content td {
+  font-size: 13px !important;
+}
+
+/* Labels elegant */
+label,
+.form-check-label {
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+  color: var(--dm-text-muted) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   SPEZIFISCHE LÜCKEN — aus den echten Screenshots
+   ═══════════════════════════════════════════════════════════ */
+
+/* Sidebar leere Bereiche (unter Menü, über Footer) */
+.ui-layout-west,
+.ui-layout-west > *,
+.ui-layout-west div,
+.ui-layout-west section,
+.ui-layout-west .ui-panel,
+.ui-layout-west .ui-panel-content,
+.navigation-area,
+.navigation-panel,
+.nav-panel {
+  background-color: var(--dm-bg-raised) !important;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.02) 0%,
+    transparent 100%
+  ) !important;
+}
+
+/* Rechte Sidebar Buttons — müssen KOMPLETT monochrom sein */
+.ui-layout-east,
+.ui-layout-east > *,
+.ui-layout-east div,
+.ui-layout-east .ui-button,
+.ui-layout-east .ui-button[class*="priority"],
+.ui-layout-east button,
+.ui-layout-east a {
+  background-color: var(--dm-bg-surface) !important;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.04) 0%,
+    transparent 100%
+  ) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
+}
+
+.ui-layout-east .ui-button:hover,
+.ui-layout-east button:hover {
+  background-color: rgba(255,255,255,0.08) !important;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.12) 0%,
+    rgba(255,255,255,0.04) 100%
+  ) !important;
+  color: var(--dm-text-white) !important;
+  border-color: var(--dm-border-shine) !important;
+  box-shadow: var(--dm-shadow-md), var(--dm-shadow-glow) !important;
+}
+
+/* Einstellungen-Panel — Info-Tabelle und Beschreibungsbox */
+.ui-panel-content,
+.ui-fieldset-content,
+table td,
+table th,
+.info-table,
+.info-table td,
+.settings-desc,
+.settings-panel,
+.profile-panel,
+.einstellungen,
+[class*="certBasic"],
+[class*="keySection"],
+[class*="keyTitle"] {
+  background-color: var(--dm-bg-raised) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+/* Footer — komplett dunkel */
+footer,
+footer *,
+.brak-linkbanner,
+.brak-linkbanner *,
+.brak-copyright,
+.brak-copyright *,
+.brak-version {
+  background-color: var(--dm-void) !important;
+  color: var(--dm-text-faint) !important;
+}
+
+footer a,
+.brak-linkbanner a {
+  color: var(--dm-text-muted) !important;
+}
+
+/* Sichten-Label (war gelb) → monochrom */
+[class*="sichten"],
+[style*="background: #f0b101"],
+[style*="background-color: #f0b101"],
+[style*="background:#f0b101"] {
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
+}
+
+/* Dropdown-Buttons (Etiketten, Markieren als) → monochrom */
+[class*="dropdown"],
+select {
+  background-color: var(--dm-bg-card) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
+}
+
+/* Status-Banner (Signatur gültig etc.) → monochrom edel */
+.status-ok,
+[class*="alert-success"],
+[class*="ui-messages-info"],
+.alert-info {
+  background-color: rgba(255,255,255,0.03) !important;
+  border-color: var(--dm-border-shine) !important;
+  color: var(--dm-text-silver) !important;
+}
+
+/* Keycloak Login-Seite */
+.login-pf-page,
+.login-pf-body,
+#kc-form-login,
+.pf-c-page,
+.pf-c-page__main,
+.pf-c-login {
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   ULTIMA RATIO — * Selektor für screen only
+   Letzter Fallback: alles was immer noch weiß ist
+   → dunkel machen. Wird NUR auf Bildschirm angewendet,
+   @media print hebt das wieder auf.
+   ═══════════════════════════════════════════════════════════ */
+
+@media screen {
+  *:not(img):not(svg):not(path):not(circle):not(line):not(polyline):not(rect):not(text):not(use):not(symbol):not(defs):not(g):not(clipPath):not(mask):not(pattern):not(linearGradient):not(radialGradient):not(stop):not(animate):not(animateTransform):not(video):not(canvas):not(iframe) {
+    border-color: var(--dm-border) !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
    DRUCKEN — Dark Mode komplett aussetzen
    ═══════════════════════════════════════════════════════════ */
 
@@ -1328,6 +1621,7 @@ tbody tr {
     text-shadow: none !important;
     border-color: #ccc !important;
     filter: none !important;
+    -webkit-text-fill-color: initial !important;
   }
   img {
     filter: none !important;
