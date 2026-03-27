@@ -71,7 +71,24 @@
   --dm-font:           "Inter", "SF Pro Display", -apple-system,
                        BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
 
-  /* ─── BRAK CSS-Variablen → monochrom umleiten ─── */
+  /* ─── beA CSS-Variablen → monochrom umleiten (ECHTE Variablen!) ─── */
+  --bea-white:                    var(--dm-bg) !important;
+  --bea-red:                      var(--dm-status-err) !important;
+  --bea-green:                    var(--dm-status-ok) !important;
+  --bea-orange-text:              var(--dm-text-muted) !important;
+  --bea-yellow:                   var(--dm-text-faint) !important;
+  --bea-light-yellow:             var(--dm-bg-raised) !important;
+  --bea-lightblue:                var(--dm-bg-raised) !important;
+  --bea-lightblue-background:     var(--dm-bg-raised) !important;
+  --bea-blue:                     var(--dm-text-silver) !important;
+  --bea-blue-weak:                rgba(144,144,152,0.2) !important;
+  --bea-darkblue:                 var(--dm-text-silver) !important;
+  --bea-gray:                     var(--dm-text-muted) !important;
+  --bea-gray-contrast:            var(--dm-text-muted) !important;
+  --bea-black:                    var(--dm-text-bright) !important;
+  --bea-black-text:               var(--dm-text) !important;
+
+  /* ─── BRAK CSS-Variablen (Portal/Login) → monochrom ─── */
   --brak-dark-blue:    var(--dm-text-silver) !important;
   --brak-light-blue:   var(--dm-bg-raised) !important;
   --brak-medium-blue:  var(--dm-text-muted) !important;
@@ -103,9 +120,192 @@ html, body {
 
 body.brak,
 body.brak-idp,
+body.bea-app,
 html.login-pf {
   background-color: var(--dm-void) !important;
   color: var(--dm-text) !important;
+}
+
+/* beA App: Echte Struktur-IDs und -Klassen */
+#header,
+.bea-page-header,
+.bea-page-header .navbar,
+.bea-page-header .navbar-default,
+.bea-page-header .navbar-nav,
+#navigation,
+#navigation .navbar {
+  background-color: var(--dm-bg) !important;
+  background: var(--dm-bg) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
+}
+
+.bea-main-area {
+  background-color: var(--dm-bg) !important;
+}
+
+/* Sidebar (#sidebar) — das echte Element */
+#sidebar {
+  background: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
+}
+
+#sidebar .list-group-item {
+  background: var(--dm-bg-raised) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border-subtle) !important;
+}
+
+#sidebar .list-group-item:hover {
+  background: var(--dm-bg-hover) !important;
+}
+
+#sidebar .list-group-item.active,
+#sidebar .list-group-item.ui-state-active {
+  background: rgba(255,255,255,0.06) !important;
+  color: var(--dm-text-white) !important;
+}
+
+.sidebar-list-main,
+.sidebar-list-main ul,
+.sidebar-list-main ul li,
+.sidebar-list-main ul li a {
+  background: transparent !important;
+  color: var(--dm-text) !important;
+}
+
+.sidebar-list-main ul li:hover a,
+.sidebar-list-main ul li a:hover {
+  color: var(--dm-text-white) !important;
+  background: var(--dm-bg-hover) !important;
+}
+
+/* Sichten / Views Navigation */
+.left-bottom-tab,
+.bea-views-navigation-header-parent,
+.bea-views-navigation-header,
+.bea-create-view {
+  background: var(--dm-bg-raised) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+/* Sidebar Footer */
+.sidebarFooter,
+.sidebarFooterBlue,
+.sidebarFooterWhite {
+  background: var(--dm-bg-raised) !important;
+  background-color: var(--dm-bg-raised) !important;
+  color: var(--dm-text-muted) !important;
+}
+
+/* Content Zone */
+#content-zone,
+#content-zone .content,
+#content-zone .sidebar,
+#main-wrapper,
+#main,
+#main form {
+  background: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+}
+
+/* Logic Content Panels */
+.logic-content,
+.logic-content-no-gap,
+.logic-content-white,
+.bea-app .logic-content,
+.bea-app .logic-content-no-gap,
+.bea-app .logic-content-white {
+  background: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+}
+
+/* Main Background */
+.mainBackground {
+  background-color: var(--dm-bg) !important;
+}
+
+/* Navbar / Context Menu */
+.bea-context-menu,
+.bea-context-menu .ui-menubar,
+.bea-context-menu .ui-menuitem,
+.bea-context-menu .ui-menuitem-link {
+  background: transparent !important;
+  color: var(--dm-text-silver) !important;
+}
+
+.bea-context-menu .ui-menuitem-link:hover {
+  background: var(--dm-bg-hover) !important;
+  color: var(--dm-text-white) !important;
+}
+
+.bea-context-menu .ui-menuitem-text {
+  color: var(--dm-text-silver) !important;
+}
+
+.bea-context-menu .ui-menuitem-icon {
+  color: var(--dm-text-muted) !important;
+}
+
+/* Postbox Selector */
+.bea-postbox-selector-name,
+.bea-postbox-selector-panel {
+  background: var(--dm-bg-card) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+}
+
+/* Nav Tabs (Posteingang Tab-Leiste) */
+.nav-tabs,
+.nav.nav-tabs.toolbar {
+  background: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
+}
+
+.nav-tabs > li,
+.nav.nav-tabs.toolbar li {
+  background-color: var(--dm-bg-surface) !important;
+}
+
+.nav-tabs > li > a,
+.nav-tabs li a {
+  color: var(--dm-text-silver) !important;
+  background: transparent !important;
+}
+
+.nav-tabs > li:hover a,
+.nav-tabs li:hover a,
+.nav-tabs > li.active > a,
+.nav-tabs li.ui-tabs-active a {
+  color: var(--dm-text-white) !important;
+  background: var(--dm-bg-hover) !important;
+  border-color: var(--dm-border) !important;
+}
+
+/* beA Buttons */
+.bea-app .btn {
+  background: var(--dm-bg-surface) !important;
+  color: var(--dm-text-silver) !important;
+  border-color: var(--dm-border) !important;
+}
+
+.bea-app .btn:hover {
+  background: var(--dm-bg-hover) !important;
+  color: var(--dm-text-white) !important;
+}
+
+/* DataTable specifics */
+.ui-datatable-scrollable-header,
+.ui-datatable-scrollable-header-box,
+.ui-datatable-scrollable-theadclone {
+  background: var(--dm-bg-surface) !important;
+  color: var(--dm-text-silver) !important;
+}
+
+/* Inbox specific */
+.inbox {
+  background: var(--dm-bg) !important;
 }
 
 
