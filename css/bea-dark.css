@@ -150,6 +150,31 @@ html.login-pf {
   border-color: var(--dm-border) !important;
 }
 
+/* Sidebar: JEDES Kind-Element dunkel (keine weißen Lücken) */
+#sidebar *,
+#sidebar div,
+#sidebar span,
+#sidebar ul,
+#sidebar li,
+#sidebar form,
+#sidebar section,
+#sidebar hr {
+  background-color: transparent !important;
+  border-color: var(--dm-border-subtle) !important;
+}
+
+/* Sidebar Splitter / Trennlinie (weißer Streifen) */
+#sidebar hr,
+#sidebar [class*="splitter"],
+#sidebar [class*="separator"],
+#sidebar [class*="divider"],
+#sidebar [style*="border"],
+#sidebar > div {
+  background: var(--dm-bg-raised) !important;
+  background-color: var(--dm-bg-raised) !important;
+  border-color: var(--dm-border) !important;
+}
+
 #sidebar .list-group-item {
   background: var(--dm-bg-raised) !important;
   color: var(--dm-text) !important;
@@ -1810,18 +1835,19 @@ form, fieldset, legend, details, summary,
   color: inherit !important;
 }
 
-/* Alle h1-h6 auf der Portalseite — edle güldene Lettern */
+/* Alle h1-h6 — edel schimmerndes Silber */
 h1, h2, h3 {
   color: var(--dm-text-white) !important;
   letter-spacing: -0.02em !important;
   font-family: var(--dm-font) !important;
   background-image: linear-gradient(
     135deg,
-    #d4d0c8 0%,
-    #e8e4dc 25%,
-    #c8b89a 50%,
-    #e0d8c8 75%,
-    #d4d0c8 100%
+    #a0a0a8 0%,
+    #d8d8e0 25%,
+    #b8b8c0 45%,
+    #e8e8f0 65%,
+    #c0c0c8 85%,
+    #a0a0a8 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
@@ -1843,11 +1869,12 @@ main h1 {
   letter-spacing: -0.03em !important;
   background-image: linear-gradient(
     135deg,
-    #c8c0b0 0%,
-    #e8e0d0 30%,
-    #c0a878 55%,
-    #e0d4c0 80%,
-    #c8c0b0 100%
+    #909098 0%,
+    #d0d0d8 20%,
+    #e8e8f0 40%,
+    #b0b0b8 60%,
+    #e0e0e8 80%,
+    #909098 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
