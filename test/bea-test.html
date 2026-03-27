@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="login-pf">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>beA Dark Mode — Testlauf</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     /* ═══════════════════════════════════════════════════════
-       ORIGINAL beA STYLES — Nachbildung des echten Layouts
-       Basiert auf: Bootstrap 5, PrimeFaces/jQuery UI, Svelte
+       ORIGINAL beA STYLES — echte CSS-Klassen aus dem beA
+       PrimeFaces, Bootstrap 5, BRAK-IDP, Svelte
        ═══════════════════════════════════════════════════════ */
 
     :root {
@@ -29,642 +29,294 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
+    body.brak {
       font-family: "Open Sans", sans-serif;
       font-size: 13px;
-      color: #333;
-      background: #fff;
+      color: var(--brak-black);
+      background: var(--brak-white);
     }
 
-    /* ─── Top Header Bar ─── */
-    .bea-header {
+    /* ─── Layout Shell ─── */
+    .bea-app { display: flex; flex-direction: column; min-height: 100vh; }
+    .bea-main { display: flex; flex: 1; }
+
+    /* ─── Header (echte beA Klassen) ─── */
+    header {
       background: var(--brak-dark-blue);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 8px 20px;
-      height: 40px;
+      height: 42px;
     }
-    .bea-header .bea-logo-area {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .brak-logo {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--brak-dark-blue);
     }
-    .bea-header .bea-logo-area svg { width: 28px; height: 28px; }
-    .bea-header .bea-logo-text {
-      font-size: 18px;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: 1px;
-    }
-    .bea-header .bea-logo-subtitle {
-      font-size: 9px;
-      color: rgba(255,255,255,0.7);
-    }
-    .bea-header-nav {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      font-size: 12px;
-    }
-    .bea-header-nav a {
-      color: #fff;
-      text-decoration: none;
-    }
-    .bea-header-nav a:hover { text-decoration: underline; }
-    .bea-header-nav .user-info {
-      color: rgba(255,255,255,0.85);
-    }
+    .brak-logo svg { width: 30px; height: 30px; }
+    .brak-logo-text { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 1px; }
+    .brak-logo-sub { font-size: 9px; color: rgba(255,255,255,0.65); }
+    header nav { display: flex; align-items: center; gap: 18px; font-size: 12px; }
+    header nav a { color: #fff; text-decoration: none; }
+    header nav a:hover { text-decoration: underline; }
+    header .user-info { color: rgba(255,255,255,0.85); }
 
-    /* ─── 3-Panel Layout ─── */
-    .bea-layout {
-      display: flex;
-      min-height: calc(100vh - 40px - 80px);
-    }
-
-    /* Left Sidebar */
+    /* ─── Left Sidebar (ui-layout-west) ─── */
     .ui-layout-west {
-      width: 200px;
-      min-width: 200px;
+      width: 200px; min-width: 200px;
       background: var(--brak-light-blue);
       border-right: 1px solid var(--brak-light-grey);
-      padding: 0;
     }
-    .sidebar-section-title {
-      font-weight: 700;
-      font-size: 13px;
-      color: var(--brak-black);
+    .ui-layout-west h3 {
+      font-weight: 700; font-size: 13px; color: var(--brak-black);
       padding: 12px 15px 6px;
     }
-    .sidebar-user-select {
-      margin: 0 10px 10px;
-      padding: 6px 10px;
-      background: var(--brak-dark-blue);
-      color: #fff;
-      border: none;
-      border-radius: 3px;
-      font-size: 12px;
+    .ui-layout-west select {
+      margin: 0 10px 10px; padding: 6px 10px;
+      background: var(--brak-dark-blue); color: #fff;
+      border: none; border-radius: 3px; font-size: 12px;
       width: calc(100% - 20px);
-      cursor: pointer;
-    }
-    .sidebar-tree { list-style: none; padding: 0; }
-    .sidebar-tree li {
-      padding: 5px 15px 5px 20px;
-      font-size: 12px;
-      cursor: pointer;
-      color: #333;
-    }
-    .sidebar-tree li:hover { background: rgba(40,100,125,0.08); }
-    .sidebar-tree li.active {
-      background: var(--brak-dark-blue);
-      color: #fff;
-      font-weight: 600;
-    }
-    .sidebar-tree li .tree-icon { margin-right: 5px; }
-    .sidebar-tree li.sub { padding-left: 35px; }
-
-    .sidebar-btn {
-      margin: 10px;
-      padding: 6px 12px;
-      background: var(--brak-dark-blue);
-      color: #fff;
-      border: none;
-      border-radius: 3px;
-      font-size: 11px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .sidebar-dots {
-      text-align: center;
-      color: var(--brak-dark-blue);
-      font-size: 18px;
-      padding: 5px;
-      cursor: pointer;
-    }
-    .sidebar-section-sichten {
-      border-top: 1px solid var(--brak-light-grey);
-      margin-top: 10px;
-    }
-    .sidebar-sichten-label {
-      margin: 8px 10px;
-      padding: 6px 10px;
-      background: var(--brak-yellow);
-      color: #333;
-      font-size: 11px;
-      border-radius: 3px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
 
-    /* Center Content */
-    .ui-layout-center {
-      flex: 1;
-      background: #fff;
-      overflow: auto;
+    /* Tree / Navigation */
+    .ui-tree { list-style: none; }
+    .ui-tree li {
+      padding: 5px 15px 5px 20px; font-size: 12px;
+      cursor: pointer; color: #333;
     }
+    .ui-tree li:hover { background: rgba(40,100,125,0.06); }
+    .ui-tree li.ui-state-active {
+      background: var(--brak-dark-blue); color: #fff; font-weight: 600;
+    }
+    .ui-tree li.sub { padding-left: 35px; }
+
+    .ui-button.sidebar-btn {
+      margin: 8px 10px; padding: 6px 12px;
+      background: var(--brak-dark-blue); color: #fff;
+      border: none; border-radius: 3px; font-size: 11px; cursor: pointer;
+    }
+    .sidebar-dots { text-align: center; color: var(--brak-dark-blue); font-size: 18px; padding: 4px; }
+
+    /* Sichten-Label */
+    .sichten-section { border-top: 1px solid var(--brak-light-grey); margin-top: 8px; }
+    .sichten-label {
+      margin: 8px 10px; padding: 6px 10px;
+      background: var(--brak-yellow); color: #333;
+      font-size: 11px; border-radius: 3px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    /* ─── Center Content (ui-layout-center) ─── */
+    .ui-layout-center { flex: 1; background: var(--brak-white); overflow: auto; }
 
     /* Toolbar */
     .ui-toolbar {
       background: var(--brak-light-blue);
       border-bottom: 1px solid var(--brak-light-grey);
-      padding: 6px 12px;
-      display: flex;
-      gap: 6px;
+      padding: 6px 12px; display: flex; gap: 6px;
     }
     .ui-toolbar .ui-button {
-      background: transparent;
-      border: 1px solid transparent;
-      color: var(--brak-dark-blue);
-      cursor: pointer;
-      padding: 4px 8px;
-      font-size: 14px;
+      background: transparent; border: 1px solid transparent;
+      color: var(--brak-dark-blue); cursor: pointer; padding: 4px 8px; font-size: 14px;
     }
-    .ui-toolbar .ui-button:hover {
-      background: rgba(40,100,125,0.1);
-      border-color: var(--brak-light-grey);
-    }
+    .ui-toolbar .ui-button:hover { background: rgba(40,100,125,0.08); }
 
-    /* Data Table */
+    /* ─── DataTable (PrimeFaces) ─── */
     .ui-datatable { width: 100%; border-collapse: collapse; }
+    .ui-datatable .ui-widget-header,
     .ui-datatable thead th {
-      background: var(--brak-dark-blue);
+      background: var(--brak-dark-blue); background-image: none;
       color: var(--brak-greyed-white);
-      padding: 8px 10px;
-      text-align: left;
-      font-size: 12px;
-      font-weight: 600;
+      padding: 8px 10px; text-align: left; font-size: 12px; font-weight: 600;
       border: 1px solid #1f5567;
     }
-    .ui-datatable thead th input[type="checkbox"] { accent-color: var(--brak-dark-blue); }
-    .ui-datatable tbody td {
-      padding: 6px 10px;
-      border-bottom: 1px solid #e8e8e8;
-      font-size: 12px;
-      color: #333;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 200px;
+    .ui-widget-content td {
+      padding: 6px 10px; border-bottom: 1px solid #e8e8e8;
+      font-size: 12px; color: #333;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;
     }
     .ui-datatable tbody tr { cursor: pointer; }
     .ui-datatable tbody tr:hover { background: var(--brak-light-blue); }
     .ui-datatable .ui-datatable-even { background: #fff; }
     .ui-datatable .ui-datatable-odd { background: #fafafa; }
-    .ui-datatable .ui-state-highlight {
-      background: var(--brak-medium-blue) !important;
-      color: #000;
+    .ui-state-highlight {
+      background: var(--brak-medium-blue) !important; color: #000;
     }
-    .eeb-icon { color: var(--brak-dark-blue); font-weight: bold; }
-    .eeb-icon.valid { color: var(--brak-green); }
-    .attachment-icon { color: var(--brak-dark-grey); }
+    .eeb-valid { color: var(--brak-green); }
+    .ui-datatable input[type="checkbox"] { accent-color: var(--brak-dark-blue); }
 
     /* Paginator */
     .ui-paginator {
       background: var(--brak-light-blue);
       border-top: 1px solid var(--brak-light-grey);
-      padding: 6px 12px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 12px;
+      padding: 6px 12px; display: flex; align-items: center; gap: 4px; font-size: 12px;
     }
     .ui-paginator select {
-      padding: 2px 6px;
-      border: 1px solid var(--brak-light-grey);
-      background: #fff;
-      font-size: 12px;
+      padding: 2px 6px; border: 1px solid var(--brak-light-grey);
+      background: #fff; font-size: 12px;
     }
-    .ui-paginator .ui-paginator-page,
-    .ui-paginator .ui-paginator-nav {
-      padding: 2px 8px;
-      border: 1px solid var(--brak-light-grey);
-      background: #fff;
-      cursor: pointer;
-      color: var(--brak-dark-blue);
-      text-decoration: none;
-      font-size: 12px;
+    .ui-paginator a {
+      padding: 2px 8px; border: 1px solid var(--brak-light-grey);
+      background: #fff; cursor: pointer; color: var(--brak-dark-blue);
+      text-decoration: none; font-size: 12px;
     }
-    .ui-paginator .ui-paginator-page:hover,
-    .ui-paginator .ui-paginator-nav:hover {
-      background: var(--brak-light-blue);
-    }
+    .ui-paginator a:hover { background: var(--brak-light-blue); }
     .ui-paginator .ui-state-active {
-      background: var(--brak-dark-blue);
-      color: #fff;
-      border-color: var(--brak-dark-blue);
+      background: var(--brak-dark-blue); color: #fff; border-color: var(--brak-dark-blue);
     }
 
-    /* Right Sidebar (Actions) */
+    /* ─── Right Sidebar (ui-layout-east) ─── */
     .ui-layout-east {
-      width: 180px;
-      min-width: 180px;
+      width: 180px; min-width: 180px;
       background: var(--brak-light-blue);
       border-left: 1px solid var(--brak-light-grey);
       padding: 10px 8px;
     }
-    .action-button {
-      display: block;
-      width: 100%;
-      margin-bottom: 4px;
-      padding: 7px 12px;
-      border: 1px solid var(--brak-light-grey);
-      background: #fff;
-      color: var(--brak-dark-blue);
-      font-size: 12px;
-      cursor: pointer;
-      text-align: left;
+    .action-button,
+    .ui-layout-east .ui-button {
+      display: block; width: 100%; margin-bottom: 4px;
+      padding: 7px 12px; border: 1px solid var(--brak-light-grey);
+      background: #fff; color: var(--brak-dark-blue);
+      font-size: 12px; cursor: pointer; text-align: left;
     }
-    .action-button:hover {
-      background: var(--brak-dark-blue);
-      color: #fff;
-      border-color: var(--brak-dark-blue);
+    .action-button:hover { background: var(--brak-dark-blue); color: #fff; border-color: var(--brak-dark-blue); }
+    .action-button.btn-primary,
+    .ui-button.ui-priority-primary {
+      background: var(--brak-dark-blue); color: #fff;
+      border-color: var(--brak-dark-blue); font-weight: 600;
     }
-    .action-button.primary {
-      background: var(--brak-dark-blue);
-      color: #fff;
-      border-color: var(--brak-dark-blue);
-      font-weight: 600;
-    }
-    .action-button.primary:hover {
-      background: #1f5567;
-    }
-    .action-button .btn-icon { margin-right: 6px; }
-
-    .action-separator {
-      height: 1px;
-      background: var(--brak-light-grey);
-      margin: 8px 0;
-    }
+    .btn-primary:hover { background: #1f5567; }
+    .action-separator { height: 1px; background: var(--brak-light-grey); margin: 8px 0; }
     .action-dropdown {
-      display: block;
-      width: 100%;
-      margin-bottom: 4px;
-      padding: 7px 12px;
-      border: 1px solid var(--brak-light-grey);
-      background: var(--brak-yellow);
-      color: #333;
-      font-size: 12px;
-      cursor: pointer;
-      text-align: left;
+      display: block; width: 100%; margin-bottom: 4px;
+      padding: 7px 12px; border: 1px solid var(--brak-light-grey);
+      font-size: 12px; cursor: pointer; text-align: left;
     }
+    .action-dropdown.etiketten { background: var(--brak-yellow); color: #333; }
+    .action-dropdown.markieren { background: var(--brak-dark-blue); color: #fff; }
 
     /* ─── Footer ─── */
-    .bea-footer {
+    footer {
       background: var(--brak-light-blue);
       border-top: 1px solid var(--brak-light-grey);
-      padding: 15px 20px;
-      font-size: 11px;
-      color: var(--brak-dark-grey);
+      padding: 12px 20px; font-size: 11px; color: var(--brak-dark-grey);
     }
-    .bea-footer .brak-logo-footer { font-weight: 700; color: var(--brak-dark-blue); }
-    .bea-footer a { color: var(--brak-dark-blue); text-decoration: none; }
-    .bea-footer .brak-version { font-size: 10px; color: var(--brak-medium-grey); margin-top: 4px; }
+    .brak-linkbanner { font-weight: 700; color: var(--brak-dark-blue); }
+    .brak-linkbanner a { color: var(--brak-dark-blue); text-decoration: none; }
+    .brak-copyright { margin-top: 4px; }
+    .brak-version { font-size: 10px; color: var(--brak-medium-grey); margin-top: 2px; }
 
-    /* ─── View Switcher ─── */
-    .view-switcher {
-      background: #333;
-      color: #fff;
-      padding: 10px 20px;
-      display: flex;
-      gap: 10px;
-      font-size: 13px;
-      align-items: center;
-    }
-    .view-switcher button {
-      background: #555;
-      color: #fff;
-      border: 1px solid #666;
-      padding: 6px 14px;
-      cursor: pointer;
-      font-size: 12px;
-      border-radius: 3px;
-    }
-    .view-switcher button:hover { background: #777; }
-    .view-switcher button.active-view {
-      background: var(--brak-dark-blue);
-      border-color: var(--brak-dark-blue);
-    }
-    .view-switcher .dm-toggle-area {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .view-switcher .dm-toggle-area label {
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .dm-switch {
-      position: relative;
-      width: 44px;
-      height: 24px;
-    }
-    .dm-switch input { opacity: 0; width: 0; height: 0; }
-    .dm-switch .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: #666;
-      border-radius: 24px;
-      transition: 0.2s;
-    }
-    .dm-switch .slider::before {
-      content: "";
-      position: absolute;
-      width: 18px; height: 18px;
-      left: 3px; bottom: 3px;
-      background: #fff;
-      border-radius: 50%;
-      transition: 0.2s;
-    }
-    .dm-switch input:checked + .slider { background: var(--brak-dark-blue); }
-    .dm-switch input:checked + .slider::before { transform: translateX(20px); }
-
-    /* ─── Views ─── */
-    .bea-view { display: none; }
-    .bea-view.active { display: block; }
-
-    /* ─── Neue Nachricht View ─── */
-    .center-form { padding: 20px 30px; }
-    .center-form h2 {
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 5px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .center-form h2 .back-arrow {
-      color: var(--brak-dark-blue);
-      cursor: pointer;
-      font-size: 20px;
-    }
-    .center-form .save-status {
-      font-size: 11px;
-      color: var(--brak-dark-grey);
-      float: right;
-    }
-    .form-section { margin: 20px 0; }
-    .form-section h3 {
-      font-size: 14px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .form-label {
-      font-size: 12px;
-      color: #333;
-      margin-bottom: 4px;
-      display: block;
-    }
-    .form-label .required { color: var(--brak-red); }
-    .form-row {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 12px;
-    }
-    .form-row .form-col { flex: 1; }
-    .ui-inputfield {
-      width: 100%;
-      padding: 7px 10px;
+    /* ─── Form Elements ─── */
+    .ui-inputfield, .ui-selectonemenu, select.form-control {
+      width: 100%; padding: 7px 10px;
       border: 1px solid var(--brak-light-grey);
-      background: var(--brak-greyed-white);
-      font-size: 12px;
-      font-family: "Open Sans", sans-serif;
+      background: var(--brak-greyed-white); font-size: 12px;
     }
-    .ui-inputfield:focus {
-      border-color: var(--brak-dark-blue);
-      outline: none;
-    }
-    .ui-selectonemenu {
-      width: 100%;
-      padding: 7px 10px;
-      border: 1px solid var(--brak-light-grey);
-      background: var(--brak-greyed-white);
-      font-size: 12px;
-    }
-    .tag-container {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
+    .ui-inputfield:focus { border-color: var(--brak-dark-blue); outline: none; }
+    label, .form-check-label { color: #333; font-size: 12px; }
     .tag {
-      background: var(--brak-light-blue);
-      border: 1px solid var(--brak-light-grey);
-      padding: 3px 10px;
-      font-size: 11px;
-      border-radius: 2px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      background: var(--brak-light-blue); border: 1px solid var(--brak-light-grey);
+      padding: 3px 10px; font-size: 11px; border-radius: 2px;
+      display: inline-flex; align-items: center; gap: 5px;
     }
-    .tag .remove { cursor: pointer; color: var(--brak-dark-grey); }
-    .plus-btn {
-      background: var(--brak-dark-blue);
-      color: #fff;
-      border: none;
-      width: 28px;
-      height: 28px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .search-btn {
-      background: var(--brak-dark-blue);
-      color: #fff;
-      border: none;
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      font-size: 14px;
+    .btn-primary-sm {
+      background: var(--brak-dark-blue); color: #fff;
+      border: none; padding: 6px 14px; font-size: 12px; cursor: pointer;
     }
 
-    /* Attachment section */
-    .attachment-section { margin-top: 20px; }
-    .attachment-section h3 {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .attachment-add-btn {
-      float: right;
-      background: var(--brak-dark-blue);
-      color: #fff;
-      border: none;
-      padding: 6px 14px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-    .attachment-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    .attachment-table thead th {
-      background: var(--brak-dark-blue);
-      color: #fff;
-      padding: 6px 10px;
-      font-size: 11px;
-      text-align: left;
+    /* Attachment table */
+    .att-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    .att-table thead th {
+      background: var(--brak-dark-blue); color: #fff;
+      padding: 6px 10px; font-size: 11px; text-align: left;
       border: 1px solid #1f5567;
     }
-    .attachment-table tbody td {
-      padding: 6px 10px;
-      border-bottom: 1px solid #e8e8e8;
-      font-size: 12px;
+    .att-table tbody td {
+      padding: 6px 10px; border-bottom: 1px solid #e8e8e8; font-size: 12px;
     }
-    .attachment-empty { color: var(--brak-dark-grey); font-style: italic; padding: 8px 10px; }
+    .att-btn {
+      padding: 5px 14px; font-size: 11px; border: none;
+      cursor: pointer; color: #fff; display: inline-block; margin-right: 4px;
+    }
+    .att-btn-sign { background: var(--brak-dark-blue); }
+    .att-btn-view { background: #5a9bb0; }
+    .att-btn-del { background: #b05a5a; }
+    .att-btn-lbl { background: #5a80b0; }
+    .att-btn-type { background: #707070; }
 
-    .attachment-actions {
-      display: flex;
-      gap: 6px;
-      margin-top: 10px;
+    /* Status banners */
+    .status-ok {
+      padding: 10px 15px; margin-bottom: 8px; font-size: 13px;
+      background: #e8f5e9; color: var(--brak-green); border-radius: 2px;
     }
-    .att-action-btn {
-      padding: 5px 14px;
-      font-size: 11px;
-      border: none;
-      cursor: pointer;
-      color: #fff;
-    }
-    .att-action-btn.sign { background: var(--brak-dark-blue); }
-    .att-action-btn.view { background: #5a9bb0; }
-    .att-action-btn.delete { background: #b05a5a; }
-    .att-action-btn.label { background: #5a80b0; }
-    .att-action-btn.type { background: #707070; }
 
-    .expandable-section {
-      margin-top: 15px;
-      cursor: pointer;
-      color: #333;
-      font-size: 14px;
-      font-weight: 600;
+    /* Settings info table */
+    .ui-panel-content {
+      background: #fff; border: 1px solid #e8e8e8; padding: 15px;
     }
-    .expandable-section .chevron { color: var(--brak-dark-blue); }
+    .info-table td {
+      padding: 8px 15px; border-bottom: 1px solid #e8e8e8;
+      font-size: 13px; vertical-align: top;
+    }
+    .info-table .key { font-weight: 600; color: #333; width: 180px; }
+    .info-table .val { color: #555; }
+    .settings-desc {
+      margin-top: 16px; padding: 15px;
+      background: var(--brak-greyed-white); border: 1px solid #e8e8e8;
+      font-size: 13px; color: #555;
+    }
 
-    /* ─── Einstellungen View ─── */
-    .settings-panel { padding: 20px 30px; }
-    .settings-panel h2 { font-size: 18px; color: #333; margin-bottom: 20px; }
-    .settings-info-table { width: 100%; max-width: 600px; }
-    .settings-info-table td {
-      padding: 8px 15px;
-      border-bottom: 1px solid #e8e8e8;
-      font-size: 13px;
-      vertical-align: top;
-    }
-    .settings-info-table .key {
-      font-weight: 600;
-      color: #333;
-      width: 180px;
-    }
-    .settings-info-table .value { color: #555; }
-    .settings-description {
-      margin-top: 20px;
-      padding: 15px;
-      background: var(--brak-greyed-white);
-      border: 1px solid #e8e8e8;
-      font-size: 13px;
-      color: #555;
-    }
-    .settings-sidebar-tree { list-style: none; padding: 0; }
-    .settings-sidebar-tree li {
-      padding: 5px 15px;
-      font-size: 12px;
-      cursor: pointer;
-      color: var(--brak-dark-blue);
-    }
-    .settings-sidebar-tree li:hover { background: rgba(40,100,125,0.06); }
-    .settings-sidebar-group {
-      font-weight: 700;
-      font-size: 13px;
-      color: #333;
+    /* Settings sidebar navigation */
+    .settings-nav { list-style: none; }
+    .settings-nav li { padding: 5px 15px; font-size: 12px; cursor: pointer; color: var(--brak-dark-blue); }
+    .settings-nav li:hover { background: rgba(40,100,125,0.06); }
+    .settings-nav-group {
+      font-weight: 700; font-size: 13px; color: #333;
       padding: 12px 15px 6px;
     }
 
-    /* ─── Nachricht Detail View ─── */
-    .msg-detail { padding: 20px 30px; }
-    .msg-detail-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 15px;
+    /* ─── View Switcher (test only) ─── */
+    .view-switcher {
+      background: #1a1a1a; color: #fff;
+      padding: 8px 16px; display: flex; gap: 8px; font-size: 12px; align-items: center;
     }
-    .msg-detail-header .back-arrow {
-      color: var(--brak-dark-blue);
-      cursor: pointer;
-      font-size: 20px;
-      margin-right: 10px;
+    .view-switcher button {
+      background: #333; color: #ccc; border: 1px solid #444;
+      padding: 5px 12px; cursor: pointer; font-size: 11px; border-radius: 3px;
     }
-    .msg-detail-header h2 { font-size: 16px; color: #333; }
-    .msg-detail-header .meta {
-      font-size: 11px;
-      color: var(--brak-dark-grey);
-      line-height: 1.6;
+    .view-switcher button:hover { background: #555; color: #fff; }
+    .view-switcher button.active-view { background: #555; color: #fff; border-color: #888; }
+    .view-switcher .dm-area { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .dm-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; }
+    .dm-switch { position: relative; width: 40px; height: 22px; }
+    .dm-switch input { opacity: 0; width: 0; height: 0; }
+    .dm-switch .slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background: #444; border-radius: 22px; transition: 0.2s;
     }
-    .msg-detail-header .forward-icon {
-      color: var(--brak-dark-blue);
-      font-size: 18px;
-      cursor: pointer;
+    .dm-switch .slider::before {
+      content: ""; position: absolute; width: 16px; height: 16px;
+      left: 3px; bottom: 3px; background: #aaa; border-radius: 50%; transition: 0.2s;
     }
-    .status-banner {
-      padding: 10px 15px;
-      margin-bottom: 10px;
-      font-size: 13px;
-      border-radius: 2px;
-    }
-    .status-banner.success {
-      background: #e8f5e9;
-      color: var(--brak-green);
-    }
-    .status-banner .icon { margin-right: 8px; }
+    .dm-switch input:checked + .slider { background: #666; }
+    .dm-switch input:checked + .slider::before { transform: translateX(18px); background: #fff; }
 
-    .detail-field { margin-bottom: 8px; font-size: 13px; }
-    .detail-field .label { font-weight: 600; color: #333; display: inline-block; width: 200px; }
-    .detail-field .value { color: #555; }
-
-    .detail-attachments { margin-top: 20px; }
-    .detail-attachments h3 { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
-
-    /* ─── Alerts / Messages ─── */
-    .ui-messages { margin: 0; }
-    .ui-messages-info {
-      background: var(--brak-light-blue);
-      border: 1px solid var(--brak-light-grey);
-      padding: 10px 15px;
-      color: var(--brak-dark-blue);
-      font-size: 13px;
-    }
-
-    /* ─── General UI widget stubs ─── */
-    .ui-widget { color: #333; }
-    .ui-widget-content { background: #fff; color: #333; border-color: #e8e8e8; }
-    .ui-widget-header { background: var(--brak-dark-blue); color: #fff; }
-    .ui-state-default {
-      background: #f5f5f5;
-      border: 1px solid var(--brak-light-grey);
-      color: #333;
-    }
-    .ui-state-default:hover {
-      background: #e8e8e8;
-    }
-    .ui-panel { background: #fff; }
-    .ui-panel-content { background: #fff; border: 1px solid #e8e8e8; }
-
+    .bea-view { display: none; }
+    .bea-view.active { display: flex; flex-direction: column; }
   </style>
 </head>
 <body class="brak">
 
 <!-- View Switcher -->
 <div class="view-switcher">
-  <span style="font-weight:600;">beA Dark Mode — Testlauf</span>
-  <button class="active-view" onclick="showView('inbox')">📥 Posteingang</button>
-  <button onclick="showView('compose')">✉️ Neue Nachricht</button>
-  <button onclick="showView('detail')">📄 Nachricht</button>
-  <button onclick="showView('settings')">⚙️ Einstellungen</button>
-  <div class="dm-toggle-area">
-    <label>🌙 Dark Mode</label>
+  <span style="font-weight:600;letter-spacing:0.03em;">beA DARK MODE TEST</span>
+  <button class="active-view" onclick="showView('inbox')">Posteingang</button>
+  <button onclick="showView('compose')">Neue Nachricht</button>
+  <button onclick="showView('detail')">Nachricht</button>
+  <button onclick="showView('settings')">Einstellungen</button>
+  <div class="dm-area">
+    <span class="dm-label">Dark Mode</span>
     <div class="dm-switch">
       <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
       <span class="slider"></span>
@@ -672,699 +324,280 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════════════ -->
-<!-- VIEW 1: Posteingang (Inbox) -->
-<!-- ════════════════════════════════════════════════════════════ -->
+<!-- ═══════ VIEW 1: Posteingang ═══════ -->
 <div id="view-inbox" class="bea-view active">
-
-  <!-- Header -->
-  <div class="bea-header">
-    <div class="bea-logo-area">
-      <svg viewBox="0 0 40 40" fill="none">
-        <circle cx="20" cy="20" r="18" stroke="#fff" stroke-width="2" fill="none"/>
-        <circle cx="20" cy="15" r="5" fill="#5aa" opacity="0.6"/>
-        <circle cx="14" cy="23" r="4" fill="#5bb" opacity="0.5"/>
-        <circle cx="26" cy="23" r="4" fill="#5cc" opacity="0.5"/>
-        <text x="20" y="38" text-anchor="middle" fill="#fff" font-size="5" font-weight="700">beA</text>
-      </svg>
-      <div>
-        <div class="bea-logo-text">beA</div>
-        <div class="bea-logo-subtitle">Digital. Sicher. Einfach.</div>
+  <div class="bea-app">
+    <header>
+      <div class="brak-logo">
+        <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#fff" stroke-width="2" fill="none"/><circle cx="20" cy="15" r="5" fill="#5aa" opacity="0.5"/><circle cx="14" cy="24" r="4" fill="#5bb" opacity="0.4"/><circle cx="26" cy="24" r="4" fill="#5cc" opacity="0.4"/></svg>
+        <div><div class="brak-logo-text">beA</div><div class="brak-logo-sub">Digital. Sicher. Einfach.</div></div>
       </div>
-    </div>
-    <div class="bea-header-nav">
-      <a href="#">⚙ Einstellungen</a>
-      <a href="#">❓ Hilfe</a>
-      <a href="#">🛟 Support</a>
-      <span class="user-info">🕐 59:53 &nbsp;|&nbsp; Brägelmann, Tom (80538 München)</span>
-      <span style="font-size:16px;cursor:pointer">👤</span>
-    </div>
-  </div>
+      <nav>
+        <a href="#">⚙ Einstellungen</a>
+        <a href="#">❓ Hilfe</a>
+        <a href="#">🛟 Support</a>
+        <span class="user-info">🕐 59:53 &nbsp;|&nbsp; Brägelmann, Tom (80538 München) 👤</span>
+      </nav>
+    </header>
 
-  <div class="bea-layout">
-    <!-- Left Sidebar -->
-    <div class="ui-layout-west">
-      <div class="sidebar-section-title">Postfach</div>
-      <select class="sidebar-user-select">
-        <option>Brägelmann, Tom (80538 München) ▾</option>
-      </select>
-      <ul class="sidebar-tree">
-        <li class="active"><span class="tree-icon">📬</span> Posteingang</li>
-        <li class="sub"><span class="tree-icon">📝</span> Entwürfe</li>
-        <li class="sub"><span class="tree-icon">📤</span> Postausgang</li>
-        <li><span class="tree-icon">✓</span> Gesendet</li>
-        <li class="sub"><span class="tree-icon">📁</span> Archiv</li>
-        <li class="sub"><span class="tree-icon">🗑</span> Papierkorb</li>
-      </ul>
-      <button class="sidebar-btn">📁 Neuer Ordner</button>
-      <div class="sidebar-dots">•••</div>
-      <div class="sidebar-section-sichten">
-        <div class="sidebar-section-title">Sichten</div>
-        <div class="sidebar-sichten-label">
-          Elektronisches Empfangsbeken…
-          <span>⚙</span>
+    <div class="bea-main">
+      <div class="ui-layout-west">
+        <h3>Postfach</h3>
+        <select><option>Brägelmann, Tom (80538 München) ▾</option></select>
+        <ul class="ui-tree">
+          <li class="ui-state-active">📬 Posteingang</li>
+          <li class="sub">📝 Entwürfe</li>
+          <li class="sub">📤 Postausgang</li>
+          <li>✓ Gesendet</li>
+          <li class="sub">📁 Archiv</li>
+          <li class="sub">🗑 Papierkorb</li>
+        </ul>
+        <button class="ui-button sidebar-btn">📁 Neuer Ordner</button>
+        <div class="sidebar-dots">•••</div>
+        <div class="sichten-section">
+          <h3>Sichten</h3>
+          <div class="sichten-label">Elektronisches Empfangsbek… <span>⚙</span></div>
         </div>
+        <button class="ui-button sidebar-btn" style="margin-top:12px;">✨ Sicht erstellen</button>
       </div>
-      <button class="sidebar-btn" style="margin-top:15px;">✨ Sicht erstellen</button>
-    </div>
 
-    <!-- Center Content -->
-    <div class="ui-layout-center">
-      <div class="ui-toolbar">
-        <button class="ui-button" title="Auswählen">☐</button>
-        <button class="ui-button" title="Filtern">🔍</button>
-        <button class="ui-button" title="Bearbeiten">✏</button>
-        <button class="ui-button" title="Löschen">✕</button>
-      </div>
-      <table class="ui-datatable">
-        <thead>
-          <tr>
+      <div class="ui-layout-center">
+        <div class="ui-toolbar">
+          <button class="ui-button">☐</button>
+          <button class="ui-button">🔍</button>
+          <button class="ui-button">✏</button>
+          <button class="ui-button">✕</button>
+        </div>
+        <table class="ui-datatable ui-widget">
+          <thead><tr class="ui-widget-header">
             <th style="width:30px"><input type="checkbox"></th>
-            <th>Absender</th>
-            <th>Az. Empfänger</th>
-            <th>Az. Sender</th>
-            <th>Betreff</th>
-            <th>eEB</th>
-            <th>Eingang Postfach</th>
-            <th>qeS</th>
-            <th style="width:30px">📎</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="ui-datatable-even">
-            <td><input type="checkbox"></td>
-            <td>Landgericht Bonn (53111 Bo…</td>
-            <td>0182-2023</td>
-            <td>15 O 32/22</td>
-            <td>Schiebe ./ Meixner</td>
-            <td><span class="eeb-icon valid">✓</span></td>
-            <td>26.03.2026 08:44</td>
-            <td></td>
-            <td>📎</td>
-          </tr>
-          <tr class="ui-datatable-odd">
-            <td><input type="checkbox"></td>
-            <td>Landgericht Bonn (53111 Bo…</td>
-            <td>0182-2023</td>
-            <td>15 O 32/22</td>
-            <td>Schiebe ./ Meixner</td>
-            <td><span class="eeb-icon valid">✓</span></td>
-            <td>25.03.2026 08:47</td>
-            <td></td>
-            <td>📎</td>
-          </tr>
-          <tr class="ui-datatable-even">
-            <td><input type="checkbox"></td>
-            <td>Landgericht Bonn (53111 Bo…</td>
-            <td>0182-2023</td>
-            <td>15 O 32/22</td>
-            <td>Schiebe ./ Meixner</td>
-            <td><span class="eeb-icon valid">✓</span></td>
-            <td>24.03.2026 14:32</td>
-            <td></td>
-            <td>📎</td>
-          </tr>
-          <tr class="ui-datatable-odd">
-            <td><input type="checkbox"></td>
-            <td>Bundesnotarkammer - Zertif…</td>
-            <td>unbekannt</td>
-            <td>unbekannt</td>
-            <td>Invoice (ZS BRAK-26-00356…</td>
-            <td></td>
-            <td>12.03.2026 15:36</td>
-            <td></td>
-            <td>📎</td>
-          </tr>
-          <tr class="ui-datatable-even">
-            <td><input type="checkbox"></td>
-            <td>Bundesrechtsanwaltskammer</td>
-            <td></td>
-            <td></td>
-            <td>BRAK-Mitteilungen &amp; BRAK-…</td>
-            <td></td>
-            <td>25.02.2026 17:23</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr class="ui-datatable-odd">
-            <td><input type="checkbox"></td>
-            <td>Landgericht Bonn (53111 Bo…</td>
-            <td>0182-2023</td>
-            <td>15 O 32/22</td>
-            <td>Schiebe ./ Meixner</td>
-            <td><span class="eeb-icon valid">✓</span></td>
-            <td>24.02.2026 16:10</td>
-            <td></td>
-            <td>📎</td>
-          </tr>
-          <tr class="ui-datatable-even ui-state-highlight">
-            <td><input type="checkbox"></td>
-            <td>Landgericht Bonn (53111 Bo…</td>
-            <td>0182-2023</td>
-            <td>15 O 32/22</td>
-            <td>Schiebe ./ Meixner</td>
-            <td><span class="eeb-icon valid">✓</span></td>
-            <td>23.02.2026 23:04</td>
-            <td></td>
-            <td>📎</td>
-          </tr>
-          <tr class="ui-datatable-odd">
-            <td><input type="checkbox"></td>
-            <td>Landgericht Bonn (53111 Bo…</td>
-            <td>0182-2023</td>
-            <td>15 O 32/22</td>
-            <td>Schiebe ./ Meixner</td>
-            <td><span class="eeb-icon valid">✓</span></td>
-            <td>23.02.2026 17:35</td>
-            <td></td>
-            <td>📎</td>
-          </tr>
-          <tr class="ui-datatable-even">
-            <td><input type="checkbox"></td>
-            <td>Landgericht Bonn (53111 Bo…</td>
-            <td>0182-2023</td>
-            <td>15 O 32/22</td>
-            <td>Schiebe ./ Meixner</td>
-            <td><span class="eeb-icon valid">✓</span></td>
-            <td>23.02.2026 17:24</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr class="ui-datatable-odd">
-            <td><input type="checkbox"></td>
-            <td>Rechtsanwaltskammer für d…</td>
-            <td></td>
-            <td></td>
-            <td>Wahlbekanntmachung Vorst…</td>
-            <td></td>
-            <td>23.02.2026 14:57</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr class="ui-datatable-even">
-            <td><input type="checkbox"></td>
-            <td>Amtsgericht Charlottenburg …</td>
-            <td>5/11</td>
-            <td>3Bln IN 5259/24</td>
-            <td>NumberFour Aktiengesellsc…</td>
-            <td></td>
-            <td>10.02.2026 13:19</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr class="ui-datatable-odd">
-            <td><input type="checkbox"></td>
-            <td>Landgericht Bonn (53111 Bo…</td>
-            <td>0182-2023</td>
-            <td>15 O 32/22</td>
-            <td>Schiebe ./ Meixner</td>
-            <td><span class="eeb-icon valid">✓</span></td>
-            <td>05.02.2026 09:38</td>
-            <td></td>
-            <td>📎</td>
-          </tr>
-          <tr class="ui-datatable-even">
-            <td><input type="checkbox"></td>
-            <td>Rechtsanwaltskammer für d…</td>
-            <td></td>
-            <td></td>
-            <td>Kammerbeitragsbescheid 20…</td>
-            <td></td>
-            <td>28.01.2026 16:29</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="ui-paginator">
-        <select><option>25</option></select>
-        <a class="ui-paginator-nav">⏮</a>
-        <a class="ui-paginator-nav">◀</a>
-        <a class="ui-paginator-page ui-state-active">1</a>
-        <a class="ui-paginator-page">2</a>
-        <a class="ui-paginator-nav">▶</a>
-        <a class="ui-paginator-nav">⏭</a>
+            <th>Absender</th><th>Az. Empfänger</th><th>Az. Sender</th>
+            <th>Betreff</th><th>eEB</th><th>Eingang Postfach</th><th>qeS</th><th style="width:30px">📎</th>
+          </tr></thead>
+          <tbody>
+            <tr class="ui-datatable-even"><td><input type="checkbox"></td><td>Landgericht Bonn (53111 Bo…</td><td>0182-2023</td><td>15 O 32/22</td><td>Schiebe ./ Meixner</td><td class="eeb-valid">✓</td><td>26.03.2026 08:44</td><td></td><td>📎</td></tr>
+            <tr class="ui-datatable-odd"><td><input type="checkbox"></td><td>Landgericht Bonn (53111 Bo…</td><td>0182-2023</td><td>15 O 32/22</td><td>Schiebe ./ Meixner</td><td class="eeb-valid">✓</td><td>25.03.2026 08:47</td><td></td><td>📎</td></tr>
+            <tr class="ui-datatable-even"><td><input type="checkbox"></td><td>Landgericht Bonn (53111 Bo…</td><td>0182-2023</td><td>15 O 32/22</td><td>Schiebe ./ Meixner</td><td class="eeb-valid">✓</td><td>24.03.2026 14:32</td><td></td><td>📎</td></tr>
+            <tr class="ui-datatable-odd"><td><input type="checkbox"></td><td>Bundesnotarkammer - Zertif…</td><td>unbekannt</td><td>unbekannt</td><td>Invoice (ZS BRAK-26-00356…</td><td></td><td>12.03.2026 15:36</td><td></td><td>📎</td></tr>
+            <tr class="ui-datatable-even"><td><input type="checkbox"></td><td>Bundesrechtsanwaltskammer</td><td></td><td></td><td>BRAK-Mitteilungen &amp; BRAK-…</td><td></td><td>25.02.2026 17:23</td><td></td><td></td></tr>
+            <tr class="ui-datatable-odd"><td><input type="checkbox"></td><td>Landgericht Bonn (53111 Bo…</td><td>0182-2023</td><td>15 O 32/22</td><td>Schiebe ./ Meixner</td><td class="eeb-valid">✓</td><td>24.02.2026 16:10</td><td></td><td>📎</td></tr>
+            <tr class="ui-datatable-even ui-state-highlight"><td><input type="checkbox"></td><td>Landgericht Bonn (53111 Bo…</td><td>0182-2023</td><td>15 O 32/22</td><td>Schiebe ./ Meixner</td><td class="eeb-valid">✓</td><td>23.02.2026 23:04</td><td></td><td>📎</td></tr>
+            <tr class="ui-datatable-odd"><td><input type="checkbox"></td><td>Landgericht Bonn (53111 Bo…</td><td>0182-2023</td><td>15 O 32/22</td><td>Schiebe ./ Meixner</td><td class="eeb-valid">✓</td><td>23.02.2026 17:35</td><td></td><td>📎</td></tr>
+            <tr class="ui-datatable-even"><td><input type="checkbox"></td><td>Landgericht Bonn (53111 Bo…</td><td>0182-2023</td><td>15 O 32/22</td><td>Schiebe ./ Meixner</td><td class="eeb-valid">✓</td><td>23.02.2026 17:24</td><td></td><td></td></tr>
+            <tr class="ui-datatable-odd"><td><input type="checkbox"></td><td>Rechtsanwaltskammer für d…</td><td></td><td></td><td>Wahlbekanntmachung Vorst…</td><td></td><td>23.02.2026 14:57</td><td></td><td></td></tr>
+            <tr class="ui-datatable-even"><td><input type="checkbox"></td><td>Amtsgericht Charlottenburg …</td><td>5/11</td><td>3Bln IN 5259/24</td><td>NumberFour Aktiengesellsc…</td><td></td><td>10.02.2026 13:19</td><td></td><td></td></tr>
+            <tr class="ui-datatable-odd"><td><input type="checkbox"></td><td>Landgericht Bonn (53111 Bo…</td><td>0182-2023</td><td>15 O 32/22</td><td>Schiebe ./ Meixner</td><td class="eeb-valid">✓</td><td>05.02.2026 09:38</td><td></td><td>📎</td></tr>
+            <tr class="ui-datatable-even"><td><input type="checkbox"></td><td>Rechtsanwaltskammer für d…</td><td></td><td></td><td>Kammerbeitragsbescheid 20…</td><td></td><td>28.01.2026 16:29</td><td></td><td></td></tr>
+          </tbody>
+        </table>
+        <div class="ui-paginator">
+          <select><option>25</option></select>
+          <a>⏮</a><a>◀</a>
+          <a class="ui-state-active">1</a><a>2</a>
+          <a>▶</a><a>⏭</a>
+        </div>
+      </div>
+
+      <div class="ui-layout-east">
+        <button class="action-button btn-primary ui-button ui-priority-primary">✏ Neue Nachricht</button>
+        <button class="action-button btn-primary ui-button ui-priority-primary">📂 Öffnen</button>
+        <button class="action-button btn-primary ui-button ui-priority-primary">↩ Antworten</button>
+        <button class="action-button btn-primary ui-button ui-priority-primary">↗ Weiterleiten</button>
+        <div class="action-separator"></div>
+        <button class="action-button ui-button">📤 Exportieren</button>
+        <button class="action-button ui-button">📁 Verschieben</button>
+        <div class="action-separator"></div>
+        <button class="action-dropdown etiketten">🏷 Etiketten ▾</button>
+        <button class="action-dropdown markieren">🔖 Markieren als … ▾</button>
+        <div class="action-separator"></div>
+        <button class="action-button ui-button">📋 Nachrichtenjournal</button>
+        <button class="action-button ui-button">🗑 In den Papierkorb</button>
+        <button class="action-button ui-button">📄 Prüfprotokoll anzeigen</button>
       </div>
     </div>
 
-    <!-- Right Sidebar -->
-    <div class="ui-layout-east">
-      <button class="action-button primary"><span class="btn-icon">✏</span> Neue Nachricht</button>
-      <button class="action-button primary"><span class="btn-icon">📂</span> Öffnen</button>
-      <button class="action-button primary"><span class="btn-icon">↩</span> Antworten</button>
-      <button class="action-button primary"><span class="btn-icon">↗</span> Weiterleiten</button>
-      <div class="action-separator"></div>
-      <button class="action-button"><span class="btn-icon">📤</span> Exportieren</button>
-      <button class="action-button"><span class="btn-icon">📁</span> Verschieben</button>
-      <div class="action-separator"></div>
-      <button class="action-dropdown"><span class="btn-icon">🏷</span> Etiketten ▾</button>
-      <button class="action-dropdown" style="background:var(--brak-dark-blue);color:#fff;"><span class="btn-icon">🔖</span> Markieren als … ▾</button>
-      <div class="action-separator"></div>
-      <button class="action-button"><span class="btn-icon">📋</span> Nachrichtenjournal</button>
-      <button class="action-button"><span class="btn-icon">🗑</span> In den Papierkorb</button>
-      <button class="action-button"><span class="btn-icon">📄</span> Prüfprotokoll anzeigen</button>
-    </div>
-  </div>
-
-  <div class="bea-footer">
-    <div>
-      <span class="brak-logo-footer">BUNDESRECHTSANWALTSKAMMER</span>
-    </div>
-    <div style="margin-top:5px;">
-      © 2026 Copyright 2015 · Bundesrechtsanwaltskammer &nbsp;|&nbsp;
-      <a href="#">Startseite</a> &nbsp;|&nbsp;
-      <a href="#">Impressum</a> &nbsp;|&nbsp;
-      <a href="#">Kontakt</a> &nbsp;|&nbsp;
-      <a href="#">Datenschutz</a>
-    </div>
-    <div class="brak-version">4.3.8.589, bea-app-rz1-7</div>
+    <footer>
+      <div class="brak-linkbanner">BUNDESRECHTSANWALTSKAMMER</div>
+      <div class="brak-copyright">© 2026 · Bundesrechtsanwaltskammer &nbsp;|&nbsp; <a href="#">Startseite</a> &nbsp;|&nbsp; <a href="#">Impressum</a> &nbsp;|&nbsp; <a href="#">Kontakt</a> &nbsp;|&nbsp; <a href="#">Datenschutz</a></div>
+      <div class="brak-version">4.3.8.589, bea-app-rz1-7</div>
+    </footer>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════════════ -->
-<!-- VIEW 2: Neue Nachricht (Compose) -->
-<!-- ════════════════════════════════════════════════════════════ -->
+<!-- ═══════ VIEW 2: Neue Nachricht ═══════ -->
 <div id="view-compose" class="bea-view">
-  <div class="bea-header">
-    <div class="bea-logo-area">
-      <svg viewBox="0 0 40 40" fill="none">
-        <circle cx="20" cy="20" r="18" stroke="#fff" stroke-width="2" fill="none"/>
-        <circle cx="20" cy="15" r="5" fill="#5aa" opacity="0.6"/>
-        <circle cx="14" cy="23" r="4" fill="#5bb" opacity="0.5"/>
-        <circle cx="26" cy="23" r="4" fill="#5cc" opacity="0.5"/>
-        <text x="20" y="38" text-anchor="middle" fill="#fff" font-size="5" font-weight="700">beA</text>
-      </svg>
-      <div>
-        <div class="bea-logo-text">beA</div>
-        <div class="bea-logo-subtitle">Digital. Sicher. Einfach.</div>
+  <div class="bea-app">
+    <header>
+      <div class="brak-logo"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#fff" stroke-width="2" fill="none"/><circle cx="20" cy="15" r="5" fill="#5aa" opacity="0.5"/><circle cx="14" cy="24" r="4" fill="#5bb" opacity="0.4"/><circle cx="26" cy="24" r="4" fill="#5cc" opacity="0.4"/></svg><div><div class="brak-logo-text">beA</div><div class="brak-logo-sub">Digital. Sicher. Einfach.</div></div></div>
+      <nav><a href="#">⚙ Einstellungen</a><a href="#">❓ Hilfe</a><a href="#">🛟 Support</a><span class="user-info">🕐 59:58 &nbsp;|&nbsp; Brägelmann, Tom (80538 München) 👤</span></nav>
+    </header>
+    <div class="bea-main">
+      <div class="ui-layout-west">
+        <h3>Postfach</h3>
+        <select><option>Brägelmann, Tom (80538 München) ▾</option></select>
+        <ul class="ui-tree"><li class="ui-state-active">📬 Posteingang</li><li class="sub">📝 Entwürfe</li><li class="sub">📤 Postausgang</li><li>✓ Gesendet</li><li class="sub">📁 Archiv</li><li class="sub">🗑 Papierkorb</li></ul>
+        <button class="ui-button sidebar-btn">📁 Neuer Ordner</button>
+        <div class="sidebar-dots">•••</div>
+        <div class="sichten-section"><h3>Sichten</h3><div class="sichten-label">Elektronisches Empfangsbek… <span>⚙</span></div></div>
+        <button class="ui-button sidebar-btn" style="margin-top:12px;">✨ Sicht erstellen</button>
       </div>
-    </div>
-    <div class="bea-header-nav">
-      <a href="#">⚙ Einstellungen</a>
-      <a href="#">❓ Hilfe</a>
-      <a href="#">🛟 Support</a>
-      <span class="user-info">🕐 59:58 &nbsp;|&nbsp; Brägelmann, Tom (80538 München)</span>
-      <span style="font-size:16px;cursor:pointer">👤</span>
-    </div>
-  </div>
-
-  <div class="bea-layout">
-    <div class="ui-layout-west">
-      <div class="sidebar-section-title">Postfach</div>
-      <select class="sidebar-user-select">
-        <option>Brägelmann, Tom (80538 München) ▾</option>
-      </select>
-      <ul class="sidebar-tree">
-        <li class="active"><span class="tree-icon">📬</span> Posteingang</li>
-        <li class="sub"><span class="tree-icon">📝</span> Entwürfe</li>
-        <li class="sub"><span class="tree-icon">📤</span> Postausgang</li>
-        <li><span class="tree-icon">✓</span> Gesendet</li>
-        <li class="sub"><span class="tree-icon">📁</span> Archiv</li>
-        <li class="sub"><span class="tree-icon">🗑</span> Papierkorb</li>
-      </ul>
-      <button class="sidebar-btn">📁 Neuer Ordner</button>
-      <div class="sidebar-dots">•••</div>
-      <div class="sidebar-section-sichten">
-        <div class="sidebar-section-title">Sichten</div>
-        <div class="sidebar-sichten-label">Elektronisches Empfangsbeken… <span>⚙</span></div>
-      </div>
-      <button class="sidebar-btn" style="margin-top:15px;">✨ Sicht erstellen</button>
-    </div>
-
-    <div class="ui-layout-center">
-      <div class="center-form">
-        <h2>
-          <span class="back-arrow">←</span>
-          Neue Nachricht
-          <span class="save-status" style="margin-left:auto;">Zuletzt gespeichert: -</span>
+      <div class="ui-layout-center" style="padding:20px 30px;">
+        <h2 style="font-size:18px;margin-bottom:4px;display:flex;align-items:center;gap:10px;">
+          <span style="color:var(--brak-dark-blue);cursor:pointer;font-size:20px;">←</span> Neue Nachricht
+          <span style="font-size:11px;color:var(--brak-dark-grey);margin-left:auto;">Zuletzt gespeichert: -</span>
         </h2>
-
-        <div class="form-section">
-          <h3>Empfänger</h3>
-          <div class="tag-container">
-            <span class="tag">Empfänger <span class="remove">✕</span></span>
-            <button class="plus-btn">+</button>
+        <div style="margin:18px 0;"><h3 style="font-size:14px;font-weight:600;margin-bottom:10px;">Empfänger</h3>
+          <div style="margin-bottom:8px;"><span class="tag">Empfänger <span style="cursor:pointer;color:var(--brak-dark-grey);">✕</span></span> <button class="btn-primary-sm" style="width:28px;height:28px;padding:0;">+</button></div>
+          <label class="form-check-label">Empfänger: <span style="color:var(--brak-red);">*</span></label>
+          <div style="display:flex;gap:4px;margin-top:4px;"><input type="text" class="ui-inputfield" style="flex:1"><button class="btn-primary-sm" style="width:32px;">🔍</button></div>
+        </div>
+        <div style="margin:18px 0;"><h3 style="font-size:14px;font-weight:600;margin-bottom:10px;">Nachrichtendetails</h3>
+          <div style="display:flex;gap:15px;margin-bottom:12px;">
+            <div style="flex:1;"><label class="form-check-label">Absender:</label><select class="ui-selectonemenu" style="margin-top:4px;"><option>Brägelmann, Tom (80538 München)</option></select></div>
+            <div style="flex:1;"><label class="form-check-label">Aktenzeichen Sender:</label><input type="text" class="ui-inputfield" style="margin-top:4px;"></div>
           </div>
-          <label class="form-label">Empfänger: <span class="required">*</span></label>
-          <div style="display:flex;gap:4px;">
-            <input type="text" class="ui-inputfield" style="flex:1">
-            <button class="search-btn">🔍</button>
+          <div><label class="form-check-label">Betreff: <span style="color:var(--brak-red);">*</span></label><input type="text" class="ui-inputfield" style="margin-top:4px;"></div>
+        </div>
+        <div style="margin:18px 0;">
+          <h3 style="font-size:14px;font-weight:700;margin-bottom:8px;">Anhänge <span style="font-size:11px;cursor:pointer;">✕</span></h3>
+          <button class="btn-primary-sm" style="float:right;margin-bottom:6px;">✏ Anhang hinzufügen</button>
+          <table class="att-table"><thead><tr><th style="width:30px"><input type="checkbox"></th><th>Dateiname</th><th>Bezeichnung</th><th>Typ</th><th>Größe</th><th>Signatur</th><th>↕</th><th>Rang</th></tr></thead>
+          <tbody><tr><td colspan="8" style="color:var(--brak-dark-grey);font-style:italic;padding:8px 10px;">Keine Anhänge vorhanden</td></tr></tbody></table>
+          <div style="display:flex;gap:6px;margin-top:10px;">
+            <button class="att-btn att-btn-sign">✏ Signieren</button><button class="att-btn att-btn-view">👁 Anzeigen</button>
+            <button class="att-btn att-btn-del">🗑 Löschen</button><button class="att-btn att-btn-lbl">📝 Bezeichnung</button>
+            <button class="att-btn att-btn-type">📄 Anhangstyp</button>
           </div>
         </div>
-
-        <div class="form-section">
-          <h3>Nachrichtendetails</h3>
-          <div class="form-row">
-            <div class="form-col">
-              <label class="form-label">Absender:</label>
-              <select class="ui-selectonemenu">
-                <option>Brägelmann, Tom (80538 München)</option>
-              </select>
-            </div>
-            <div class="form-col">
-              <label class="form-label">Aktenzeichen Sender:</label>
-              <input type="text" class="ui-inputfield">
-            </div>
-          </div>
-          <div>
-            <label class="form-label">Betreff: <span class="required">*</span></label>
-            <input type="text" class="ui-inputfield">
-          </div>
-        </div>
-
-        <div class="attachment-section">
-          <h3>Anhänge <span class="remove" style="font-size:11px;">✕</span></h3>
-          <button class="attachment-add-btn">✏ Anhang hinzufügen</button>
-          <table class="attachment-table">
-            <thead>
-              <tr>
-                <th style="width:30px"><input type="checkbox"></th>
-                <th>Dateiname</th>
-                <th>Bezeichnung</th>
-                <th>Typ</th>
-                <th>Größe</th>
-                <th>Signatur</th>
-                <th>↕</th>
-                <th>Rang</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="8" class="attachment-empty">Keine Anhänge vorhanden</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="attachment-actions">
-            <button class="att-action-btn sign">✏ Signieren</button>
-            <button class="att-action-btn view">👁 Anzeigen</button>
-            <button class="att-action-btn delete">🗑 Löschen</button>
-            <button class="att-action-btn label">📝 Bezeichnung</button>
-            <button class="att-action-btn type">📄 Anhangstyp</button>
-          </div>
-        </div>
-
-        <div class="expandable-section">
-          Nachrichtentext <span class="chevron">›</span>
-        </div>
+        <div style="margin-top:14px;cursor:pointer;font-size:14px;font-weight:600;color:#333;">Nachrichtentext <span style="color:var(--brak-dark-blue);">›</span></div>
+      </div>
+      <div class="ui-layout-east">
+        <button class="action-button btn-primary ui-button ui-priority-primary">📨 Nachricht senden</button>
+        <button class="action-button btn-primary ui-button ui-priority-primary">💾 Als Entwurf speichern</button>
+        <button class="action-button btn-primary ui-button ui-priority-primary">✅ Speichern und schließen</button>
+        <div class="action-separator"></div>
+        <button class="action-button ui-button">📤 Exportieren</button>
+        <button class="action-button ui-button">🖨 Drucken</button>
+        <button class="action-button ui-button">📁 Verschieben</button>
+        <div class="action-separator"></div>
+        <button class="action-dropdown etiketten">🏷 Etiketten ▾</button>
+        <div class="action-separator"></div>
+        <button class="action-button ui-button">📎 Fußzeile hinzufügen</button>
+        <button class="action-button ui-button">📋 Nachrichtenjournal</button>
+        <button class="action-button ui-button">🗑 In den Papierkorb</button>
       </div>
     </div>
-
-    <div class="ui-layout-east">
-      <button class="action-button primary"><span class="btn-icon">📨</span> Nachricht senden</button>
-      <button class="action-button primary"><span class="btn-icon">💾</span> Als Entwurf speichern</button>
-      <button class="action-button primary"><span class="btn-icon">✅</span> Speichern und schließen</button>
-      <div class="action-separator"></div>
-      <button class="action-button"><span class="btn-icon">📤</span> Exportieren</button>
-      <button class="action-button"><span class="btn-icon">🖨</span> Drucken</button>
-      <button class="action-button"><span class="btn-icon">📁</span> Verschieben</button>
-      <div class="action-separator"></div>
-      <button class="action-dropdown"><span class="btn-icon">🏷</span> Etiketten ▾</button>
-      <div class="action-separator"></div>
-      <button class="action-button"><span class="btn-icon">📎</span> Fußzeile hinzufügen</button>
-      <button class="action-button"><span class="btn-icon">📋</span> Nachrichtenjournal</button>
-      <button class="action-button"><span class="btn-icon">🗑</span> In den Papierkorb</button>
-    </div>
-  </div>
-
-  <div class="bea-footer">
-    <span class="brak-logo-footer">BUNDESRECHTSANWALTSKAMMER</span>
-    <div style="margin-top:5px;">© 2026 Copyright 2015 · Bundesrechtsanwaltskammer</div>
-    <div class="brak-version">4.3.8.589, bea-app-rz1-7</div>
+    <footer><div class="brak-linkbanner">BUNDESRECHTSANWALTSKAMMER</div><div class="brak-copyright">© 2026 · Bundesrechtsanwaltskammer</div><div class="brak-version">4.3.8.589, bea-app-rz1-7</div></footer>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════════════ -->
-<!-- VIEW 3: Nachricht Detail -->
-<!-- ════════════════════════════════════════════════════════════ -->
+<!-- ═══════ VIEW 3: Nachricht Detail ═══════ -->
 <div id="view-detail" class="bea-view">
-  <div class="bea-header">
-    <div class="bea-logo-area">
-      <svg viewBox="0 0 40 40" fill="none">
-        <circle cx="20" cy="20" r="18" stroke="#fff" stroke-width="2" fill="none"/>
-        <circle cx="20" cy="15" r="5" fill="#5aa" opacity="0.6"/>
-        <circle cx="14" cy="23" r="4" fill="#5bb" opacity="0.5"/>
-        <circle cx="26" cy="23" r="4" fill="#5cc" opacity="0.5"/>
-        <text x="20" y="38" text-anchor="middle" fill="#fff" font-size="5" font-weight="700">beA</text>
-      </svg>
-      <div>
-        <div class="bea-logo-text">beA</div>
-        <div class="bea-logo-subtitle">Digital. Sicher. Einfach.</div>
+  <div class="bea-app">
+    <header>
+      <div class="brak-logo"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#fff" stroke-width="2" fill="none"/><circle cx="20" cy="15" r="5" fill="#5aa" opacity="0.5"/><circle cx="14" cy="24" r="4" fill="#5bb" opacity="0.4"/><circle cx="26" cy="24" r="4" fill="#5cc" opacity="0.4"/></svg><div><div class="brak-logo-text">beA</div><div class="brak-logo-sub">Digital. Sicher. Einfach.</div></div></div>
+      <nav><a href="#">⚙ Einstellungen</a><a href="#">❓ Hilfe</a><a href="#">🛟 Support</a><span class="user-info">🕐 59:59 &nbsp;|&nbsp; Brägelmann, Tom (80538 München) 👤</span></nav>
+    </header>
+    <div class="bea-main">
+      <div class="ui-layout-west">
+        <h3>Postfach</h3>
+        <select><option>Brägelmann, Tom (80538 München) ▾</option></select>
+        <ul class="ui-tree"><li>📬 Posteingang</li><li class="sub">📝 Entwürfe</li><li class="sub">📤 Postausgang</li><li class="ui-state-active">✓ Gesendet</li><li class="sub">📁 Archiv</li><li class="sub">🗑 Papierkorb</li></ul>
+        <button class="ui-button sidebar-btn">📁 Neuer Ordner</button>
+        <div class="sidebar-dots">•••</div>
+        <div class="sichten-section"><h3>Sichten</h3><div class="sichten-label">Elektronisches Empfangsbek… <span>⚙</span></div></div>
+        <button class="ui-button sidebar-btn" style="margin-top:12px;">✨ Sicht erstellen</button>
       </div>
-    </div>
-    <div class="bea-header-nav">
-      <a href="#">⚙ Einstellungen</a>
-      <a href="#">❓ Hilfe</a>
-      <a href="#">🛟 Support</a>
-      <span class="user-info">🕐 59:59 &nbsp;|&nbsp; Brägelmann, Tom (80538 München)</span>
-      <span style="font-size:16px;cursor:pointer">👤</span>
-    </div>
-  </div>
-
-  <div class="bea-layout">
-    <div class="ui-layout-west">
-      <div class="sidebar-section-title">Postfach</div>
-      <select class="sidebar-user-select">
-        <option>Brägelmann, Tom (80538 München) ▾</option>
-      </select>
-      <ul class="sidebar-tree">
-        <li><span class="tree-icon">📬</span> Posteingang</li>
-        <li class="sub"><span class="tree-icon">📝</span> Entwürfe</li>
-        <li class="sub"><span class="tree-icon">📤</span> Postausgang</li>
-        <li class="active"><span class="tree-icon">✓</span> Gesendet</li>
-        <li class="sub"><span class="tree-icon">📁</span> Archiv</li>
-        <li class="sub"><span class="tree-icon">🗑</span> Papierkorb</li>
-      </ul>
-      <button class="sidebar-btn">📁 Neuer Ordner</button>
-      <div class="sidebar-dots">•••</div>
-      <div class="sidebar-section-sichten">
-        <div class="sidebar-section-title">Sichten</div>
-        <div class="sidebar-sichten-label">Elektronisches Empfangsbeken… <span>⚙</span></div>
-      </div>
-      <button class="sidebar-btn" style="margin-top:15px;">✨ Sicht erstellen</button>
-    </div>
-
-    <div class="ui-layout-center">
-      <div class="msg-detail">
-        <div class="msg-detail-header">
-          <div style="display:flex;align-items:flex-start;">
-            <span class="back-arrow">←</span>
-            <div>
-              <h2>15 O 32/22 Schiebe ./ Meixner</h2>
-              <div class="meta">
-                an Landgericht Bonn (53111 Bonn)<br>
-                von Brägelmann, Tom (80538 München)
-              </div>
-            </div>
+      <div class="ui-layout-center" style="padding:20px 30px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span style="color:var(--brak-dark-blue);font-size:20px;cursor:pointer;">←</span>
+            <div><h2 style="font-size:16px;">15 O 32/22 Schiebe ./ Meixner</h2><div style="font-size:11px;color:var(--brak-dark-grey);line-height:1.6;">an Landgericht Bonn (53111 Bonn)<br>von Brägelmann, Tom (80538 München)</div></div>
           </div>
-          <div style="text-align:right;">
-            <span class="forward-icon">⤴</span>
-            <div class="meta">
-              Eingang Intermediär: 26.03.2026 | 19:15<br>
-              Gesendet: 26.03.2026 | 19:15
-            </div>
-          </div>
+          <div style="text-align:right;"><span style="color:var(--brak-dark-blue);font-size:18px;cursor:pointer;">⤴</span><div style="font-size:11px;color:var(--brak-dark-grey);line-height:1.6;">Eingang Intermediär: 26.03.2026 | 19:15<br>Gesendet: 26.03.2026 | 19:15</div></div>
         </div>
-
-        <div class="status-banner success">
-          <span class="icon">✅</span> Die Signatur(en) ist/sind gültig.
+        <div class="status-ok">✅ Die Signatur(en) ist/sind gültig.</div>
+        <div class="status-ok">✅ Die Übermittlung der Nachricht war erfolgreich.</div>
+        <div style="margin:18px 0;"><h3 style="font-size:14px;font-weight:600;margin-bottom:10px;">Nachrichtendetails</h3>
+          <div style="margin-bottom:6px;font-size:13px;"><span style="font-weight:600;display:inline-block;width:200px;">Aktenzeichen Empfänger:</span> <span style="color:#555;">15 O 32/22</span></div>
+          <div style="margin-bottom:6px;font-size:13px;"><span style="font-weight:600;display:inline-block;width:200px;">Aktenzeichen Absender:</span> <span style="color:#555;">0162-2023</span></div>
+          <div style="margin-bottom:6px;font-size:13px;"><span style="font-weight:600;display:inline-block;width:200px;">OSCI-Nachrichten-ID:</span> <span style="color:#555;">NRW_B11774548924964e54f4653-866b-4c3e-b289-81125619b74d</span></div>
         </div>
-        <div class="status-banner success">
-          <span class="icon">✅</span> Die Übermittlung der Nachricht war erfolgreich.
-        </div>
-
-        <div class="form-section">
-          <h3>Nachrichtendetails</h3>
-          <div class="detail-field">
-            <span class="label">Aktenzeichen Empfänger:</span>
-            <span class="value">15 O 32/22</span>
-          </div>
-          <div class="detail-field">
-            <span class="label">Aktenzeichen Absender:</span>
-            <span class="value">0162-2023</span>
-          </div>
-          <div class="detail-field">
-            <span class="label">OSCI-Nachrichten-ID:</span>
-            <span class="value">NRW_B11774548924964e54f4653-866b-4c3e-b289-81125619b74d</span>
-          </div>
-        </div>
-
-        <div class="detail-attachments">
-          <h3>Anhänge (2) <span class="remove" style="font-size:11px;">✕</span></h3>
-          <table class="attachment-table">
-            <thead>
-              <tr>
-                <th style="width:30px"><input type="checkbox"></th>
-                <th style="width:30px"></th>
-                <th>Dateiname</th>
-                <th>Bezeichnung</th>
-                <th>Typ</th>
-                <th>Größe</th>
-                <th>Signatur</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="checkbox"></td>
-                <td>›</td>
-                <td><a href="#" style="color:var(--brak-dark-blue);">20200326_Schriftsatz_Zeuge_Niebuhr.pdf</a></td>
-                <td>Schriftsatz</td>
-                <td>Schriftsatz</td>
-                <td>181 KB ⓘ</td>
-                <td><span class="eeb-icon valid">✓</span></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox"></td>
-                <td></td>
-                <td>xjustiz_nachricht.xml</td>
-                <td></td>
-                <td>Strukturdatensatz</td>
-                <td>4 KB ⓘ</td>
-                <td>-</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="attachment-actions" style="margin-top:10px;">
-            <button class="att-action-btn sign">💾 Speichern</button>
-            <button class="att-action-btn view">👁 Anzeigen</button>
+        <div style="margin:18px 0;">
+          <h3 style="font-size:14px;font-weight:700;margin-bottom:8px;">Anhänge (2) <span style="font-size:11px;cursor:pointer;">✕</span></h3>
+          <table class="att-table"><thead><tr><th style="width:30px"><input type="checkbox"></th><th style="width:30px"></th><th>Dateiname</th><th>Bezeichnung</th><th>Typ</th><th>Größe</th><th>Signatur</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox"></td><td>›</td><td><a href="#" style="color:var(--brak-dark-blue);">20200326_Schriftsatz_Zeuge_Niebuhr.pdf</a></td><td>Schriftsatz</td><td>Schriftsatz</td><td>181 KB ⓘ</td><td class="eeb-valid">✓</td></tr>
+            <tr><td><input type="checkbox"></td><td></td><td>xjustiz_nachricht.xml</td><td></td><td>Strukturdatensatz</td><td>4 KB ⓘ</td><td>-</td></tr>
+          </tbody></table>
+          <div style="display:flex;gap:6px;margin-top:10px;">
+            <button class="att-btn att-btn-sign">💾 Speichern</button>
+            <button class="att-btn att-btn-view">👁 Anzeigen</button>
           </div>
         </div>
       </div>
+      <div class="ui-layout-east">
+        <button class="action-button btn-primary ui-button ui-priority-primary">↩ Antworten</button>
+        <button class="action-button btn-primary ui-button ui-priority-primary">↗ Weiterleiten</button>
+        <div class="action-separator"></div>
+        <button class="action-button ui-button">🖨 Drucken</button>
+        <button class="action-button ui-button">📤 Exportieren</button>
+        <button class="action-button ui-button">📁 Verschieben</button>
+        <div class="action-separator"></div>
+        <button class="action-dropdown markieren">🔖 Markieren als … ▾</button>
+        <button class="action-dropdown etiketten">🏷 Etiketten ▾</button>
+        <div class="action-separator"></div>
+        <button class="action-button ui-button">📋 Nachrichtenjournal</button>
+        <button class="action-button ui-button">🗑 In den Papierkorb</button>
+        <button class="action-button ui-button">📄 Prüfprotokoll anzeigen</button>
+      </div>
     </div>
-
-    <div class="ui-layout-east">
-      <button class="action-button primary"><span class="btn-icon">↩</span> Antworten</button>
-      <button class="action-button primary"><span class="btn-icon">↗</span> Weiterleiten</button>
-      <div class="action-separator"></div>
-      <button class="action-button"><span class="btn-icon">🖨</span> Drucken</button>
-      <button class="action-button"><span class="btn-icon">📤</span> Exportieren</button>
-      <button class="action-button"><span class="btn-icon">📁</span> Verschieben</button>
-      <div class="action-separator"></div>
-      <button class="action-dropdown"><span class="btn-icon">🔖</span> Markieren als … ▾</button>
-      <button class="action-dropdown"><span class="btn-icon">🏷</span> Etiketten ▾</button>
-      <div class="action-separator"></div>
-      <button class="action-button"><span class="btn-icon">📋</span> Nachrichtenjournal</button>
-      <button class="action-button"><span class="btn-icon">🗑</span> In den Papierkorb</button>
-      <button class="action-button"><span class="btn-icon">📄</span> Prüfprotokoll anzeigen</button>
-    </div>
-  </div>
-
-  <div class="bea-footer">
-    <span class="brak-logo-footer">BUNDESRECHTSANWALTSKAMMER</span>
-    <div style="margin-top:5px;">© 2026 Copyright 2015 · Bundesrechtsanwaltskammer</div>
-    <div class="brak-version">4.3.8.589, bea-app-rz1-7</div>
+    <footer><div class="brak-linkbanner">BUNDESRECHTSANWALTSKAMMER</div><div class="brak-copyright">© 2026 · Bundesrechtsanwaltskammer</div><div class="brak-version">4.3.8.589, bea-app-rz1-7</div></footer>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════════════ -->
-<!-- VIEW 4: Einstellungen (Settings) -->
-<!-- ════════════════════════════════════════════════════════════ -->
+<!-- ═══════ VIEW 4: Einstellungen ═══════ -->
 <div id="view-settings" class="bea-view">
-  <div class="bea-header">
-    <div class="bea-logo-area">
-      <svg viewBox="0 0 40 40" fill="none">
-        <circle cx="20" cy="20" r="18" stroke="#fff" stroke-width="2" fill="none"/>
-        <circle cx="20" cy="15" r="5" fill="#5aa" opacity="0.6"/>
-        <circle cx="14" cy="23" r="4" fill="#5bb" opacity="0.5"/>
-        <circle cx="26" cy="23" r="4" fill="#5cc" opacity="0.5"/>
-        <text x="20" y="38" text-anchor="middle" fill="#fff" font-size="5" font-weight="700">beA</text>
-      </svg>
-      <div>
-        <div class="bea-logo-text">beA</div>
-        <div class="bea-logo-subtitle">Digital. Sicher. Einfach.</div>
+  <div class="bea-app">
+    <header>
+      <div class="brak-logo"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#fff" stroke-width="2" fill="none"/><circle cx="20" cy="15" r="5" fill="#5aa" opacity="0.5"/><circle cx="14" cy="24" r="4" fill="#5bb" opacity="0.4"/><circle cx="26" cy="24" r="4" fill="#5cc" opacity="0.4"/></svg><div><div class="brak-logo-text">beA</div><div class="brak-logo-sub">Digital. Sicher. Einfach.</div></div></div>
+      <nav><a href="#">📧 Nachrichten</a><a href="#">❓ Hilfe</a><a href="#">🛟 Support</a><span class="user-info">🕐 59:58 &nbsp;|&nbsp; Brägelmann, Tom (80538 München) 👤</span></nav>
+    </header>
+    <div class="bea-main">
+      <div class="ui-layout-west" style="width:220px;min-width:220px;">
+        <div class="settings-nav-group">Profilverwaltung</div>
+        <ul class="settings-nav"><li>Favoriten verwalten</li><li>Sicherheits-Token</li><li>Sicherheitsfragen</li><li>Persönliche Benachrichtigungen</li><li>Nutzerjournal</li></ul>
+        <div class="settings-nav-group" style="border-top:1px solid var(--brak-light-grey);margin-top:8px;">Postfachverwaltung</div>
+        <ul class="settings-nav"><li>Benutzerverwaltung</li><li>Sicherheits-Token freischalten</li><li>Postfachjournal</li><li>Eingangsbenachrichtigungen</li><li>Verzeichnisdatenpflege</li><li>Etiketten verwalten</li><li>Nachrichtenfußzeile</li><li>Sichten verwalten</li></ul>
+      </div>
+      <div class="ui-layout-center" style="padding:20px 30px;">
+        <h2 style="font-size:18px;margin-bottom:16px;">Einstellungen</h2>
+        <div class="ui-panel-content">
+          <table class="info-table"><tr><td class="key">SAFE-ID:</td><td class="val">DE.BRAK.a258bff9-0902-4a89-a3e0-c17a7b2ebe2a.f857</td></tr><tr><td class="key">Benutzername:</td><td class="val">BrägelmannTomHinrichXKWoN</td></tr><tr><td class="key">Benutzer:</td><td class="val">Brägelmann, Tom (80538 München)</td></tr></table>
+        </div>
+        <div class="settings-desc"><p>Dies ist die Startseite der Profilverwaltung.</p><p style="margin-top:10px;">Für den aktuellen Benutzer können Sie hier bestimmte Funktionalitäten aufrufen.</p></div>
       </div>
     </div>
-    <div class="bea-header-nav">
-      <a href="#">📧 Nachrichten</a>
-      <a href="#">❓ Hilfe</a>
-      <a href="#">🛟 Support</a>
-      <span class="user-info">🕐 59:58 &nbsp;|&nbsp; Brägelmann, Tom (80538 München)</span>
-      <span style="font-size:16px;cursor:pointer">👤</span>
-    </div>
-  </div>
-
-  <div class="bea-layout">
-    <div class="ui-layout-west" style="width:220px;min-width:220px;">
-      <div class="settings-sidebar-group">Profilverwaltung</div>
-      <ul class="settings-sidebar-tree">
-        <li>Favoriten verwalten</li>
-        <li>Sicherheits-Token</li>
-        <li>Sicherheitsfragen</li>
-        <li>Persönliche Benachrichtigungen</li>
-        <li>Nutzerjournal</li>
-      </ul>
-      <div class="settings-sidebar-group" style="border-top:1px solid var(--brak-light-grey);margin-top:10px;">Postfachverwaltung</div>
-      <ul class="settings-sidebar-tree">
-        <li>Benutzerverwaltung</li>
-        <li>Sicherheits-Token freischalten</li>
-        <li>Postfachjournal</li>
-        <li>Eingangsbenachrichtigungen</li>
-        <li>Verzeichnisdatenpflege</li>
-        <li>Etiketten verwalten</li>
-        <li>Nachrichtenfußzeile</li>
-        <li>Sichten verwalten</li>
-      </ul>
-    </div>
-
-    <div class="ui-layout-center">
-      <div class="settings-panel">
-        <h2>Einstellungen</h2>
-        <div class="ui-panel-content" style="padding:15px;">
-          <table class="settings-info-table">
-            <tr>
-              <td class="key">SAFE-ID:</td>
-              <td class="value">DE.BRAK.a258bff9-0902-4a89-a3e0-c17a7b2ebe2a.f857</td>
-            </tr>
-            <tr>
-              <td class="key">Benutzername:</td>
-              <td class="value">BrägelmannTomHinrichXKWoN</td>
-            </tr>
-            <tr>
-              <td class="key">Benutzer:</td>
-              <td class="value">Brägelmann, Tom (80538 München)</td>
-            </tr>
-          </table>
-        </div>
-        <div class="settings-description">
-          <p>Dies ist die Startseite der Profilverwaltung.</p>
-          <p style="margin-top:10px;">Für den aktuellen Benutzer können Sie hier bestimmte Funktionalitäten aufrufen.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="bea-footer">
-    <span class="brak-logo-footer">BUNDESRECHTSANWALTSKAMMER</span>
-    <div style="margin-top:5px;">© 2026 Copyright 2015 · Bundesrechtsanwaltskammer</div>
-    <div class="brak-version">4.3.8.589, bea-app-rz1-7</div>
+    <footer><div class="brak-linkbanner">BUNDESRECHTSANWALTSKAMMER</div><div class="brak-copyright">© 2026 · Bundesrechtsanwaltskammer</div><div class="brak-version">4.3.8.589, bea-app-rz1-7</div></footer>
   </div>
 </div>
 
 <script>
-  function showView(name) {
-    document.querySelectorAll('.bea-view').forEach(v => v.classList.remove('active'));
-    document.getElementById('view-' + name).classList.add('active');
-    document.querySelectorAll('.view-switcher button').forEach(b => b.classList.remove('active-view'));
-    event.target.classList.add('active-view');
+function showView(name) {
+  document.querySelectorAll('.bea-view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  document.querySelectorAll('.view-switcher button').forEach(b => b.classList.remove('active-view'));
+  event.target.classList.add('active-view');
+}
+let darkStyleEl = null;
+function toggleDarkMode() {
+  if (document.getElementById('darkModeToggle').checked) {
+    if (!darkStyleEl) { darkStyleEl = document.createElement('link'); darkStyleEl.rel = 'stylesheet'; darkStyleEl.href = '../css/bea-dark.css'; darkStyleEl.id = 'bea-dark-css'; }
+    document.head.appendChild(darkStyleEl);
+  } else {
+    const el = document.getElementById('bea-dark-css'); if (el) el.remove();
   }
-
-  let darkStyleEl = null;
-
-  function toggleDarkMode() {
-    const on = document.getElementById('darkModeToggle').checked;
-    if (on) {
-      if (!darkStyleEl) {
-        darkStyleEl = document.createElement('link');
-        darkStyleEl.rel = 'stylesheet';
-        darkStyleEl.href = '../css/bea-dark.css';
-        darkStyleEl.id = 'bea-dark-css';
-      }
-      document.head.appendChild(darkStyleEl);
-    } else {
-      const el = document.getElementById('bea-dark-css');
-      if (el) el.remove();
-    }
-  }
+}
 </script>
-
 </body>
 </html>
