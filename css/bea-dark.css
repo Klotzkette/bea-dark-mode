@@ -573,40 +573,49 @@ html.login-pf {
   background: var(--dm-bg-raised) !important;
 }
 
-/* Die Menüliste hat background: white !important */
-.layout-content-menu .bea-menu-bar > ul.ui-menu-list {
+/* Die Menüliste hat background: white !important — maximale Spezifität */
+body.bea-app .layout-content-menu .bea-menu-bar > ul.ui-menu-list,
+html body.bea-app .layout-content-menu .bea-menu-bar > ul.ui-menu-list {
   background: var(--dm-bg-raised) !important;
+  background-color: var(--dm-bg-raised) !important;
 }
 
 .layout-content-menu .bea-menu-bar {
   background: transparent !important;
 }
 
-/* Einzelne Menü-Buttons (lightblue background) */
-.layout-content-menu .bea-menu-bar > .ui-menu-list > li > a {
+/* Einzelne Menü-Buttons — maximale Spezifität gegen style.css */
+body.bea-app .layout-content-menu .bea-menu-bar > .ui-menu-list > .ui-menuitem > a,
+body.bea-app .layout-content-menu .bea-menu-bar > .ui-menu-list > li > a,
+body.bea-app .layout-content-menu .bea-menu-bar > .ui-menu-list > li > a[class] {
   background: var(--dm-bg-surface) !important;
   background-color: var(--dm-bg-surface) !important;
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 100%) !important;
   border-color: var(--dm-border) !important;
   color: var(--dm-text-silver) !important;
   box-shadow: var(--dm-shadow-sm) !important;
 }
 
-/* Common Actions (Neue Nachricht, Öffnen etc.) */
-.layout-content-menu .bea-menu-bar > .ui-menu-list > li a.common-actions {
-  background-color: rgba(255,255,255,0.08) !important;
-  background: rgba(255,255,255,0.08) !important;
+/* Common Actions (Neue Nachricht, Öffnen etc.) — leicht heller */
+body.bea-app .layout-content-menu .bea-menu-bar > .ui-menu-list > li > a.common-actions,
+body.bea-app .layout-content-menu .bea-menu-bar > .ui-menu-list > .ui-menuitem > a.common-actions {
+  background: rgba(255,255,255,0.10) !important;
+  background-color: rgba(255,255,255,0.10) !important;
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.06) 100%) !important;
   color: var(--dm-text-white) !important;
 }
 
 /* Hover/Focus Zustände */
-.layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link.ui-state-hover,
-.layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link:hover,
-.layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link:focus,
-.layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link.ui-state-hover:hover,
-.layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link.common-actions.ui-state-hover:hover,
-.layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link.common-actions:focus {
-  background: rgba(255,255,255,0.12) !important;
+body.bea-app .layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link.ui-state-hover,
+body.bea-app .layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link:hover,
+body.bea-app .layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link:focus,
+body.bea-app .layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link.ui-state-hover:hover,
+body.bea-app .layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link.common-actions.ui-state-hover:hover,
+body.bea-app .layout-content-menu .bea-menu-bar .ui-menuitem .ui-menuitem-link.common-actions:focus {
+  background: rgba(255,255,255,0.15) !important;
+  background-color: rgba(255,255,255,0.15) !important;
   color: var(--dm-text-white) !important;
+  box-shadow: var(--dm-shadow-md), var(--dm-shadow-glow) !important;
 }
 
 /* Submenüs (Etiketten, Markieren als) */
@@ -630,21 +639,25 @@ html.login-pf {
   color: var(--dm-border) !important;
 }
 
-/* Menu Toggler Button */
-.ui-panel.ui-widget.ui-widget-content.ui-corner-all.menu-toggler,
-.menu-toggler {
+/* Menu Toggler Button — original hat white und white !important */
+body.bea-app .ui-panel.ui-widget.ui-widget-content.ui-corner-all.menu-toggler,
+body.bea-app .menu-toggler,
+html body.bea-app .menu-toggler {
   background: var(--dm-bg-raised) !important;
+  background-color: var(--dm-bg-raised) !important;
 }
 
-.layout-content-menu .menu-toggler .ui-button.ui-state-hover,
-.layout-content-menu .menu-toggler .ui-button.ui-state-focus {
+body.bea-app .layout-content-menu .menu-toggler .ui-button.ui-state-hover,
+body.bea-app .layout-content-menu .menu-toggler .ui-button.ui-state-focus {
   background: var(--dm-bg-hover) !important;
+  background-color: var(--dm-bg-hover) !important;
   box-shadow: none !important;
 }
 
-.layout-content-menu .menu-toggler .ui-button.ui-state-hover .ui-icon,
-.layout-content-menu .menu-toggler .ui-button.ui-state-focus .ui-icon {
-  background: var(--dm-bg-hover) !important;
+body.bea-app .layout-content-menu .menu-toggler .ui-button.ui-state-hover .ui-icon,
+body.bea-app .layout-content-menu .menu-toggler .ui-button.ui-state-focus .ui-icon {
+  background: transparent !important;
+  background-color: transparent !important;
   color: var(--dm-text-white) !important;
 }
 
@@ -659,16 +672,34 @@ html.login-pf {
    #header hat background: var(--bea-white)
    ═══════════════════════════════════════════════════════════ */
 
+/* Header-Container und Navbar — dunkel */
 #header,
-#header *,
 .bea-page-header,
-.bea-page-header *,
 #navigation,
-#navigation *,
 .navbar,
-.navbar * {
+.navbar-nav,
+.navbar-default,
+.navbar-brand,
+.header__bea-logo {
   background-color: var(--dm-bg) !important;
   background: var(--dm-bg) !important;
+}
+
+/* Header-Divs und Spans (aber NICHT Icons/SVG) */
+#header div,
+#header nav,
+#header span:not(.fas):not(.far):not(.fa):not(.pi):not(.ui-icon):not([class*="icon"]),
+#header ul,
+#header li,
+.bea-page-header div {
+  background-color: var(--dm-bg) !important;
+  background: var(--dm-bg) !important;
+}
+
+/* Header Text-Farbe */
+#header,
+#header *,
+.bea-page-header * {
   color: var(--dm-text-silver) !important;
 }
 
@@ -678,12 +709,24 @@ html.login-pf {
 #header a,
 .bea-page-header a {
   color: var(--dm-text-silver) !important;
+  background: transparent !important;
 }
 
 .bea-context-menu .ui-menuitem-link:hover,
 #header a:hover {
   color: var(--dm-text-white) !important;
   background: var(--dm-bg-hover) !important;
+}
+
+/* Font Awesome Icons im Header sichtbar halten */
+#header .fas,
+#header .far,
+#header .fa,
+#header .pi,
+#header [class*="icon"],
+.bea-context-menu .ui-menuitem-icon {
+  color: var(--dm-text-muted) !important;
+  background: transparent !important;
 }
 
 
