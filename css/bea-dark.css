@@ -772,10 +772,70 @@ body.bea-app .layout-content-menu .menu-toggler .ui-button.ui-state-focus .ui-ic
   border-color: var(--dm-border) !important;
 }
 
-/* Loading Overlay */
+/* Loading Overlay / BlockUI */
 .ui-blockui,
-.blockUI {
+.blockUI,
+#blockUImenuBar_blocker,
+#blockUIDialog_blocker {
   background-color: rgba(5,5,7,0.85) !important;
+  background-image: none !important;
+}
+
+body .ui-widget-overlay,
+.ui-widget-overlay {
+  background: rgba(5,5,7,0.80) !important;
+  background-image: none !important;
+  opacity: 1 !important;
+}
+
+/* ═══ Panel-Container (blitzen weiß beim Seitenwechsel) ═══ */
+
+#panelContentOuter,
+#panelContentOuter_content,
+#panelMessagesEmbedded,
+#panelMessagesEmbedded_content,
+#panelCreateMessageEmbedded,
+#panelCreateMessageEmbedded_content,
+#panelViewMessageEmbedded,
+#panelViewMessageEmbedded_content,
+.panelContentOuter,
+.panel,
+.index--messages,
+#messages-result-form,
+#create_msg_id,
+#show_msg_form_id,
+#layout-wrapper,
+#layout-content,
+#layout-content-no-menu,
+#content-zone-no-menu,
+.bea-layout-main-content,
+.bea-registration-main {
+  background: var(--dm-bg) !important;
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+}
+
+/* PrimeFaces Panel generisch */
+.ui-panel,
+.ui-panel-content,
+.ui-panel > .ui-panel-content,
+.ui-widget-content,
+body.bea-app .ui-corner-all {
+  background: var(--dm-bg) !important;
+  background-color: var(--dm-bg) !important;
+  color: var(--dm-text) !important;
+}
+
+/* Alle form-Elemente innerhalb von #main */
+#main,
+#main *:not(img):not(svg):not(path):not(i):not(.fas):not(.far):not(.fa):not(.pi) {
+  background-color: inherit;
+}
+
+#main form,
+#main .ui-panel,
+#main .ui-panel-content {
+  background: var(--dm-bg) !important;
 }
 
 
