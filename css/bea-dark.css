@@ -2363,9 +2363,161 @@ select {
    @media print hebt das wieder auf.
    ═══════════════════════════════════════════════════════════ */
 
+/* ═══════════════════════════════════════════════════════════
+   AUFWISCH-SCHLEIFEN — Absolute Durchsetzung
+   Drei Verteidigungslinien die GARANTIEREN dass
+   nichts Weißes übrig bleibt.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ~~~ SCHLEIFE 1: Alle HTML-Block-Elemente ~~~ */
 @media screen {
-  *:not(img):not(svg):not(path):not(circle):not(line):not(polyline):not(rect):not(text):not(use):not(symbol):not(defs):not(g):not(clipPath):not(mask):not(pattern):not(linearGradient):not(radialGradient):not(stop):not(animate):not(animateTransform):not(video):not(canvas):not(iframe) {
+  body.bea-app div,
+  body.bea-app section,
+  body.bea-app article,
+  body.bea-app aside,
+  body.bea-app main,
+  body.bea-app nav,
+  body.bea-app form,
+  body.bea-app fieldset,
+  body.bea-app details,
+  body.bea-app summary,
+  body.bea-app header,
+  body.bea-app footer {
     border-color: var(--dm-border) !important;
+  }
+}
+
+/* ~~~ SCHLEIFE 2: Computed-Style-Sniper ~~~
+   Jedes Element das NOCH einen hellen Hintergrund hat
+   (white, #fff, #e5e9ec, #ecf5f7, #F7F7F7, lightblue)
+   via Attribut-Selektoren auf inline styles */
+@media screen {
+  body.bea-app [style*="background"][style*="#fff"],
+  body.bea-app [style*="background"][style*="#FFF"],
+  body.bea-app [style*="background"][style*="white"],
+  body.bea-app [style*="background"][style*="#ffffff"],
+  body.bea-app [style*="background"][style*="#FFFFFF"],
+  body.bea-app [style*="background"][style*="#e5e9ec"],
+  body.bea-app [style*="background"][style*="#E5E9EC"],
+  body.bea-app [style*="background"][style*="#ecf5f7"],
+  body.bea-app [style*="background"][style*="#ECF5F7"],
+  body.bea-app [style*="background"][style*="#F7F7F7"],
+  body.bea-app [style*="background"][style*="#f7f7f7"],
+  body.bea-app [style*="background"][style*="rgb(255"],
+  body.bea-app [style*="background"][style*="rgb(236"],
+  body.bea-app [style*="background"][style*="rgb(229"],
+  body.bea-app [style*="background"][style*="rgb(247"] {
+    background: var(--dm-bg) !important;
+    background-color: var(--dm-bg) !important;
+  }
+}
+
+/* ~~~ SCHLEIFE 3: PrimeFaces-Aristo-Theme komplett neutralisieren ~~~
+   Das Aristo-Theme setzt eigene backgrounds auf .ui-* Klassen.
+   Wir überschreiben ALLE mit body.bea-app Prefix für max. Spezifität */
+@media screen {
+  body.bea-app .ui-widget,
+  body.bea-app .ui-widget-content,
+  body.bea-app .ui-widget-header,
+  body.bea-app .ui-state-default,
+  body.bea-app .ui-state-hover,
+  body.bea-app .ui-state-active,
+  body.bea-app .ui-state-focus,
+  body.bea-app .ui-state-highlight,
+  body.bea-app .ui-state-disabled,
+  body.bea-app .ui-corner-all,
+  body.bea-app .ui-corner-top,
+  body.bea-app .ui-corner-bottom,
+  body.bea-app .ui-corner-left,
+  body.bea-app .ui-corner-right {
+    background-image: none !important;
+  }
+
+  body.bea-app .ui-widget-content {
+    background-color: var(--dm-bg-card) !important;
+  }
+
+  body.bea-app .ui-widget-header {
+    background-color: var(--dm-bg-surface) !important;
+  }
+
+  body.bea-app .ui-state-default {
+    background-color: var(--dm-bg-card) !important;
+    color: var(--dm-text-silver) !important;
+  }
+
+  body.bea-app .ui-state-hover {
+    background-color: var(--dm-bg-hover) !important;
+    color: var(--dm-text-bright) !important;
+  }
+
+  body.bea-app .ui-state-active {
+    background-color: rgba(255,255,255,0.10) !important;
+    color: var(--dm-text-white) !important;
+  }
+
+  body.bea-app .ui-state-highlight {
+    background-color: rgba(255,255,255,0.06) !important;
+    color: var(--dm-text-white) !important;
+  }
+}
+
+/* ~~~ SCHLEIFE 4: Farb-Variablen-Falle ~~~
+   Falls irgendein Element var(--bea-white) oder var(--bea-lightblue)
+   verwendet und wir es oben nicht erfasst haben —
+   die Variablen selbst sind bereits umgeleitet (:root),
+   aber manche Elemente cachen den Computed Value.
+   Deshalb: explizite Überschreibung auf häufige Muster. */
+@media screen {
+  body.bea-app [class*="white"],
+  body.bea-app [class*="White"],
+  body.bea-app [class*="light-"],
+  body.bea-app [class*="Light"] {
+    background-color: var(--dm-bg-raised) !important;
+    color: var(--dm-text) !important;
+  }
+
+  /* loginPageWhite, sidebarFooterWhite, light-white, bold-white etc. */
+  body.bea-app .loginPageWhite,
+  body.bea-app .sidebarFooterWhite,
+  body.bea-app .light-white,
+  body.bea-app .bold-white,
+  body.bea-app .white-font {
+    background-color: var(--dm-bg-raised) !important;
+  }
+}
+
+/* ~~~ SCHLEIFE 5: Letzte Bastion — sehr hohe Spezifität ~~~
+   Für Elemente die trotz allem noch weiß sind,
+   weil PrimeFaces dynamisch Inline-Styles setzt. */
+@media screen {
+  html body.bea-app .ui-dialog .ui-dialog-content,
+  html body.bea-app .ui-dialog .ui-dialog-content > *,
+  html body.bea-app .ui-dialog .ui-dialog-content div,
+  html body.bea-app .ui-dialog .ui-dialog-content form,
+  html body.bea-app .ui-dialog .ui-dialog-content table,
+  html body.bea-app .ui-dialog .ui-dialog-content td,
+  html body.bea-app .ui-dialog .ui-dialog-content span,
+  html body.bea-app .ui-dialog .ui-dialog-content p,
+  html body.bea-app .ui-dialog .ui-dialog-content label {
+    background: var(--dm-bg-card) !important;
+    background-color: var(--dm-bg-card) !important;
+    color: var(--dm-text) !important;
+  }
+
+  html body.bea-app .ui-dialog .ui-dialog-titlebar,
+  html body.bea-app .ui-dialog .ui-dialog-titlebar * {
+    background: var(--dm-bg-surface) !important;
+    background-color: var(--dm-bg-surface) !important;
+    color: var(--dm-text-white) !important;
+  }
+
+  /* Growl/Toast mit maximaler Spezifität */
+  html body.bea-app .ui-growl-item,
+  html body.bea-app .ui-growl-item * {
+    background: var(--dm-bg-card) !important;
+    background-color: var(--dm-bg-card) !important;
+    color: var(--dm-text) !important;
   }
 }
 
